@@ -1,0 +1,2179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>海豚社区 | Boost活动工具平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #0A1A2F;
+            --secondary: #13294B;
+            --accent: #00D4AA;
+            --accent-purple: #8A2BE2;
+            --gradient: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%);
+            --text-primary: #FFFFFF;
+            --text-secondary: #B0B7C3;
+            --success: #00E676;
+            --warning: #FFC107;
+            --danger: #FF5252;
+            --card-bg: rgba(19, 41, 75, 0.6);
+            --card-border: rgba(0, 212, 170, 0.2);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(0, 212, 170, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 80% 20%, rgba(138, 43, 226, 0.05) 0%, transparent 20%);
+        }
+        
+        /* 用户信息栏 */
+        .user-bar {
+            background: var(--gradient);
+            padding: 15px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 212, 170, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .user-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: translateX(-100%);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            50%, 100% { transform: translateX(100%); }
+        }
+        
+        .user-id-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-id-badge {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .user-id {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, #FFFFFF, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .balance-container {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .balance-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+        
+        /* 功能网格 */
+        .function-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .func-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .func-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 20px rgba(0, 212, 170, 0.1);
+        }
+        
+        .func-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient);
+        }
+        
+        .func-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .func-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .func-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        /* 反馈卡片 */
+        .feedback-card {
+            background: var(--card-bg);
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feedback-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent) 100%);
+        }
+        
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .feedback-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .feedback-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .feedback-desc {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        
+        /* 按钮样式 */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 212, 170, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 212, 170, 0.1);
+        }
+        
+        /* 页面切换 */
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 计算器卡片 */
+        .calculator-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .calculator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title i {
+            color: var(--accent);
+        }
+        
+        /* 输入表单 */
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(0, 212, 170, 0.2);
+        }
+        
+        /* 收益阶段展示 */
+        .stages-container {
+            margin: 25px 0;
+        }
+        
+        .stage-item {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .stage-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .stage-name {
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .stage-rate {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .stage-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        /* 总收益展示 */
+        .total-reward {
+            background: rgba(0, 212, 170, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 20px;
+            text-align: center;
+            border: 1px solid rgba(0, 212, 170, 0.2);
+        }
+        
+        .reward-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+        
+        .reward-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        
+        /* 签到日历 */
+        .checkin-calendar {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .calendar-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-weight: 600;
+            background: rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .day-checked {
+            background: var(--accent);
+            color: var(--primary);
+        }
+        
+        .day-today {
+            border: 2px solid var(--accent);
+            background: rgba(0, 212, 170, 0.1);
+        }
+        
+        /* 签到奖励说明 */
+        .reward-info {
+            background: rgba(0, 212, 170, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .reward-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .reward-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        /* 抽奖转盘 */
+        .lottery-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .lottery-wheel {
+            width: 280px;
+            height: 280px;
+            margin: 20px auto;
+            position: relative;
+        }
+        
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            transition: transform 3s cubic-bezier(0.2, 0.8, 0.3, 1);
+        }
+        
+        .wheel-segment {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: 100% 100%;
+            left: 0;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .wheel-pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            z-index: 10;
+        }
+        
+        /* 奖品展示 */
+        .prizes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .prize-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .prize-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .prize-value {
+            color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        
+        /* 账本页面 */
+        .ledger-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        /* 添加记录按钮 */
+        .add-record-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: rgba(0, 212, 170, 0.1);
+            border: 2px dashed var(--accent);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .add-record-btn:hover {
+            background: rgba(0, 212, 170, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* 账本表格 */
+        .ledger-table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+        
+        .ledger-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        
+        .ledger-table th {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .ledger-table td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* 数据统计卡片 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        /* 图表容器 */
+        .chart-container {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            height: 250px;
+        }
+        
+        /* 模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* 底部导航 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 26, 47, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(44, 62, 118, 0.2);
+            padding: 15px 20px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .nav-item.active {
+            color: var(--accent);
+        }
+        
+        .nav-icon {
+            font-size: 1.3rem;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 500px) {
+            body {
+                padding: 15px;
+            }
+            
+            .function-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .balance-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .prizes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .lottery-wheel {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .bottom-nav {
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 用户信息栏 -->
+    <div class="user-bar">
+        <div class="user-id-container">
+            <div>
+                <div style="font-size: 0.9rem; opacity: 0.8;">海豚社区ID</div>
+                <div class="user-id" id="userId">H000000</div>
+            </div>
+            <div class="user-id-badge">自动生成</div>
+        </div>
+        <div class="balance-container">
+            <div class="balance-item">
+                <i class="fas fa-coins"></i> <span id="htBalance">0</span> HT
+            </div>
+            <div class="balance-item">
+                <i class="fas fa-wallet"></i> <span id="totalUSDT">0</span> U
+            </div>
+        </div>
+    </div>
+    
+    <!-- 功能网格 -->
+    <div class="function-grid">
+        <div class="func-card" onclick="showPage('calculator')">
+            <div class="func-icon">
+                <i class="fas fa-calculator"></i>
+            </div>
+            <div class="func-title">收益计算器</div>
+            <div class="func-desc">阶梯收益精确计算</div>
+        </div>
+        
+        <div class="func-card" onclick="showPage('ledger')">
+            <div class="func-icon">
+                <i class="fas fa-book"></i>
+            </div>
+            <div class="func-title">个人账本</div>
+            <div class="func-desc">记录与分析收益</div>
+        </div>
+        
+        <div class="func-card" onclick="showPage('checkin')">
+            <div class="func-icon">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+            <div class="func-title">每日签到</div>
+            <div class="func-desc">领取HT币奖励</div>
+        </div>
+        
+        <div class="func-card" onclick="showPage('lottery')">
+            <div class="func-icon">
+                <i class="fas fa-gift"></i>
+            </div>
+            <div class="func-title">幸运抽奖</div>
+            <div class="func-desc">消耗HT币抽奖</div>
+        </div>
+    </div>
+    
+    <!-- 反馈卡片 -->
+    <div class="feedback-card">
+        <div class="feedback-header">
+            <div class="feedback-icon">
+                <i class="fas fa-comments"></i>
+            </div>
+            <div>
+                <div class="feedback-title">反馈与联系</div>
+                <div style="font-size: 0.9rem; color: var(--accent-purple);">我们重视您的意见</div>
+            </div>
+        </div>
+        
+        <p class="feedback-desc">
+            如果您对海豚社区有任何建议、问题或反馈，可以通过以下表单联系我们。您的意见将帮助我们不断改进服务。
+        </p>
+        
+        <button class="btn btn-secondary" onclick="window.open('https://f.wps.cn/ksform/w/write/5rJjd9vy/', '_blank')">
+            <i class="fas fa-paper-plane"></i> 提交反馈意见
+        </button>
+    </div>
+    
+    <!-- 收益计算器页面 -->
+    <div class="page" id="page-calculator">
+        <div class="calculator-card">
+            <div class="card-header">
+                <h2 class="card-title"><i class="fas fa-calculator"></i> 阶梯收益计算器</h2>
+            </div>
+            
+            <div class="input-group">
+                <label class="input-label">质押USDT金额</label>
+                <input type="number" class="input-field" id="stakeAmount" placeholder="输入质押USDT数量" value="1000" min="1">
+            </div>
+            
+            <div class="input-group">
+                <label class="input-label">质押天数</label>
+                <input type="number" class="input-field" id="stakeDays" placeholder="输入质押天数" value="30" min="1">
+            </div>
+            
+            <button class="btn btn-primary" onclick="calculateStakingReward()">
+                <i class="fas fa-calculator"></i> 计算收益
+            </button>
+            
+            <!-- 收益阶段展示 -->
+            <div class="stages-container" id="stagesContainer" style="display: none;">
+                <h3 style="margin-bottom: 15px; color: var(--text-primary);">收益阶段详情</h3>
+                <div id="stagesList">
+                    <!-- 阶段详情通过JS动态生成 -->
+                </div>
+            </div>
+            
+            <!-- 总收益展示 -->
+            <div class="total-reward" id="totalRewardContainer" style="display: none;">
+                <div class="reward-label">预计总收益 (H代币)</div>
+                <div class="reward-value" id="totalRewardValue">0</div>
+                <div style="margin-top: 10px; font-size: 0.9rem; color: var(--text-secondary);">
+                    APR: <span id="aprValue" style="color: var(--accent); font-weight: 600;">0%</span>
+                </div>
+            </div>
+            
+            <!-- 收益图表 -->
+            <div class="chart-container" id="rewardChartContainer" style="display: none;">
+                <canvas id="rewardChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- 质押收益规则说明 -->
+        <div class="calculator-card">
+            <div class="card-header">
+                <h2 class="card-title"><i class="fas fa-info-circle"></i> 质押收益规则</h2>
+            </div>
+            
+            <div class="stages-container">
+                <div class="stage-item">
+                    <div class="stage-header">
+                        <div class="stage-name">第一阶段</div>
+                        <div class="stage-rate">日利率 0.5%</div>
+                    </div>
+                    <div class="stage-details">
+                        <span>质押天数: 1-7天</span>
+                    </div>
+                </div>
+                
+                <div class="stage-item">
+                    <div class="stage-header">
+                        <div class="stage-name">第二阶段</div>
+                        <div class="stage-rate">日利率 0.6%</div>
+                    </div>
+                    <div class="stage-details">
+                        <span>质押天数: 8-15天</span>
+                    </div>
+                </div>
+                
+                <div class="stage-item">
+                    <div class="stage-header">
+                        <div class="stage-name">第三阶段</div>
+                        <div class="stage-rate">日利率 0.8%</div>
+                    </div>
+                    <div class="stage-details">
+                        <span>质押天数: 16-30天</span>
+                    </div>
+                </div>
+                
+                <div class="stage-item">
+                    <div class="stage-header">
+                        <div class="stage-name">第四阶段</div>
+                        <div class="stage-rate">日利率 1.0%</div>
+                    </div>
+                    <div class="stage-details">
+                        <span>质押天数: 31-60天</span>
+                    </div>
+                </div>
+                
+                <div class="stage-item">
+                    <div class="stage-header">
+                        <div class="stage-name">第五阶段</div>
+                        <div class="stage-rate">日利率 1.2%</div>
+                    </div>
+                    <div class="stage-details">
+                        <span>质押天数: 61天以上</span>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5; margin-top: 15px;">
+                <strong>说明：</strong>质押USDT获得H代币，无锁仓，无周期。质押天数越久收益率越高，每日自动计算收益。
+                每日20:00 (UTC+8) 可领取当日H代币收益。
+            </p>
+        </div>
+    </div>
+    
+    <!-- 个人账本页面 -->
+    <div class="page" id="page-ledger">
+        <div class="ledger-card">
+            <div class="card-header">
+                <h2 class="card-title"><i class="fas fa-book"></i> 个人收益账本</h2>
+            </div>
+            
+            <!-- 数据统计 -->
+            <div class="stats-grid" id="ledgerStats">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalStaked">0</div>
+                    <div class="stat-label">总质押USDT</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalHEarned">0</div>
+                    <div class="stat-label">总获得H代币</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalBoostReward">0</div>
+                    <div class="stat-label">Boost奖励</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalCommunityReward">0</div>
+                    <div class="stat-label">社区奖励</div>
+                </div>
+            </div>
+            
+            <!-- 添加记录按钮 -->
+            <div class="add-record-btn" onclick="showAddRecordModal()">
+                <i class="fas fa-plus-circle" style="color: var(--accent); font-size: 1.2rem;"></i>
+                <span style="font-weight: 600;">添加收益记录</span>
+            </div>
+            
+            <!-- 账本表格 -->
+            <div class="ledger-table-container">
+                <table class="ledger-table" id="ledgerTable">
+                    <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>质押USDT</th>
+                            <th>获得H代币</th>
+                            <th>Boost奖励</th>
+                            <th>社区奖励</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ledgerBody">
+                        <!-- 记录将通过JS动态生成 -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px; color: var(--text-secondary); font-size: 0.9rem;" id="emptyLedgerMessage">
+                暂无记录，点击上方"添加收益记录"按钮开始记录
+            </div>
+        </div>
+        
+        <!-- 数据分析图表 -->
+        <div class="calculator-card">
+            <div class="card-header">
+                <h2 class="card-title"><i class="fas fa-chart-bar"></i> 收益分析</h2>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="ledgerChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 签到页面 -->
+    <div class="page" id="page-checkin">
+        <div class="checkin-calendar">
+            <div class="calendar-header">
+                <div class="calendar-title">本月签到日历</div>
+                <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                    <i class="fas fa-coins"></i> <span id="totalHTDisplay">0</span> HT
+                </div>
+            </div>
+            
+            <div class="calendar-grid" id="calendarGrid">
+                <!-- 日历格子将通过JS生成 -->
+            </div>
+            
+            <button class="btn btn-primary" id="checkinBtn" onclick="performCheckin()">
+                <i class="fas fa-check"></i> 今日签到
+            </button>
+            
+            <div class="reward-info">
+                <div class="reward-item">
+                    <span>每日签到奖励</span>
+                    <span style="color: var(--accent); font-weight: 600;">500 HT</span>
+                </div>
+                <div class="reward-item">
+                    <span>连续15天额外奖励</span>
+                    <span style="color: var(--accent); font-weight: 600;">3000 HT</span>
+                </div>
+                <div class="reward-item">
+                    <span>连续30天额外奖励</span>
+                    <span style="color: var(--accent); font-weight: 600;">5000 HT</span>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="currentStreak">0</div>
+                    <div class="stat-label">连续签到</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalCheckins">0</div>
+                    <div class="stat-label">总签到天数</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 抽奖页面 -->
+    <div class="page" id="page-lottery">
+        <div class="lottery-container">
+            <div class="calendar-header">
+                <div class="calendar-title">幸运抽奖</div>
+                <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                    每次消耗: <span style="color: var(--accent); font-weight: 600;">100 HT</span>
+                </div>
+            </div>
+            
+            <p style="color: var(--text-secondary); margin-bottom: 20px; text-align: center;">
+                有多少HT币都可以抽，不限制次数<br>
+                中奖概率：2-5号奖品各0.75%，1号奖品97%
+            </p>
+            
+            <div class="lottery-wheel">
+                <div class="wheel-pointer"></div>
+                <div class="wheel" id="wheel">
+                    <!-- 转盘分段将通过JS生成 -->
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 15px; margin-top: 20px;">
+                <button class="btn btn-primary" id="spinBtn" onclick="spinWheel()" style="flex: 1;">
+                    <i class="fas fa-play"></i> 抽一次
+                </button>
+                <button class="btn btn-secondary" id="spin10Btn" onclick="spinWheel(10)" style="flex: 1;">
+                    <i class="fas fa-forward"></i> 抽十次
+                </button>
+            </div>
+            
+            <div class="prizes-grid" id="prizesGrid">
+                <!-- 奖品展示通过JS生成 -->
+            </div>
+            
+            <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span style="color: var(--text-secondary);">今日抽奖次数</span>
+                    <span style="color: var(--accent); font-weight: 600;" id="todaySpins">0</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="color: var(--text-secondary);">历史中奖H代币</span>
+                    <span style="color: var(--accent); font-weight: 600;" id="totalWonH">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 添加记录模态框 -->
+    <div class="modal" id="addRecordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">添加收益记录</div>
+                <button class="close-modal" onclick="closeModal('addRecordModal')">&times;</button>
+            </div>
+            
+            <form id="recordForm" onsubmit="addRecord(event)">
+                <div class="input-group">
+                    <label class="input-label">记录日期</label>
+                    <input type="date" class="input-field" id="recordDate" required>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">质押USDT金额</label>
+                    <input type="number" class="input-field" id="recordUSDT" placeholder="输入USDT数量" min="1" step="0.01" required>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">获得H代币数量</label>
+                    <input type="number" class="input-field" id="recordH" placeholder="输入H代币数量" min="0" step="0.01">
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">Boost奖励 (USDT或H)</label>
+                    <input type="number" class="input-field" id="recordBoostReward" placeholder="输入Boost奖励" min="0" step="0.01">
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">社区奖励 (USDT或H)</label>
+                    <input type="number" class="input-field" id="recordCommunityReward" placeholder="输入社区奖励" min="0" step="0.01">
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">备注说明</label>
+                    <input type="text" class="input-field" id="recordNote" placeholder="可选备注">
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="margin-top: 20px;">
+                    <i class="fas fa-save"></i> 保存记录
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- 抽奖结果模态框 -->
+    <div class="modal" id="prizeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">抽奖结果</div>
+                <button class="close-modal" onclick="closeModal('prizeModal')">&times;</button>
+            </div>
+            
+            <div style="text-align: center; padding: 20px 0;" id="prizeResult">
+                <!-- 抽奖结果内容通过JS动态生成 -->
+            </div>
+            
+            <div style="margin-top: 20px; text-align: center;">
+                <button class="btn btn-secondary" onclick="closeModal('prizeModal')">
+                    继续抽奖
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 多次抽奖结果模态框 -->
+    <div class="modal" id="multiPrizeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">批量抽奖结果</div>
+                <button class="close-modal" onclick="closeModal('multiPrizeModal')">&times;</button>
+            </div>
+            
+            <div style="max-height: 300px; overflow-y: auto; margin: 20px 0;">
+                <table style="width: 100%; border-collapse: collapse;" id="multiPrizeTable">
+                    <thead>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <th style="padding: 10px; text-align: left;">次数</th>
+                            <th style="padding: 10px; text-align: left;">奖品</th>
+                            <th style="padding: 10px; text-align: right;">H代币</th>
+                        </tr>
+                    </thead>
+                    <tbody id="multiPrizeBody">
+                        <!-- 多次抽奖结果将通过JS动态生成 -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span>总消耗HT</span>
+                    <span style="color: var(--accent); font-weight: 600;" id="totalCostHT">0</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span>获得H代币</span>
+                    <span style="color: var(--accent); font-weight: 600;" id="totalWonHModal">0</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                    <span>净收益</span>
+                    <span style="color: var(--success); font-weight: 600;" id="netProfit">0 H</span>
+                </div>
+            </div>
+            
+            <button class="btn btn-secondary" onclick="closeModal('multiPrizeModal')">
+                关闭
+            </button>
+        </div>
+    </div>
+    
+    <!-- 底部导航 -->
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="showPage('calculator')">
+            <i class="fas fa-calculator nav-icon"></i>
+            <span>计算器</span>
+        </div>
+        <div class="nav-item" onclick="showPage('ledger')">
+            <i class="fas fa-book nav-icon"></i>
+            <span>账本</span>
+        </div>
+        <div class="nav-item" onclick="showPage('checkin')">
+            <i class="fas fa-calendar-check nav-icon"></i>
+            <span>签到</span>
+        </div>
+        <div class="nav-item" onclick="showPage('lottery')">
+            <i class="fas fa-gift nav-icon"></i>
+            <span>抽奖</span>
+        </div>
+    </div>
+
+    <script>
+        // 数据存储键名
+        const STORAGE_KEYS = {
+            USER_ID: 'dolphin_user_id',
+            USER_DATA: 'dolphin_user_data',
+            LEDGER_RECORDS: 'dolphin_ledger_records',
+            CHECKIN_DATA: 'dolphin_checkin_data',
+            LOTTERY_DATA: 'dolphin_lottery_data'
+        };
+        
+        // 用户数据
+        let userData = {
+            userId: null,
+            totalHT: 0,
+            totalUSDT: 0
+        };
+        
+        // 签到数据
+        let checkinData = {
+            lastCheckin: null,
+            streak: 0,
+            totalStreak: 0,
+            monthlyCheckins: {},
+            totalHT: 0,
+            totalCheckins: 0,
+            extraRewardsGiven: []
+        };
+        
+        // 抽奖数据
+        let lotteryData = {
+            totalSpins: 0,
+            totalSpentHT: 0,
+            totalWonH: 0,
+            prizesWon: [],
+            todaySpins: 0,
+            lastSpinDate: null
+        };
+        
+        // 账本记录
+        let ledgerRecords = [];
+        
+        // 质押阶梯收益规则
+        const stakingRules = [
+            { days: [1, 7], rate: 0.005, name: "第一阶段" },
+            { days: [8, 15], rate: 0.006, name: "第二阶段" },
+            { days: [16, 30], rate: 0.008, name: "第三阶段" },
+            { days: [31, 60], rate: 0.01, name: "第四阶段" },
+            { days: [61, Infinity], rate: 0.012, name: "第五阶段" }
+        ];
+        
+        // 奖品配置
+        const prizes = [
+            { id: 1, name: "很遗憾，再接再厉", hToken: 0, probability: 0.97, color: "#FF6B6B" },
+            { id: 2, name: "获得3000H代币", hToken: 3000, probability: 0.0075, color: "#4ECDC4" },
+            { id: 3, name: "获得5000H代币", hToken: 5000, probability: 0.0075, color: "#45B7D1" },
+            { id: 4, name: "获得10000H代币", hToken: 10000, probability: 0.0075, color: "#96CEB4" },
+            { id: 5, name: "获得10000H代币", hToken: 10000, probability: 0.0075, color: "#FFEAA7" },
+            { id: 6, name: "获得欧易VIP体验卡一张", hToken: 0, probability: 0, color: "#DDA0DD" },
+            { id: 7, name: "获得DPH空投奖励", hToken: 0, probability: 0, color: "#FFA07A" }
+        ];
+        
+        // 初始化应用
+        function initApp() {
+            loadAllData();
+            generateUserIdIfNeeded();
+            updateUI();
+            generateCalendar();
+            generateWheel();
+            generatePrizesGrid();
+            setupCharts();
+            
+            // 设置默认日期为今天
+            document.getElementById('recordDate').valueAsDate = new Date();
+            
+            // 显示默认页面
+            showPage('calculator');
+        }
+        
+        // 加载所有数据
+        function loadAllData() {
+            // 加载用户数据
+            const savedUserData = localStorage.getItem(STORAGE_KEYS.USER_DATA);
+            if (savedUserData) {
+                Object.assign(userData, JSON.parse(savedUserData));
+            }
+            
+            // 加载签到数据
+            const savedCheckinData = localStorage.getItem(STORAGE_KEYS.CHECKIN_DATA);
+            if (savedCheckinData) {
+                Object.assign(checkinData, JSON.parse(savedCheckinData));
+            }
+            
+            // 加载抽奖数据
+            const savedLotteryData = localStorage.getItem(STORAGE_KEYS.LOTTERY_DATA);
+            if (savedLotteryData) {
+                Object.assign(lotteryData, JSON.parse(savedLotteryData));
+            }
+            
+            // 加载账本记录
+            const savedLedgerRecords = localStorage.getItem(STORAGE_KEYS.LEDGER_RECORDS);
+            if (savedLedgerRecords) {
+                ledgerRecords = JSON.parse(savedLedgerRecords);
+            }
+            
+            // 检查是否需要重置今日抽奖次数
+            const today = new Date().toDateString();
+            if (lotteryData.lastSpinDate !== today) {
+                lotteryData.todaySpins = 0;
+            }
+        }
+        
+        // 保存所有数据
+        function saveAllData() {
+            localStorage.setItem(STORAGE_KEYS.USER_DATA, JSON.stringify(userData));
+            localStorage.setItem(STORAGE_KEYS.CHECKIN_DATA, JSON.stringify(checkinData));
+            localStorage.setItem(STORAGE_KEYS.LOTTERY_DATA, JSON.stringify(lotteryData));
+            localStorage.setItem(STORAGE_KEYS.LEDGER_RECORDS, JSON.stringify(ledgerRecords));
+        }
+        
+        // 生成用户ID（如果不存在）
+        function generateUserIdIfNeeded() {
+            if (!userData.userId) {
+                // 生成格式：H + 时间戳后6位 + 随机数3位
+                const timestamp = Date.now().toString().slice(-6);
+                const random = Math.floor(Math.random() * 900) + 100; // 100-999
+                userData.userId = 'H' + timestamp + random;
+                
+                saveAllData();
+            }
+            
+            document.getElementById('userId').textContent = userData.userId;
+        }
+        
+        // 更新UI显示
+        function updateUI() {
+            // 更新用户ID和余额
+            document.getElementById('userId').textContent = userData.userId;
+            document.getElementById('htBalance').textContent = checkinData.totalHT.toLocaleString();
+            document.getElementById('totalHTDisplay').textContent = checkinData.totalHT.toLocaleString();
+            
+            // 计算总质押USDT
+            let totalUSDT = 0;
+            ledgerRecords.forEach(record => {
+                totalUSDT += parseFloat(record.usdt) || 0;
+            });
+            document.getElementById('totalUSDT').textContent = totalUSDT.toLocaleString();
+            userData.totalUSDT = totalUSDT;
+            
+            // 更新抽奖数据
+            document.getElementById('todaySpins').textContent = lotteryData.todaySpins;
+            document.getElementById('totalWonH').textContent = lotteryData.totalWonH.toLocaleString();
+            
+            // 更新签到状态
+            const today = new Date().toDateString();
+            const isCheckedToday = checkinData.lastCheckin === today;
+            
+            if (isCheckedToday) {
+                document.getElementById('checkinBtn').innerHTML = '<i class="fas fa-check"></i> 今日已签到';
+                document.getElementById('checkinBtn').disabled = true;
+            } else {
+                document.getElementById('checkinBtn').innerHTML = '<i class="fas fa-check"></i> 今日签到';
+                document.getElementById('checkinBtn').disabled = false;
+            }
+            
+            // 更新连续签到天数
+            document.getElementById('currentStreak').textContent = checkinData.streak;
+            document.getElementById('totalCheckins').textContent = checkinData.totalCheckins;
+            
+            // 更新抽奖按钮状态
+            const canSpin = checkinData.totalHT >= 100;
+            document.getElementById('spinBtn').disabled = !canSpin;
+            document.getElementById('spin10Btn').disabled = !canSpin || checkinData.totalHT < 1000;
+            
+            if (!canSpin) {
+                document.getElementById('spinBtn').innerHTML = '<i class="fas fa-lock"></i> HT币不足';
+                document.getElementById('spin10Btn').innerHTML = '<i class="fas fa-lock"></i> HT币不足';
+            } else {
+                document.getElementById('spinBtn').innerHTML = '<i class="fas fa-play"></i> 抽一次';
+                document.getElementById('spin10Btn').innerHTML = '<i class="fas fa-forward"></i> 抽十次';
+            }
+        }
+        
+        // 页面切换
+        function showPage(pageId) {
+            // 隐藏所有页面
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // 显示目标页面
+            document.getElementById('page-' + pageId).classList.add('active');
+            
+            // 更新导航栏
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // 设置当前页面的导航项为激活状态
+            const navItems = document.querySelectorAll('.nav-item');
+            switch(pageId) {
+                case 'calculator':
+                    navItems[0].classList.add('active');
+                    break;
+                case 'ledger':
+                    navItems[1].classList.add('active');
+                    renderLedgerTable();
+                    updateLedgerStats();
+                    updateLedgerChart();
+                    break;
+                case 'checkin':
+                    navItems[2].classList.add('active');
+                    generateCalendar();
+                    break;
+                case 'lottery':
+                    navItems[3].classList.add('active');
+                    break;
+            }
+        }
+        
+        // 计算质押收益
+        function calculateStakingReward() {
+            const stakeAmount = parseFloat(document.getElementById('stakeAmount').value);
+            const stakeDays = parseInt(document.getElementById('stakeDays').value);
+            
+            if (!stakeAmount || stakeAmount <= 0 || !stakeDays || stakeDays <= 0) {
+                alert('请输入有效的质押金额和天数');
+                return;
+            }
+            
+            let remainingDays = stakeDays;
+            let totalReward = 0;
+            let stageDetails = [];
+            
+            // 计算每个阶段的收益
+            for (const rule of stakingRules) {
+                if (remainingDays <= 0) break;
+                
+                let daysInStage = 0;
+                if (rule.days[1] === Infinity) {
+                    // 最后一个阶段
+                    daysInStage = remainingDays;
+                } else {
+                    const stageLength = rule.days[1] - rule.days[0] + 1;
+                    daysInStage = Math.min(stageLength, remainingDays);
+                }
+                
+                if (daysInStage > 0) {
+                    const stageReward = stakeAmount * rule.rate * daysInStage;
+                    totalReward += stageReward;
+                    
+                    stageDetails.push({
+                        name: rule.name,
+                        days: daysInStage,
+                        rate: rule.rate * 100,
+                        reward: stageReward
+                    });
+                    
+                    remainingDays -= daysInStage;
+                }
+            }
+            
+            // 显示阶段详情
+            displayStageDetails(stageDetails);
+            
+            // 显示总收益
+            document.getElementById('totalRewardValue').textContent = totalReward.toFixed(2);
+            document.getElementById('totalRewardContainer').style.display = 'block';
+            
+            // 计算APR
+            const apr = (totalReward / stakeAmount) * (365 / stakeDays) * 100;
+            document.getElementById('aprValue').textContent = apr.toFixed(2) + '%';
+            
+            // 显示图表
+            displayRewardChart(stageDetails, totalReward);
+        }
+        
+        // 显示阶段详情
+        function displayStageDetails(stageDetails) {
+            const stagesList = document.getElementById('stagesList');
+            stagesList.innerHTML = '';
+            
+            stageDetails.forEach(stage => {
+                const stageElement = document.createElement('div');
+                stageElement.className = 'stage-item';
+                stageElement.innerHTML = `
+                    <div class="stage-header">
+                        <div class="stage-name">${stage.name}</div>
+                        <div class="stage-rate">日利率 ${stage.rate}%</div>
+                    </div>
+                    <div class="stage-details">
+                        <span>天数: ${stage.days}天</span>
+                        <span>收益: ${stage.reward.toFixed(2)} H</span>
+                    </div>
+                `;
+                stagesList.appendChild(stageElement);
+            });
+            
+            document.getElementById('stagesContainer').style.display = 'block';
+        }
+        
+        // 显示收益图表
+        function displayRewardChart(stageDetails, totalReward) {
+            const ctx = document.getElementById('rewardChart').getContext('2d');
+            
+            // 如果已存在图表实例，销毁它
+            if (window.rewardChart instanceof Chart) {
+                window.rewardChart.destroy();
+            }
+            
+            const labels = stageDetails.map(stage => stage.name);
+            const data = stageDetails.map(stage => stage.reward);
+            
+            // 添加总收益
+            labels.push('总收益');
+            data.push(totalReward);
+            
+            window.rewardChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '收益 (H代币)',
+                        data: data,
+                        backgroundColor: [
+                            'rgba(255, 107, 107, 0.7)',
+                            'rgba(78, 205, 196, 0.7)',
+                            'rgba(69, 183, 209, 0.7)',
+                            'rgba(150, 206, 180, 0.7)',
+                            'rgba(255, 234, 167, 0.7)',
+                            'rgba(0, 212, 170, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 107, 107, 1)',
+                            'rgba(78, 205, 196, 1)',
+                            'rgba(69, 183, 209, 1)',
+                            'rgba(150, 206, 180, 1)',
+                            'rgba(255, 234, 167, 1)',
+                            'rgba(0, 212, 170, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            document.getElementById('rewardChartContainer').style.display = 'block';
+        }
+        
+        // 生成签到日历
+        function generateCalendar() {
+            const calendarGrid = document.getElementById('calendarGrid');
+            calendarGrid.innerHTML = '';
+            
+            const today = new Date();
+            const currentMonth = today.getMonth();
+            const currentDate = today.getDate();
+            
+            // 生成星期标题
+            const weekDays = ['日', '一', '二', '三', '四', '五', '六'];
+            weekDays.forEach(day => {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'calendar-day';
+                dayDiv.textContent = day;
+                dayDiv.style.background = 'transparent';
+                dayDiv.style.fontSize = '0.9rem';
+                calendarGrid.appendChild(dayDiv);
+            });
+            
+            // 生成本月日历（简单版，从1号开始）
+            const monthKey = today.getFullYear() + '-' + (today.getMonth() + 1);
+            const checkinsThisMonth = checkinData.monthlyCheckins[monthKey] || [];
+            
+            for (let i = 1; i <= 31; i++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'calendar-day';
+                
+                const isChecked = checkinsThisMonth.includes(i);
+                const isToday = i === currentDate;
+                
+                if (isChecked) dayDiv.classList.add('day-checked');
+                if (isToday && !isChecked) dayDiv.classList.add('day-today');
+                
+                dayDiv.textContent = i;
+                calendarGrid.appendChild(dayDiv);
+            }
+        }
+        
+        // 执行签到
+        function performCheckin() {
+            const today = new Date();
+            const todayStr = today.toDateString();
+            
+            // 检查是否已签到
+            if (checkinData.lastCheckin === todayStr) {
+                alert('今天已经签到过了！');
+                return;
+            }
+            
+            // 基础奖励500HT
+            let reward = 500;
+            
+            // 检查连续签到
+            if (checkinData.lastCheckin) {
+                const lastCheckin = new Date(checkinData.lastCheckin);
+                const diffTime = today - lastCheckin;
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                
+                if (diffDays === 1) {
+                    checkinData.streak += 1;
+                } else {
+                    checkinData.streak = 1;
+                }
+            } else {
+                checkinData.streak = 1;
+            }
+            
+            // 检查是否达到15天额外奖励
+            if (checkinData.streak === 15 && !checkinData.extraRewardsGiven.includes(15)) {
+                reward += 3000;
+                checkinData.extraRewardsGiven.push(15);
+                alert('🎉 恭喜连续签到15天，获得额外3000HT奖励！');
+            }
+            
+            // 检查是否达到30天额外奖励
+            if (checkinData.streak === 30 && !checkinData.extraRewardsGiven.includes(30)) {
+                reward += 5000;
+                checkinData.extraRewardsGiven.push(30);
+                alert('🎉 恭喜连续签到30天，获得额外5000HT奖励！');
+            }
+            
+            // 更新数据
+            checkinData.lastCheckin = todayStr;
+            checkinData.totalHT += reward;
+            checkinData.totalCheckins += 1;
+            
+            // 记录本月签到
+            const monthKey = today.getFullYear() + '-' + (today.getMonth() + 1);
+            if (!checkinData.monthlyCheckins[monthKey]) {
+                checkinData.monthlyCheckins[monthKey] = [];
+            }
+            checkinData.monthlyCheckins[monthKey].push(today.getDate());
+            
+            // 保存数据并更新UI
+            saveAllData();
+            updateUI();
+            generateCalendar();
+            
+            // 显示成功消息
+            alert(`签到成功！获得${reward} HT币${reward > 500 ? ' (包含额外奖励)' : ''}`);
+        }
+        
+        // 生成抽奖转盘
+        function generateWheel() {
+            const wheel = document.getElementById('wheel');
+            wheel.innerHTML = '';
+            
+            const segmentAngle = 360 / prizes.length;
+            
+            prizes.forEach((prize, index) => {
+                const segment = document.createElement('div');
+                segment.className = 'wheel-segment';
+                segment.style.backgroundColor = prize.color;
+                segment.style.transform = `rotate(${index * segmentAngle}deg) skewY(${90 - segmentAngle}deg)`;
+                
+                const prizeText = document.createElement('div');
+                prizeText.style.transform = `skewY(${segmentAngle - 90}deg) rotate(${segmentAngle/2}deg)`;
+                prizeText.style.textAlign = 'center';
+                prizeText.style.width = '100%';
+                prizeText.style.paddingLeft = '20px';
+                prizeText.innerHTML = `<div style="font-size: 0.8rem;">${prize.name.split('，')[0]}</div>`;
+                
+                segment.appendChild(prizeText);
+                wheel.appendChild(segment);
+            });
+        }
+        
+        // 生成奖品展示
+        function generatePrizesGrid() {
+            const prizesGrid = document.getElementById('prizesGrid');
+            prizesGrid.innerHTML = '';
+            
+            prizes.forEach(prize => {
+                if (prize.id <= 5) { // 只显示前5个奖品
+                    const prizeCard = document.createElement('div');
+                    prizeCard.className = 'prize-card';
+                    
+                    let probabilityText = '';
+                    if (prize.id === 1) {
+                        probabilityText = '97%';
+                    } else {
+                        probabilityText = '0.75%';
+                    }
+                    
+                    prizeCard.innerHTML = `
+                        <div class="prize-name">${prize.name}</div>
+                        <div class="prize-value">${prize.hToken > 0 ? prize.hToken + ' H' : '无'}</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 5px;">
+                            概率: ${probabilityText}
+                        </div>
+                    `;
+                    
+                    prizesGrid.appendChild(prizeCard);
+                }
+            });
+        }
+        
+        // 执行抽奖
+        function spinWheel(count = 1) {
+            // 检查HT币余额
+            const cost = count * 100;
+            if (checkinData.totalHT < cost) {
+                alert(`HT币不足，需要${cost}HT，当前只有${checkinData.totalHT}HT`);
+                return;
+            }
+            
+            // 批量抽奖逻辑
+            if (count > 1) {
+                const results = [];
+                let totalH = 0;
+                
+                for (let i = 0; i < count; i++) {
+                    const prize = getRandomPrize();
+                    results.push(prize);
+                    totalH += prize.hToken;
+                }
+                
+                // 扣除HT币
+                checkinData.totalHT -= cost;
+                
+                // 记录中奖
+                results.forEach(prize => {
+                    lotteryData.totalSpins++;
+                    lotteryData.prizesWon.push({
+                        prizeId: prize.id,
+                        name: prize.name,
+                        hToken: prize.hToken,
+                        date: new Date().toISOString()
+                    });
+                });
+                
+                lotteryData.totalSpentHT += cost;
+                lotteryData.totalWonH += totalH;
+                lotteryData.todaySpins += count;
+                lotteryData.lastSpinDate = new Date().toDateString();
+                
+                // 保存数据
+                saveAllData();
+                updateUI();
+                
+                // 显示批量抽奖结果
+                showMultiPrizeResults(results, cost, totalH);
+                return;
+            }
+            
+            // 单次抽奖逻辑
+            const spinBtn = document.getElementById('spinBtn');
+            spinBtn.disabled = true;
+            spinBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 抽奖中...';
+            
+            // 获取随机奖品
+            const prize = getRandomPrize();
+            
+            // 扣除HT币
+            checkinData.totalHT -= 100;
+            
+            // 记录中奖
+            lotteryData.totalSpins++;
+            lotteryData.prizesWon.push({
+                prizeId: prize.id,
+                name: prize.name,
+                hToken: prize.hToken,
+                date: new Date().toISOString()
+            });
+            
+            lotteryData.totalSpentHT += 100;
+            lotteryData.totalWonH += prize.hToken;
+            lotteryData.todaySpins++;
+            lotteryData.lastSpinDate = new Date().toDateString();
+            
+            // 旋转转盘动画
+            const wheel = document.getElementById('wheel');
+            const spins = 5 + Math.random() * 2; // 5-7圈
+            const segmentAngle = 360 / prizes.length;
+            const targetAngle = spins * 360 + (prize.id - 1) * segmentAngle + Math.random() * segmentAngle;
+            
+            wheel.style.transition = 'transform 3s cubic-bezier(0.2, 0.8, 0.3, 1)';
+            wheel.style.transform = `rotate(${targetAngle}deg)`;
+            
+            // 显示结果
+            setTimeout(() => {
+                showPrizeResult(prize);
+                spinBtn.disabled = false;
+                spinBtn.innerHTML = '<i class="fas fa-play"></i> 抽一次';
+                
+                // 保存数据并更新UI
+                saveAllData();
+                updateUI();
+            }, 3200);
+        }
+        
+        // 获取随机奖品
+        function getRandomPrize() {
+            // 生成0-1的随机数
+            const random = Math.random();
+            
+            // 按照概率分布选择奖品
+            let cumulative = 0;
+            for (const prize of prizes) {
+                cumulative += prize.probability;
+                if (random <= cumulative) {
+                    return prize;
+                }
+            }
+            
+            // 如果由于浮点精度问题没选中，返回第一个奖品
+            return prizes[0];
+        }
+        
+        // 显示单次抽奖结果
+        function showPrizeResult(prize) {
+            const prizeResult = document.getElementById('prizeResult');
+            
+            if (prize.id === 1) {
+                prizeResult.innerHTML = `
+                    <div style="width: 80px; height: 80px; background: #FF6B6B; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 2rem;">
+                        <i class="fas fa-frown"></i>
+                    </div>
+                    <h3 style="margin-bottom: 10px;">${prize.name}</h3>
+                    <p style="color: var(--text-secondary);">
+                        不要灰心，下次一定中奖！
+                    </p>
+                `;
+            } else {
+                prizeResult.innerHTML = `
+                    <div style="width: 100px; height: 100px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 3rem;">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 style="margin-bottom: 10px;">🎉 恭喜中奖! 🎉</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 10px;">
+                        您获得了: <span style="color: var(--accent); font-weight: 600; font-size: 1.3rem;">${prize.name}</span>
+                    </p>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                        奖励: <span style="color: var(--accent); font-weight: 600; font-size: 1.3rem;">${prize.hToken.toLocaleString()} H代币</span>
+                    </p>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                        奖励已添加到您的账户
+                    </p>
+                `;
+            }
+            
+            showModal('prizeModal');
+        }
+        
+        // 显示多次抽奖结果
+        function showMultiPrizeResults(results, cost, totalH) {
+            const multiPrizeBody = document.getElementById('multiPrizeBody');
+            multiPrizeBody.innerHTML = '';
+            
+            let winCount = 0;
+            
+            results.forEach((prize, index) => {
+                const row = document.createElement('tr');
+                row.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+                
+                const isWin = prize.id > 1;
+                if (isWin) winCount++;
+                
+                row.innerHTML = `
+                    <td style="padding: 10px;">${index + 1}</td>
+                    <td style="padding: 10px; color: ${isWin ? 'var(--accent)' : 'var(--text-secondary)'}">${prize.name}</td>
+                    <td style="padding: 10px; text-align: right; color: ${isWin ? 'var(--accent)' : 'var(--text-secondary)'}">${prize.hToken > 0 ? prize.hToken.toLocaleString() + ' H' : '-'}</td>
+                `;
+                
+                multiPrizeBody.appendChild(row);
+            });
+            
+            document.getElementById('totalCostHT').textContent = cost.toLocaleString() + ' HT';
+            document.getElementById('totalWonHModal').textContent = totalH.toLocaleString() + ' H';
+            
+            const netProfit = totalH - cost;
+            const netProfitElement = document.getElementById('netProfit');
+            netProfitElement.textContent = netProfit.toLocaleString() + ' H';
+            netProfitElement.style.color = netProfit >= 0 ? 'var(--success)' : 'var(--danger)';
+            
+            showModal('multiPrizeModal');
+            
+            // 如果中奖了，显示庆祝消息
+            if (winCount > 0) {
+                setTimeout(() => {
+                    alert(`批量抽奖完成！共抽奖${results.length}次，中奖${winCount}次，获得${totalH.toLocaleString()} H代币！`);
+                }, 500);
+            }
+        }
+        
+        // 显示添加记录模态框
+        function showAddRecordModal() {
+            document.getElementById('addRecordModal').style.display = 'flex';
+        }
+        
+        // 关闭模态框
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            
+            // 重置转盘位置
+            if (modalId === 'prizeModal' || modalId === 'multiPrizeModal') {
+                const wheel = document.getElementById('wheel');
+                wheel.style.transition = 'none';
+                wheel.style.transform = 'rotate(0deg)';
+                
+                // 重新启用过渡
+                setTimeout(() => {
+                    wheel.style.transition = 'transform 3s cubic-bezier(0.2, 0.8, 0.3, 1)';
+                }, 50);
+            }
+        }
+        
+        // 添加账本记录
+        function addRecord(event) {
+            event.preventDefault();
+            
+            const record = {
+                id: Date.now(),
+                date: document.getElementById('recordDate').value,
+                usdt: parseFloat(document.getElementById('recordUSDT').value) || 0,
+                h: parseFloat(document.getElementById('recordH').value) || 0,
+                boostReward: parseFloat(document.getElementById('recordBoostReward').value) || 0,
+                communityReward: parseFloat(document.getElementById('recordCommunityReward').value) || 0,
+                note: document.getElementById('recordNote').value || ''
+            };
+            
+            ledgerRecords.push(record);
+            saveAllData();
+            renderLedgerTable();
+            updateLedgerStats();
+            updateLedgerChart();
+            updateUI();
+            
+            // 重置表单
+            document.getElementById('recordForm').reset();
+            document.getElementById('recordDate').valueAsDate = new Date();
+            
+            // 关闭模态框
+            closeModal('addRecordModal');
+            
+            alert('记录添加成功！');
+        }
+        
+        // 删除账本记录
+        function deleteRecord(recordId) {
+            if (confirm('确定要删除这条记录吗？')) {
+                ledgerRecords = ledgerRecords.filter(record => record.id !== recordId);
+                saveAllData();
+                renderLedgerTable();
+                updateLedgerStats();
+                updateLedgerChart();
+                updateUI();
+            }
+        }
+        
+        // 渲染账本表格
+        function renderLedgerTable() {
+            const ledgerBody = document.getElementById('ledgerBody');
+            const emptyMessage = document.getElementById('emptyLedgerMessage');
+            
+            if (ledgerRecords.length === 0) {
+                ledgerBody.innerHTML = '';
+                emptyMessage.style.display = 'block';
+                return;
+            }
+            
+            emptyMessage.style.display = 'none';
+            
+            // 按日期降序排序
+            const sortedRecords = [...ledgerRecords].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            let html = '';
+            sortedRecords.forEach(record => {
+                html += `
+                    <tr>
+                        <td style="font-size: 0.9rem; color: var(--text-secondary);">${formatDate(record.date)}</td>
+                        <td style="color: var(--accent); font-weight: 600;">${record.usdt.toLocaleString()} USDT</td>
+                        <td>${record.h.toLocaleString()} H</td>
+                        <td>${record.boostReward.toLocaleString()}</td>
+                        <td>${record.communityReward.toLocaleString()}</td>
+                        <td>
+                            <button onclick="deleteRecord(${record.id})" style="background: rgba(255, 82, 82, 0.1); color: var(--danger); border: none; border-radius: 8px; padding: 5px 10px; cursor: pointer;">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            ledgerBody.innerHTML = html;
+        }
+        
+        // 更新账本统计
+        function updateLedgerStats() {
+            let totalStaked = 0;
+            let totalHEarned = 0;
+            let totalBoostReward = 0;
+            let totalCommunityReward = 0;
+            
+            ledgerRecords.forEach(record => {
+                totalStaked += parseFloat(record.usdt) || 0;
+                totalHEarned += parseFloat(record.h) || 0;
+                totalBoostReward += parseFloat(record.boostReward) || 0;
+                totalCommunityReward += parseFloat(record.communityReward) || 0;
+            });
+            
+            document.getElementById('totalStaked').textContent = totalStaked.toLocaleString();
+            document.getElementById('totalHEarned').textContent = totalHEarned.toLocaleString();
+            document.getElementById('totalBoostReward').textContent = totalBoostReward.toLocaleString();
+            document.getElementById('totalCommunityReward').textContent = totalCommunityReward.toLocaleString();
+        }
+        
+        // 设置图表
+        function setupCharts() {
+            // 初始化收益图表
+            const rewardCtx = document.getElementById('rewardChart').getContext('2d');
+            window.rewardChart = new Chart(rewardCtx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: '收益 (H代币)',
+                        data: [],
+                        backgroundColor: 'rgba(0, 212, 170, 0.7)',
+                        borderColor: 'rgba(0, 212, 170, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+            
+            // 初始化账本图表
+            const ledgerCtx = document.getElementById('ledgerChart').getContext('2d');
+            window.ledgerChart = new Chart(ledgerCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: '累计收益 (H代币)',
+                        data: [],
+                        borderColor: 'rgba(0, 212, 170, 1)',
+                        backgroundColor: 'rgba(0, 212, 170, 0.1)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 更新账本图表
+        function updateLedgerChart() {
+            if (ledgerRecords.length === 0) return;
+            
+            // 按日期升序排序
+            const sortedRecords = [...ledgerRecords].sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            const labels = [];
+            const cumulativeData = [];
+            let cumulativeH = 0;
+            
+            sortedRecords.forEach(record => {
+                labels.push(formatDate(record.date));
+                cumulativeH += parseFloat(record.h) || 0;
+                cumulativeData.push(cumulativeH);
+            });
+            
+            window.ledgerChart.data.labels = labels;
+            window.ledgerChart.data.datasets[0].data = cumulativeData;
+            window.ledgerChart.update();
+        }
+        
+        // 格式化日期
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return `${date.getMonth() + 1}/${date.getDate()}`;
+        }
+        
+        // 页面加载时初始化应用
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
