@@ -2,787 +2,460 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dolphin Vortex Economic Model - 专业高端展示</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>海豚社区辅助工具App</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #0a192f 0%, #1e3a8a 100%);
-            color: #e0e7ff;
+        * {
             margin: 0;
             padding: 0;
-            line-height: 1.7;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #2a5298, #3a7bd5);
+            color: #333;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            flex: 1;
-            position: relative;
-            overflow: hidden;
-        }
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
-            animation: rotateBg 30s linear infinite;
-        }
-        @keyframes rotateBg {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        h1 {
-            text-align: center;
-            color: #93c5fd;
-            margin-bottom: 40px;
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            letter-spacing: 1px;
-            position: relative;
-            z-index: 1;
-        }
-        h2 {
-            color: #bfdbfe;
-            border-left: 5px solid #3b82f6;
-            padding-left: 15px;
-            margin-top: 50px;
-            font-size: 1.8rem;
-            font-weight: 600;
-            display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 10px;
-            position: relative;
-            z-index: 1;
-        }
-        h3 {
-            color: #dbeafe;
-            margin-top: 30px;
-            font-size: 1.4rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            position: relative;
-            z-index: 1;
-        }
-        p {
-            margin: 15px 0;
-            font-size: 1.1rem;
-            color: #cbd5e1;
-            text-align: justify;
-            position: relative;
-            z-index: 1;
-        }
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin: 25px 0;
-            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-            z-index: 1;
-        }
-        th, td {
-            padding: 15px 20px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        th {
-            background: linear-gradient(90deg, #1e40af 0%, #1d4ed8 100%);
-            color: #fff;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        tr:nth-child(even) {
-            background-color: rgba(30, 64, 175, 0.2);
-        }
-        tr:hover {
-            background-color: rgba(59, 130, 246, 0.3);
-            transition: background 0.3s ease;
-        }
-        ul {
-            list-style-type: none;
-            margin-left: 0;
-            padding-left: 0;
-            position: relative;
-            z-index: 1;
-        }
-        ul li {
-            margin: 12px 0;
-            padding: 12px;
-            background: rgba(30, 58, 138, 0.3);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        ul li:hover {
-            transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-        }
-        .section {
-            margin-bottom: 60px;
-            animation: fadeIn 1s ease-in-out;
-            position: relative;
-            z-index: 1;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .highlight {
-            background: rgba(59, 130, 246, 0.1);
             padding: 20px;
-            border-left: 8px solid #3b82f6;
-            border-radius: 12px;
-            margin: 20px 0;
-            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.2);
-            color: #e0f2fe;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 450px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .container:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+        }
+        
+        .header {
+            background: linear-gradient(to right, #3a7bd5, #00d2ff);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
             position: relative;
-            z-index: 1;
         }
-        .flowchart {
-            margin: 25px 0;
-            padding: 25px;
-            background: rgba(17, 24, 39, 0.5);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-            position: relative;
-            z-index: 1;
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
-        .flowchart ul li {
-            background: rgba(30, 64, 175, 0.4);
-            border-left: 4px solid #93c5fd;
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
         }
-        .flowchart li::after {
-            color: #93c5fd;
+        
+        .dolphin-icon {
             font-size: 28px;
+            animation: float 3s ease-in-out infinite;
         }
-        /* 移动端优化 */
-        @media (max-width: 768px) {
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        /* 登录表单样式 */
+        .login-form {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1a2a6c;
+            font-size: 15px;
+        }
+        
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #3a7bd5;
+            font-size: 18px;
+        }
+        
+        .input-with-icon input {
+            width: 100%;
+            padding: 15px 15px 15px 50px;
+            border: 2px solid #e1e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background-color: #f8fafc;
+        }
+        
+        .input-with-icon input:focus {
+            border-color: #3a7bd5;
+            outline: none;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.1);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(to right, #3a7bd5, #00d2ff);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .login-btn:hover {
+            background: linear-gradient(to right, #2a5298, #00b8e6);
+            transform: translateY(-2px);
+            box-shadow: 0 7px 15px rgba(58, 123, 213, 0.3);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* 功能入口样式 */
+        .dashboard {
+            display: none;
+        }
+        
+        .dashboard h2 {
+            color: #1a2a6c;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 22px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f4f8;
+        }
+        
+        .app-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .app-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #3a7bd5;
+        }
+        
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .icon-1 {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        
+        .icon-2 {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+        
+        .icon-3 {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+        
+        .app-info h3 {
+            font-size: 18px;
+            color: #1a2a6c;
+            margin-bottom: 8px;
+        }
+        
+        .app-info p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .logout-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #f8fafc;
+            color: #666;
+            border: 2px solid #e1e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 25px;
+            text-align: center;
+        }
+        
+        .logout-btn:hover {
+            background-color: #f0f4f8;
+            color: #3a7bd5;
+        }
+        
+        /* 消息提示 */
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .error {
+            background-color: #ffebee;
+            color: #d32f2f;
+            border: 1px solid #ffcdd2;
+        }
+        
+        .success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .demo-info {
+            font-size: 13px;
+            color: #777;
+            text-align: center;
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid #3a7bd5;
+        }
+        
+        .demo-info strong {
+            color: #1a2a6c;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 500px) {
             .container {
-                margin: 20px 10px;
+                max-width: 100%;
+            }
+            
+            .content {
                 padding: 20px;
             }
-            h1 {
-                font-size: 2rem;
+            
+            .app-card {
+                padding: 20px;
             }
-            h2 {
-                font-size: 1.5rem;
-            }
-            h3 {
-                font-size: 1.2rem;
-            }
-            table {
-                font-size: 0.9rem;
-            }
-            th, td {
-                padding: 10px 12px;
-            }
-        }
-        .icon {
-            color: #93c5fd;
-            font-size: 1.2em;
-        }
-        .download-btn {
-            display: block;
-            margin: 30px auto;
-            padding: 14px 28px;
-            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            text-align: center;
-            max-width: 250px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
-            position: relative;
-            z-index: 1;
-        }
-        .download-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
-        }
-        .illustration {
-            margin: 20px 0;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-            animation: fadeIn 1s ease-in-out;
-        }
-        .illustration svg {
-            max-width: 100%;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.2);
-            transition: transform 0.3s ease;
-        }
-        .illustration:hover svg {
-            transform: scale(1.05);
-        }
-        .illustration-caption {
-            margin-top: 10px;
-            font-style: italic;
-            color: #94a3b8;
-            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1><i class="fas fa-water icon"></i> Dolphin Vortex Economic Model 专业高端展示</h1>
-        
-        <a href="javascript:window.print();" class="download-btn"><i class="fas fa-download"></i> 下载 PDF / 打印展示</a>
-        
-        <div class="section">
-            <h2><i class="fas fa-chart-line icon"></i> 1. 模型概述</h2>
-            <p>本模型旨在构建一个高效、可持续的链上激励体系，通过正向飞轮机制驱动生态增长：用户质押 USDT 生成 H 代币，继而参与交易积累流水，达标后解锁奖励，进一步吸引质押，提升系统 TVL。</p>
-            <div class="illustration">
-                <svg width="400" height="200" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="400" height="200" rx="10" fill="rgba(30, 64, 175, 0.3)"/>
-                    <circle cx="100" cy="100" r="40" fill="#93c5fd"/>
-                    <circle cx="200" cy="100" r="40" fill="#3b82f6"/>
-                    <circle cx="300" cy="100" r="40" fill="#1d4ed8"/>
-                    <path d="M140 100 L160 100" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
-                    <path d="M240 100 L260 100" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
-                    <text x="100" y="105" font-size="16" fill="#0a192f" text-anchor="middle">质押</text>
-                    <text x="200" y="105" font-size="16" fill="#0a192f" text-anchor="middle">交易</text>
-                    <text x="300" y="105" font-size="16" fill="#0a192f" text-anchor="middle">奖励</text>
-                </svg>
-                <div class="illustration-caption">图解1: 模型核心飞轮机制示意</div>
-            </div>
-            <ul>
-                <li><i class="fas fa-bullseye icon"></i> <strong>目的</strong>: 激励用户质押 USDT 获取 H 代币，并通过交易参与 OKX Boost 机制，获得新币空投奖励。</li>
-                <li><i class="fas fa-check-circle icon"></i> <strong>核心假设</strong>: USDT 作为稳定币价值锚定 1 USD；H 代币初始供应有限；TVL 年增长率控制在 50-100%。</li>
-                <li><i class="fas fa-sync-alt icon"></i> <strong>飞轮机制</strong>: 质押 → 交易 → 奖励 → 复投，形成闭环生态。</li>
-                <li><i class="fas fa-cogs icon"></i> <strong>模型类型</strong>: 动态激励模型，借鉴 Compound 与 Curve 协议的设计精髓。</li>
-            </ul>
-            
-            <h3><i class="fas fa-stream icon"></i> 1.1 机制细节：正向飞轮流程</h3>
-            <div class="illustration">
-                <svg width="400" height="250" viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="400" height="250" rx="10" fill="rgba(30, 64, 175, 0.3)"/>
-                    <rect x="50" y="20" width="300" height="40" rx="5" fill="#93c5fd"/>
-                    <text x="200" y="45" font-size="16" fill="#0a192f" text-anchor="middle">步骤1: 质押 USDT</text>
-                    <path d="M200 60 L200 80" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
-                    <rect x="50" y="80" width="300" height="40" rx="5" fill="#3b82f6"/>
-                    <text x="200" y="105" font-size="16" fill="#0a192f" text-anchor="middle">步骤2: H 交易积累流水</text>
-                    <path d="M200 120 L200 140" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
-                    <rect x="50" y="140" width="300" height="40" rx="5" fill="#1d4ed8"/>
-                    <text x="200" y="165" font-size="16" fill="#0a192f" text-anchor="middle">步骤3: 解锁 Boost 奖励</text>
-                    <path d="M200 180 L200 200" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
-                    <rect x="50" y="200" width="300" height="40" rx="5" fill="#93c5fd"/>
-                    <text x="200" y="225" font-size="16" fill="#0a192f" text-anchor="middle">步骤4: 奖励复投</text>
-                </svg>
-                <div class="illustration-caption">图解2: 正向飞轮流程图解</div>
-            </div>
-            <div class="flowchart">
-                <ul>
-                    <li><i class="fas fa-lock icon"></i> 步骤1: 用户质押 USDT（无锁仓，随时存取），根据阶梯日利率获得 H 代币收益（每日20:00发放）。</li>
-                    <li><i class="fas fa-exchange-alt icon"></i> 步骤2: 用户使用获得的 H 在 DEX/OKX Wallet 进行交易（建议每日2-5笔），积累有效流水（85%有效率，每10天至少500 USDT等值）。</li>
-                    <li><i class="fas fa-trophy icon"></i> 步骤3: 流水达标且 Boost 余额≥200 USDT等值 H 时，解锁 OKX 新币空投奖励（平均10-50% APY）。</li>
-                    <li><i class="fas fa-redo-alt icon"></i> 步骤4: 奖励可转换为 USDT 或 H，复投质押或继续交易，形成闭环。</li>
-                    <li><i class="fas fa-hand-holding-usd icon"></i> 步骤5: H 交易收取5%税费，回流运营者地址，用于流动性注入、H回购/销毁，稳定系统。</li>
-                </ul>
-            </div>
-            
-            <h3><i class="fas fa-mouse-pointer icon"></i> 1.2 交互细节：用户与系统交互点</h3>
-            <div class="illustration">
-                <svg width="400" height="200" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="400" height="200" rx="10" fill="rgba(30, 64, 175, 0.3)"/>
-                    <path d="M50 100 L350 100" stroke="#93c5fd" stroke-width="4" stroke-dasharray="10 5"/>
-                    <circle cx="100" cy="100" r="30" fill="#3b82f6"/>
-                    <text x="100" y="105" font-size="12" fill="#fff" text-anchor="middle">质押</text>
-                    <circle cx="200" cy="100" r="30" fill="#1d4ed8"/>
-                    <text x="200" y="105" font-size="12" fill="#fff" text-anchor="middle">交易</text>
-                    <circle cx="300" cy="100" r="30" fill="#93c5fd"/>
-                    <text x="300" y="105" font-size="12" fill="#fff" text-anchor="middle">奖励</text>
-                </svg>
-                <div class="illustration-caption">图解3: 用户交互点示意</div>
-            </div>
-            <ul>
-                <li><i class="fas fa-sign-in-alt icon"></i> <strong>质押交互</strong>: 通过DApp界面输入USDT金额，确认交易；系统实时显示阶梯阶段和预计收益。</li>
-                <li><i class="fas fa-sign-out-alt icon"></i> <strong>赎回交互</strong>: 一键赎回，本金+未领收益（折算H）自动到账；若<7天，弹出反作弊费警告。</li>
-                <li><i class="fas fa-sync icon"></i> <strong>交易交互</strong>: 在OKX Wallet“兑换”功能买卖H；系统监控流水，达标后推送Boost资格通知。</li>
-                <li><i class="fas fa-gift icon"></i> <strong>奖励交互</strong>: 每10天结算，DApp显示奖励详情，一键领取新币空投。</li>
-                <li><i class="fas fa-file-invoice-dollar icon"></i> <strong>税费交互</strong>: 交易时实时显示5%税费扣除；运营者仪表盘公开税费使用报告。</li>
-            </ul>
+        <div class="header">
+            <h1><i class="fas fa-dolphin dolphin-icon"></i> 海豚社区辅助工具App</h1>
+            <p>安全登录以使用辅助工具</p>
         </div>
         
-        <div class="section">
-            <h2><i class="fas fa-cog icon"></i> 2. 核心组件与参数设定</h2>
-            
-            <h3><i class="fas fa-shield-alt icon"></i> 2.1 质押机制</h3>
-            <div class="illustration">
-                <svg width="400" height="150" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="400" height="150" rx="10" fill="rgba(30, 64, 175, 0.3)"/>
-                    <rect x="50" y="50" width="100" height="50" rx="5" fill="#93c5fd"/>
-                    <text x="100" y="75" font-size="12" fill="#0a192f" text-anchor="middle">USDT 质押</text>
-                    <path d="M150 75 L250 75" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
-                    <rect x="250" y="50" width="100" height="50" rx="5" fill="#3b82f6"/>
-                    <text x="300" y="75" font-size="12" fill="#0a192f" text-anchor="middle">H 收益发放</text>
-                </svg>
-                <div class="illustration-caption">图解4: 质押机制流程</div>
+        <div class="content">
+            <!-- 登录表单 -->
+            <div id="loginForm" class="login-form">
+                <div id="errorMessage" class="message error">注册号码或密码错误，请重试</div>
+                <div id="successMessage" class="message success">登录成功！正在跳转...</div>
+                
+                <div class="form-group">
+                    <label for="username">请输入H的注册号码</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" placeholder="例如：H2023001">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">请输入登记密码</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="请输入您的密码">
+                    </div>
+                </div>
+                
+                <button id="loginBtn" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> 登录
+                </button>
+                
+                <div class="demo-info">
+                    <p><strong>演示账号：</strong> 用户：H2023001 密码：dolphin123</p>
+                    <p>这是一个演示界面，实际功能需要连接后端服务验证</p>
+                </div>
             </div>
-            <p>设计为无锁仓、无固定周期的灵活模式，支持随时存取；收益以等值 USDT 的 H 代币形式，每日 20:00 (UTC+8) 精准发放。</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>参数</th>
-                        <th>值/描述</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>最小质押额</td>
-                        <td>100 USDT</td>
-                    </tr>
-                    <tr>
-                        <td>最大质押额</td>
-                        <td>无上限（系统 TVL 上限初始 10M USDT）</td>
-                    </tr>
-                    <tr>
-                        <td>平台费</td>
-                        <td>1%（从收益扣除）</td>
-                    </tr>
-                    <tr>
-                        <td>收益计算公式</td>
-                        <td>每日收益 = 本金 × 日利率 × (1 - 平台费)</td>
-                    </tr>
-                    <tr>
-                        <td>H 发放价格</td>
-                        <td>Oracle 喂价 (e.g., Chainlink H/USDT)</td>
-                    </tr>
-                </tbody>
-            </table>
             
-            <h3><i class="fas fa-stairs icon"></i> 质押收益阶梯规则</h3>
-            <div class="illustration">
-                <svg width="400" height="200" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="400" height="200" rx="10" fill="rgba(30, 64, 175, 0.3)"/>
-                    <path d="M50 150 L100 150 L100 120 L150 120 L150 90 L200 90 L200 60 L250 60 L250 30 L350 30" fill="none" stroke="#93c5fd" stroke-width="4"/>
-                    <text x="75" y="170" font-size="12" fill="#fff">阶段1: 0.5%</text>
-                    <text x="125" y="140" font-size="12" fill="#fff">阶段2: 0.6%</text>
-                    <text x="175" y="110" font-size="12" fill="#fff">阶段3: 0.8%</text>
-                    <text x="225" y="80" font-size="12" fill="#fff">阶段4: 1%</text>
-                    <text x="300" y="50" font-size="12" fill="#fff">阶段5: 1.2%</text>
-                </svg>
-                <div class="illustration-caption">图解5: 收益阶梯增长示意</div>
+            <!-- 功能入口 -->
+            <div id="dashboard" class="dashboard">
+                <h2>海豚社区辅助工具</h2>
+                <div class="app-grid">
+                    <a href="https://aosima858588-boop.github.io/h.web3/" target="_blank" class="app-card">
+                        <div class="app-icon icon-1">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="app-info">
+                            <h3>海豚动态经济模型</h3>
+                            <p>查看海豚社区的经济模型分析、数据可视化及趋势预测</p>
+                        </div>
+                    </a>
+                    
+                    <a href="https://aosima858588-boop.github.io/shequpindao/" target="_blank" class="app-card">
+                        <div class="app-icon icon-2">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="app-info">
+                            <h3>链上赚币 | OKX Boost</h3>
+                            <p>参与链上赚币活动，使用OKX Boost增加收益机会</p>
+                        </div>
+                    </a>
+                    
+                    <a href="https://aosima858588-boop.github.io/-/" target="_blank" class="app-card">
+                        <div class="app-icon icon-3">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <div class="app-info">
+                            <h3>质押收益计算器</h3>
+                            <p>计算您的质押收益，模拟不同质押策略的回报率</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <button id="logoutBtn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> 退出登录
+                </button>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>阶段</th>
-                        <th>天数</th>
-                        <th>日利率</th>
-                        <th>年化 APY (约)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>1-7 天</td>
-                        <td>0.5%</td>
-                        <td>182.5%</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>8-15 天</td>
-                        <td>0.6%</td>
-                        <td>219%</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>16-30 天</td>
-                        <td>0.8%</td>
-                        <td>292%</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>31-60 天</td>
-                        <td>1%</td>
-                        <td>365%</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>61+ 天</td>
-                        <td>1.2%</td>
-                        <td>438%</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3><i class="fas fa-unlock icon"></i> 2.2 赎回机制</h3>
-            <div class="illustration">
-                <svg width="400" height="150" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="400" height="150" rx="10" fill="rgba(30, 64, 175, 0.3)"/>
-                    <rect x="50" y="50" width="100" height="50" rx="5" fill="#3b82f6"/>
-                    <text x="100" y="75" font-size="12" fill="#fff" text-anchor="middle">赎回请求</text>
-                    <path d="M150 75 L250 75" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
-                    <rect x="250" y="50" width="100" height="50" rx="5" fill="#93c5fd"/>
-                    <text x="300" y="75" font-size="12" fill="#0a192f" text-anchor="middle">本金 + H 收益</text>
-                </svg>
-                <div class="illustration-caption">图解6: 赎回流程图解</div>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>参数</th>
-                        <th>值/描述</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>赎回手续费</td>
-                        <td>0%（质押 <7 天扣 0.1% 反作弊费）</td>
-                    </tr>
-                    <tr>
-                        <td>赎回公式</td>
-                        <td>总赎回 = 本金 + (累计收益 USDT 等值 × 当前 H 价格)^{-1} 的 H 数量</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3><i class="fas fa-coins icon"></i> 2.3 H 代币经济</h3>
-            <div class="illustration">
-                <svg width="400" height="200" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="400" height="200" rx="10" fill="rgba(30, 64, 175, 0.3)"/>
-                    <circle cx="200" cy="100" r="80" fill="#3b82f6" />
-                    <text x="200" y="95" font-size="16" fill="#fff" text-anchor="middle">H 总供应</text>
-                    <text x="200" y="115" font-size="12" fill="#e0e7ff" text-anchor="middle">1B (初始)</text>
-                    <line x1="200" y1="20" x2="200" y2="60" stroke="#93c5fd" stroke-width="4"/>
-                    <text x="200" y="15" font-size="12" fill="#bfdbfe" text-anchor="middle">奖励池 60%</text>
-                    <line x1="120" y1="100" x2="80" y2="100" stroke="#93c5fd" stroke-width="4"/>
-                    <text x="60" y="105" font-size="12" fill="#bfdbfe" text-anchor="middle">流动性 20%</text>
-                    <line x1="280" y1="100" x2="320" y2="100" stroke="#93c5fd" stroke-width="4"/>
-                    <text x="340" y="105" font-size="12" fill="#bfdbfe" text-anchor="middle">团队 10%</text>
-                    <line x1="200" y1="140" x2="200" y2="180" stroke="#93c5fd" stroke-width="4"/>
-                    <text x="200" y="195" font-size="12" fill="#bfdbfe" text-anchor="middle">社区 10%</text>
-                </svg>
-                <div class="illustration-caption">图解7: H 代币分配饼图</div>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>参数</th>
-                        <th>值/描述</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>总供应</td>
-                        <td>初始 1B H (10亿)</td>
-                    </tr>
-                    <tr>
-                        <td>分配比例</td>
-                        <td>质押奖励池: 60%；流动性池: 20%；运营者/团队: 10% (锁定1年)；社区/营销: 10%</td>
-                    </tr>
-                    <tr>
-                        <td>年度通胀上限</td>
-                        <td>20% (基于 TVL 调整)</td>
-                    </tr>
-                    <tr>
-                        <td>交易税</td>
-                        <td>5% (100% 进入运营者地址)</td>
-                    </tr>
-                    <tr>
-                        <td>税费分配</td>
-                        <td>20% 用于销毁 H</td>
-                    </tr>
-                    <tr>
-                        <td>初始价格</td>
-                        <td>0.01 USDT</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3><i class="fas fa-handshake icon"></i> 2.4 交易与 Boost 奖励</h3>
-            <div class="illustration">
-                <svg width="400" height="150" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="400" height="150" rx="10" fill="rgba(30, 64, 175, 0.3)"/>
-                    <circle cx="100" cy="75" r="30" fill="#93c5fd"/>
-                    <text x="100" y="80" font-size="12" fill="#0a192f" text-anchor="middle">交易 H</text>
-                    <path d="M130 75 L270 75" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
-                    <circle cx="300" cy="75" r="30" fill="#3b82f6"/>
-                    <text x="300" y="80" font-size="12" fill="#fff" text-anchor="middle">Boost 奖励</text>
-                </svg>
-                <div class="illustration-caption">图解8: 交易到奖励流程</div>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>参数</th>
-                        <th>值/描述</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>最小流水</td>
-                        <td>每 10 天 500 USDT 等值 (有效率 85%)</td>
-                    </tr>
-                    <tr>
-                        <td>交易频率建议</td>
-                        <td>每日 2-5 笔</td>
-                    </tr>
-                    <tr>
-                        <td>Boost 额外要求</td>
-                        <td>余额 ≥ 200 USDT 等值 H</td>
-                    </tr>
-                    <tr>
-                        <td>奖励池分配</td>
-                        <td>运营税费 30% 作为社区奖励</td>
-                    </tr>
-                    <tr>
-                        <td>解锁周期</td>
-                        <td>每 10 天结算</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3><i class="fas fa-tools icon"></i> 2.5 其他参数</h3>
-            <div class="illustration">
-                <svg width="400" height="150" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="400" height="150" rx="10" fill="rgba(30, 64, 175, 0.3)"/>
-                    <rect x="50" y="30" width="300" height="30" rx="5" fill="#93c5fd"/>
-                    <text x="200" y="50" font-size="12" fill="#0a192f" text-anchor="middle">TVL 目标: 10M</text>
-                    <rect x="50" y="70" width="300" height="30" rx="5" fill="#3b82f6"/>
-                    <text x="200" y="90" font-size="12" fill="#fff" text-anchor="middle">增长率: 20%/月</text>
-                    <rect x="50" y="110" width="300" height="30" rx="5" fill="#1d4ed8"/>
-                    <text x="200" y="130" font-size="12" fill="#fff" text-anchor="middle">安全: Oracle + 审计</text>
-                </svg>
-                <div class="illustration-caption">图解9: 其他参数概述</div>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>参数</th>
-                        <th>值/描述</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>TVL 目标</td>
-                        <td>初始 1M USDT；1年内 10M</td>
-                    </tr>
-                    <tr>
-                        <td>用户增长率</td>
-                        <td>月增长 20%</td>
-                    </tr>
-                    <tr>
-                        <td>退出率</td>
-                        <td>短期 30%；长期 10%</td>
-                    </tr>
-                    <tr>
-                        <td>安全措施</td>
-                        <td>Chainlink Oracle；合约审计</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        
-        <div class="section">
-            <h2><i class="fas fa-analytics icon"></i> 3. 模型分析</h2>
-            
-            <h3><i class="fas fa-lightbulb icon"></i> 3.1 激励结构</h3>
-            <div class="illustration">
-                <svg width="400" height="200" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="400" height="200" rx="10" fill="rgba(30, 64, 175, 0.3)"/>
-                    <path d="M200 50 Q150 100 200 150 Q250 100 200 50" fill="#93c5fd"/>
-                    <text x="200" y="100" font-size="16" fill="#0a192f" text-anchor="middle">激励闭环</text>
-                    <text x="100" y="30" font-size="12" fill="#bfdbfe">用户收益</text>
-                    <text x="300" y="30" font-size="12" fill="#bfdbfe">运营收入</text>
-                    <text x="100" y="170" font-size="12" fill="#bfdbfe">网络效应</text>
-                    <text x="300" y="170" font-size="12" fill="#bfdbfe">博弈均衡</text>
-                </svg>
-                <div class="illustration-caption">图解10: 激励结构示意</div>
-            </div>
-            <ul>
-                <li><i class="fas fa-user-check icon"></i> 用户: 阶梯收益鼓励长期持有；Boost 放大回报。</li>
-                <li><i class="fas fa-business-time icon"></i> 运营者: 税费收入 (e.g., 日交易 1M USDT → 50K 税费)。</li>
-                <li><i class="fas fa-balance-scale icon"></i> 博弈论: Nash 均衡下倾向长期持有。</li>
-                <li><i class="fas fa-network-wired icon"></i> 网络效应: 更多用户 → 更高 TVL → 更稳定价格。</li>
-            </ul>
-            
-            <h3><i class="fas fa-leaf icon"></i> 3.2 可持续性</h3>
-            <div class="illustration">
-                <svg width="400" height="150" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="400" height="150" rx="10" fill="rgba(30, 64, 175, 0.3)"/>
-                    <path d="M50 100 Q200 20 350 100" fill="none" stroke="#93c5fd" stroke-width="4"/>
-                    <text x="200" y="50" font-size="16" fill="#bfdbfe" text-anchor="middle">可持续增长曲线</text>
-                    <text x="50" y="120" font-size="12" fill="#e0e7ff">TVL 5M</text>
-                    <text x="350" y="120" font-size="12" fill="#e0e7ff">TVL 15M</text>
-                </svg>
-                <div class="illustration-caption">图解11: 可持续性增长曲线</div>
-            </div>
-            <ul>
-                <li><i class="fas fa-chart-area icon"></i> 通胀控制: 与 TVL 挂钩。</li>
-                <li><i class="fas fa-money-bill-wave icon"></i> 资金流: 正现金流 (税费 > 成本)。</li>
-                <li><i class="fas fa-clock icon"></i> 长期模拟 (1年):</li>
-            </ul>
-            <table>
-                <thead>
-                    <tr>
-                        <th>年份</th>
-                        <th>TVL (USDT)</th>
-                        <th>H 供应</th>
-                        <th>用户数</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>年1</td>
-                        <td>5M</td>
-                        <td>增加15%</td>
-                        <td>10K</td>
-                    </tr>
-                    <tr>
-                        <td>年2</td>
-                        <td>15M</td>
-                        <td>H 价格升至0.02 USDT</td>
-                        <td>-</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3><i class="fas fa-exclamation-triangle icon"></i> 3.3 风险分析</h3>
-            <div class="illustration">
-                <svg width="400" height="200" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="400" height="200" rx="10" fill="rgba(30, 64, 175, 0.3)"/>
-                    <circle cx="100" cy="100" r="50" fill="#ef4444"/>
-                    <text x="100" y="95" font-size="12" fill="#fff" text-anchor="middle">风险</text>
-                    <text x="100" y="110" font-size="12" fill="#fff" text-anchor="middle">识别</text>
-                    <path d="M150 100 L250 100" stroke="#fff" stroke-width="4"/>
-                    <circle cx="300" cy="100" r="50" fill="#22c55e"/>
-                    <text x="300" y="95" font-size="12" fill="#fff" text-anchor="middle">缓解</text>
-                    <text x="300" y="110" font-size="12" fill="#fff" text-anchor="middle">措施</text>
-                </svg>
-                <div class="illustration-caption">图解12: 风险管理框架</div>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>风险类型</th>
-                        <th>描述</th>
-                        <th>缓解措施</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>市场风险</td>
-                        <td>H 价格崩盘</td>
-                        <td>回购机制</td>
-                    </tr>
-                    <tr>
-                        <td>流动性风险</td>
-                        <td>赎回挤兑</td>
-                        <td>TVL 上限 + 储备金 20%</td>
-                    </tr>
-                    <tr>
-                        <td>监管风险</td>
-                        <td>DeFi 合规</td>
-                        <td>许可辖区运营</td>
-                    </tr>
-                    <tr>
-                        <td>合约风险</td>
-                        <td>漏洞</td>
-                        <td>多重审计 + 保险</td>
-                    </tr>
-                    <tr>
-                        <td>通胀风险</td>
-                        <td>H 过剩</td>
-                        <td>销毁 + 通胀上限</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3><i class="fas fa-chart-pie icon"></i> 3.4 敏感性分析</h3>
-            <div class="illustration">
-                <svg width="400" height="200" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="400" height="200" rx="10" fill="rgba(30, 64, 175, 0.3)"/>
-                    <path d="M200 100 L200 0" fill="none" stroke="#22c55e" stroke-width="20" stroke-linecap="round"/>
-                    <text x="220" y="50" font-size="12" fill="#bfdbfe">乐观: +30%</text>
-                    <path d="M200 100 L200 120" fill="none" stroke="#eab308" stroke-width="20" stroke-linecap="round"/>
-                    <text x="220" y="130" font-size="12" fill="#bfdbfe">中性: 稳定</text>
-                    <path d="M200 100 L200 200" fill="none" stroke="#ef4444" stroke-width="20" stroke-linecap="round"/>
-                    <text x="220" y="190" font-size="12" fill="#bfdbfe">悲观: -50%</text>
-                </svg>
-                <div class="illustration-caption">图解13: 敏感性场景对比</div>
-            </div>
-            <ul>
-                <li><i class="fas fa-arrow-up icon"></i> 利率上调 0.1%: TVL +15%，通胀 +10%。</li>
-                <li><i class="fas fa-scenario icon"></i> 场景:</li>
-            </ul>
-            <table>
-                <thead>
-                    <tr>
-                        <th>场景</th>
-                        <th>描述</th>
-                        <th>TVL/收益</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>乐观</td>
-                        <td>增长 30%/月</td>
-                        <td>TVL 20M；APY 500%</td>
-                    </tr>
-                    <tr>
-                        <td>悲观</td>
-                        <td>退出率 50%</td>
-                        <td>TVL 500K；利率降至 0.3%</td>
-                    </tr>
-                    <tr>
-                        <td>中性</td>
-                        <td>稳定增长</td>
-                        <td>APY 300%</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3><i class="fas fa-rocket icon"></i> 3.5 飞轮效应量化</h3>
-            <div class="illustration">
-                <svg width="400" height="200" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="400" height="200" rx="10" fill="rgba(30, 64, 175, 0.3)"/>
-                    <circle cx="200" cy="100" r="70" stroke="#93c5fd" stroke-width="4" fill="none"/>
-                    <path d="M200 30 L200 70" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/>
-                    <text x="220" y="50" font-size="12" fill="#bfdbfe">复投率 70%</text>
-                    <path d="M270 100 L310 100" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/>
-                    <text x="330" y="105" font-size="12" fill="#bfdbfe">交易比率 5:1</text>
-                    <path d="M200 130 L200 170" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/>
-                    <text x="220" y="160" font-size="12" fill="#bfdbfe">系统价值 1.5x</text>
-                    <path d="M90 100 L130 100" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/>
-                    <text x="50" y="105" font-size="12" fill="#bfdbfe">ROI 示例</text>
-                </svg>
-                <div class="illustration-caption">图解14: 飞轮效应量化图</div>
-            </div>
-            <ul>
-                <li><i class="fas fa-recycle icon"></i> 复投率: 70%。</li>
-                <li><i class="fas fa-chart-bar icon"></i> 交易量/TVL 比率: 5:1 (每日)。</li>
-                <li><i class="fas fa-calculator icon"></i> ROI 示例: 1000 USDT 质押 90 天 ≈ 85 USDT 等值 H + Boost 50 USDT。</li>
-                <li><i class="fas fa-value icon"></i> 系统价值: TVL × 1.5x (乘数效应)。</li>
-            </ul>
         </div>
     </div>
+
+    <script>
+        // DOM元素
+        const loginForm = document.getElementById('loginForm');
+        const dashboard = document.getElementById('dashboard');
+        const loginBtn = document.getElementById('loginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        
+        // 演示账号信息
+        const demoUser = {
+            username: 'H2023001',
+            password: 'dolphin123'
+        };
+        
+        // 登录功能
+        loginBtn.addEventListener('click', function() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // 清除之前的消息
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+            
+            // 验证输入
+            if (!username || !password) {
+                errorMessage.textContent = '请输入注册号码和密码';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            // 模拟登录验证（在实际应用中这里会发送到服务器）
+            if (username === demoUser.username && password === demoUser.password) {
+                // 登录成功
+                successMessage.style.display = 'block';
+                
+                // 模拟登录过程
+                setTimeout(() => {
+                    loginForm.style.display = 'none';
+                    dashboard.style.display = 'block';
+                }, 1000);
+            } else {
+                // 登录失败
+                errorMessage.textContent = '注册号码或密码错误，请重试';
+                errorMessage.style.display = 'block';
+                
+                // 清空密码字段
+                document.getElementById('password').value = '';
+            }
+        });
+        
+        // 允许按Enter键登录
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                loginBtn.click();
+            }
+        });
+        
+        // 退出登录功能
+        logoutBtn.addEventListener('click', function() {
+            // 隐藏功能入口，显示登录表单
+            dashboard.style.display = 'none';
+            loginForm.style.display = 'block';
+            
+            // 清空输入字段
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            
+            // 隐藏消息
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+        });
+        
+        // 初始化显示登录表单
+        window.onload = function() {
+            loginForm.style.display = 'block';
+            dashboard.style.display = 'none';
+        };
+    </script>
 </body>
 </html>
