@@ -7,67 +7,69 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* === 设计系统 === */
+        /* === 明亮设计系统 === */
         :root {
-            /* 主色系 - 深海金融蓝 */
-            --primary-900: #0A1B3A;
-            --primary-800: #0F2A5C;
-            --primary-700: #1A3B7A;
-            --primary-600: #2654A3;
-            --primary-500: #3B74FF;
-            --primary-400: #5D8EFF;
-            --primary-300: #8BB1FF;
-            --primary-200: #B8D0FF;
-            --primary-100: #E3EDFF;
+            /* 主色系 - 科技蓝 */
+            --primary-50: #EFF6FF;
+            --primary-100: #DBEAFE;
+            --primary-200: #BFDBFE;
+            --primary-300: #93C5FD;
+            --primary-400: #60A5FA;
+            --primary-500: #3B82F6;
+            --primary-600: #2563EB;
+            --primary-700: #1D4ED8;
+            --primary-800: #1E40AF;
+            --primary-900: #1E3A8A;
             
             /* 辅助色 - 海豚青 */
-            --secondary-900: #003D3A;
-            --secondary-800: #005C57;
-            --secondary-700: #00857D;
-            --secondary-600: #00ADA3;
-            --secondary-500: #00E0D1;
-            --secondary-400: #2DFFE8;
-            --secondary-300: #7AFFF0;
-            --secondary-200: #B8FFF8;
-            --secondary-100: #E6FFFC;
+            --secondary-50: #F0FDFA;
+            --secondary-100: #CCFBF1;
+            --secondary-200: #99F6E4;
+            --secondary-300: #5EEAD4;
+            --secondary-400: #2DD4BF;
+            --secondary-500: #14B8A6;
+            --secondary-600: #0D9488;
+            --secondary-700: #0F766E;
+            --secondary-800: #115E59;
+            --secondary-900: #134E4A;
             
             /* 功能色 */
-            --profit: #00D6A2;
-            --profit-glow: rgba(0, 214, 162, 0.3);
-            --warning: #FFB443;
-            --warning-glow: rgba(255, 180, 67, 0.3);
-            --danger: #FF5A5A;
-            --danger-glow: rgba(255, 90, 90, 0.3);
+            --profit: #10B981;
+            --profit-light: #D1FAE5;
+            --warning: #F59E0B;
+            --warning-light: #FEF3C7;
+            --danger: #EF4444;
+            --danger-light: #FEE2E2;
             
-            /* 中性色 - 高级灰 */
-            --gray-900: #0F172A;
-            --gray-800: #1E293B;
-            --gray-700: #334155;
-            --gray-600: #475569;
-            --gray-500: #64748B;
-            --gray-400: #94A3B8;
-            --gray-300: #CBD5E1;
-            --gray-200: #E2E8F0;
-            --gray-100: #F1F5F9;
-            --gray-50: #F8FAFC;
+            /* 中性色 */
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
             
-            /* 玻璃拟态 */
-            --glass-bg: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.12);
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            /* 阴影系统 - 更轻盈 */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.06);
+            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.08);
+            --shadow-primary: 0 6px 20px rgba(59, 130, 246, 0.12);
+            --shadow-secondary: 0 6px 20px rgba(20, 184, 166, 0.12);
             
-            /* 动态阴影 */
-            --shadow-sm: 0 2px 8px rgba(15, 41, 59, 0.04);
-            --shadow-md: 0 4px 20px rgba(15, 41, 59, 0.08);
-            --shadow-lg: 0 12px 48px rgba(15, 41, 59, 0.12);
-            --shadow-xl: 0 20px 64px rgba(15, 41, 59, 0.16);
-            --shadow-primary: 0 8px 32px rgba(59, 116, 255, 0.2);
-            --shadow-secondary: 0 8px 32px rgba(0, 224, 209, 0.2);
+            /* 圆角系统 */
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
             
             /* 动效曲线 */
             --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
             --ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
-            --bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
         
         /* === 基础重置 === */
@@ -80,38 +82,29 @@
             -moz-osx-font-smoothing: grayscale;
         }
         
-        html {
-            font-size: 16px;
-            background: linear-gradient(135deg, var(--primary-900) 0%, var(--gray-900) 100%);
-            min-height: 100vh;
-            height: 100%;
-        }
-        
-        body {
+        html, body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            color: white;
+            background-color: white;
+            color: var(--gray-800);
+            min-height: 100vh;
             max-width: 500px;
             margin: 0 auto;
-            min-height: 100vh;
-            background: 
-                radial-gradient(ellipse at 20% 20%, rgba(59, 116, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(0, 224, 209, 0.1) 0%, transparent 50%);
             position: relative;
-            overflow-x: hidden;
         }
         
-        body::before {
-            content: '';
+        /* === 背景装饰 === */
+        .bg-decoration {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(59, 116, 255, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(0, 224, 209, 0.03) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, var(--primary-50) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, var(--secondary-50) 0%, transparent 40%);
+            opacity: 0.6;
         }
         
         /* === 页面容器 === */
@@ -129,20 +122,20 @@
         }
         
         @keyframes pageEnter {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(16px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* === 顶部导航 === */
+        /* === 顶部导航 - 轻量化 === */
         .app-header {
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 16px 24px 12px;
-            background: rgba(15, 41, 59, 0.85);
+            padding: 20px 24px 16px;
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--gray-100);
         }
         
         .header-content {
@@ -154,40 +147,20 @@
         .brand {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
         
         .logo {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             background: linear-gradient(135deg, var(--primary-500), var(--secondary-500));
-            border-radius: 12px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .logo::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(transparent, rgba(255,255,255,0.1), transparent 30%);
-            animation: rotate 4s linear infinite;
-        }
-        
-        @keyframes rotate {
-            100% { transform: rotate(360deg); }
-        }
-        
-        .logo i {
-            position: relative;
-            z-index: 2;
+            color: white;
             font-size: 20px;
+            box-shadow: var(--shadow-primary);
         }
         
         .brand-text {
@@ -196,98 +169,55 @@
         }
         
         .brand-name {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 800;
-            background: linear-gradient(135deg, white, var(--secondary-300));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--gray-900);
             letter-spacing: -0.02em;
         }
         
         .brand-tagline {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 500;
-            color: var(--gray-400);
-            letter-spacing: 0.05em;
+            color: var(--gray-500);
+            letter-spacing: 0.03em;
         }
         
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        
-        .notification-btn {
-            width: 40px;
-            height: 40px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray-300);
-            position: relative;
-            transition: all 0.3s var(--ease-out);
-        }
-        
-        .notification-btn.active::after {
-            content: '';
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            width: 8px;
-            height: 8px;
-            background: var(--danger);
-            border-radius: 50%;
-            border: 2px solid var(--gray-800);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.8; }
-        }
-        
-        /* === 主内容区 === */
-        .main-content {
-            padding: 24px;
-            position: relative;
-            z-index: 2;
-        }
-        
-        /* === 超级卡片设计 === */
-        .super-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
+        /* === 无边框卡片设计 === */
+        .card {
+            background: white;
+            border-radius: var(--radius-lg);
             padding: 28px;
-            margin-bottom: 24px;
-            box-shadow: var(--shadow-lg);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s var(--ease-out);
             position: relative;
             overflow: hidden;
-            transition: all 0.4s var(--ease-out);
         }
         
-        .super-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--secondary-500), transparent);
-            opacity: 0.5;
+        /* 无边框变体 - 仅用阴影和留白区分 */
+        .card.borderless {
+            border: none;
+            background: transparent;
+            box-shadow: none;
+            padding: 0;
+            margin-bottom: 32px;
         }
         
-        .super-card:hover {
+        /* 悬浮效果 */
+        .card:not(.borderless):hover {
             transform: translateY(-4px);
-            box-shadow: var(--shadow-xl), var(--shadow-primary);
-            border-color: rgba(59, 116, 255, 0.3);
+            box-shadow: var(--shadow-lg);
         }
         
+        /* 卡片内部内容容器 */
+        .card-content {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* === 轻量级标题系统 === */
         .card-header {
             display: flex;
             align-items: flex-start;
@@ -295,22 +225,22 @@
             margin-bottom: 24px;
         }
         
-        .card-title {
+        .title-group {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
         
         .title-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
-            border-radius: 14px;
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            box-shadow: var(--shadow-md);
+            font-size: 22px;
+            color: var(--primary-600);
+            background: var(--primary-50);
         }
         
         .title-text {
@@ -319,121 +249,59 @@
         }
         
         .title-main {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
-            color: white;
+            color: var(--gray-900);
             letter-spacing: -0.02em;
+            line-height: 1.3;
         }
         
         .title-sub {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 500;
-            color: var(--gray-400);
-            margin-top: 4px;
+            color: var(--gray-500);
+            margin-top: 6px;
+            line-height: 1.5;
         }
         
-        .card-badge {
-            background: linear-gradient(135deg, var(--profit), #00B38A);
-            color: white;
+        /* 标签系统 */
+        .badge {
+            display: inline-flex;
+            align-items: center;
             padding: 6px 14px;
             border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            box-shadow: 0 4px 12px var(--profit-glow);
-            animation: glow 2s infinite alternate;
-        }
-        
-        @keyframes glow {
-            from { box-shadow: 0 4px 12px var(--profit-glow); }
-            to { box-shadow: 0 4px 20px var(--profit-glow), 0 0 30px rgba(0, 214, 162, 0.2); }
-        }
-        
-        /* === 数据展示 - 金融级 === */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin: 24px 0;
-        }
-        
-        .stat-card {
-            background: rgba(15, 41, 59, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s var(--ease-out);
-        }
-        
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, transparent, rgba(59, 116, 255, 0.05));
-            opacity: 0;
-            transition: opacity 0.3s var(--ease-out);
-        }
-        
-        .stat-card:hover::before {
-            opacity: 1;
-        }
-        
-        .stat-value {
-            font-size: 28px;
-            font-weight: 800;
-            background: linear-gradient(135deg, white, var(--gray-300));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.2;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: baseline;
-            gap: 4px;
-        }
-        
-        .stat-unit {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--gray-400);
-        }
-        
-        .stat-label {
             font-size: 13px;
-            font-weight: 500;
-            color: var(--gray-400);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        
-        .stat-trend {
-            font-size: 11px;
             font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 10px;
-            background: var(--profit-glow);
+            letter-spacing: 0.03em;
+        }
+        
+        .badge-primary {
+            background: linear-gradient(135deg, var(--primary-100), var(--primary-50));
+            color: var(--primary-700);
+            border: 1px solid var(--primary-200);
+        }
+        
+        .badge-success {
+            background: var(--profit-light);
             color: var(--profit);
+            border: 1px solid rgba(16, 185, 129, 0.2);
         }
         
-        .stat-trend.down {
-            background: rgba(255, 90, 90, 0.2);
-            color: var(--danger);
+        .badge-warning {
+            background: var(--warning-light);
+            color: var(--warning);
+            border: 1px solid rgba(245, 158, 11, 0.2);
         }
         
-        /* === 增强按钮系统 === */
+        /* === 按钮系统 - 扁平化 === */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             padding: 18px 28px;
-            border-radius: 16px;
-            font-weight: 700;
+            border-radius: var(--radius-md);
+            font-weight: 600;
             font-size: 16px;
             text-decoration: none;
             border: none;
@@ -444,73 +312,130 @@
             letter-spacing: 0.02em;
         }
         
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.6s;
-        }
-        
-        .btn:hover::before {
-            left: 100%;
-        }
-        
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
             color: white;
             box-shadow: var(--shadow-primary);
         }
         
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-primary), 0 12px 24px rgba(59, 116, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-primary), 0 10px 20px rgba(59, 130, 246, 0.2);
         }
         
         .btn-secondary {
-            background: linear-gradient(135deg, var(--secondary-500), var(--secondary-700));
-            color: var(--gray-900);
+            background: linear-gradient(135deg, var(--secondary-500), var(--secondary-600));
+            color: white;
             box-shadow: var(--shadow-secondary);
         }
         
         .btn-secondary:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-secondary), 0 12px 24px rgba(0, 224, 209, 0.3);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-secondary), 0 10px 20px rgba(20, 184, 166, 0.2);
         }
         
-        .btn-outline {
-            background: transparent;
-            color: var(--primary-300);
-            border: 2px solid rgba(59, 116, 255, 0.3);
+        /* 轻量级按钮变体 */
+        .btn-light {
+            background: white;
+            color: var(--primary-600);
+            border: 2px solid var(--primary-200);
+            box-shadow: var(--shadow-sm);
         }
         
-        .btn-outline:hover {
-            background: rgba(59, 116, 255, 0.1);
-            border-color: var(--primary-500);
-            transform: translateY(-3px);
-        }
-        
-        .btn-lg {
-            padding: 22px 32px;
-            font-size: 18px;
-            border-radius: 20px;
-        }
-        
-        .btn-full {
-            width: 100%;
+        .btn-light:hover {
+            background: var(--primary-50);
+            border-color: var(--primary-300);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
         
         .btn-group {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 14px;
             margin-top: 24px;
         }
         
-        /* === 功能网格 === */
+        /* === 数据展示 - 简洁版 === */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+        
+        .stat-item {
+            background: var(--gray-50);
+            border-radius: var(--radius-md);
+            padding: 22px;
+            border: 1px solid var(--gray-100);
+            transition: all 0.3s var(--ease-out);
+        }
+        
+        .stat-item:hover {
+            background: white;
+            border-color: var(--primary-200);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--gray-900);
+            line-height: 1.2;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+        }
+        
+        .stat-unit {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-500);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray-600);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .stat-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--primary-500);
+            background: var(--primary-100);
+        }
+        
+        .stat-trend {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 12px;
+            margin-left: auto;
+        }
+        
+        .trend-up {
+            background: var(--profit-light);
+            color: var(--profit);
+        }
+        
+        .trend-down {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+        
+        /* === 功能网格 - 无边框版 === */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -519,9 +444,8 @@
         }
         
         .feature-item {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 18px;
+            background: white;
+            border-radius: var(--radius-md);
             padding: 20px 12px;
             display: flex;
             flex-direction: column;
@@ -529,87 +453,104 @@
             text-align: center;
             transition: all 0.3s var(--ease-out);
             cursor: pointer;
+            border: 1px solid var(--gray-100);
             position: relative;
         }
         
-        .feature-item::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 18px;
-            padding: 1px;
-            background: linear-gradient(135deg, transparent, rgba(59, 116, 255, 0.3), transparent);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.3s var(--ease-out);
+        /* 无边框变体 */
+        .feature-item.borderless {
+            border: none;
+            background: var(--gray-50);
+            box-shadow: none;
         }
         
         .feature-item:hover {
-            background: rgba(59, 116, 255, 0.1);
             transform: translateY(-4px);
+            border-color: var(--primary-300);
+            box-shadow: var(--shadow-lg);
         }
         
-        .feature-item:hover::after {
-            opacity: 1;
+        .feature-item.borderless:hover {
+            background: white;
+            box-shadow: var(--shadow-md);
         }
         
         .feature-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--primary-600), var(--primary-800));
-            border-radius: 14px;
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 12px;
-            font-size: 20px;
-            box-shadow: var(--shadow-md);
+            margin-bottom: 14px;
+            font-size: 22px;
+            transition: all 0.3s var(--ease-out);
+        }
+        
+        /* 图标颜色分类 */
+        .feature-icon.primary {
+            background: var(--primary-50);
+            color: var(--primary-600);
+        }
+        
+        .feature-icon.secondary {
+            background: var(--secondary-50);
+            color: var(--secondary-600);
+        }
+        
+        .feature-icon.warning {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+        
+        .feature-icon.success {
+            background: var(--profit-light);
+            color: var(--profit);
         }
         
         .feature-text {
             font-size: 13px;
             font-weight: 600;
-            color: white;
+            color: var(--gray-800);
+            line-height: 1.4;
         }
         
-        .feature-badge {
+        .feature-subtext {
+            font-size: 11px;
+            color: var(--gray-500);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+        
+        /* 新功能徽章 */
+        .new-badge {
             position: absolute;
             top: -6px;
             right: -6px;
-            width: 20px;
-            height: 20px;
-            background: var(--danger);
+            width: 22px;
+            height: 22px;
+            background: linear-gradient(135deg, var(--secondary-500), var(--secondary-600));
             border-radius: 50%;
-            font-size: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 10px;
+            color: white;
             font-weight: 800;
-            box-shadow: 0 4px 8px rgba(255, 90, 90, 0.3);
-            animation: bounce 2s infinite;
+            box-shadow: 0 4px 10px rgba(20, 184, 166, 0.3);
         }
         
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
-        }
-        
-        /* === 底部导航 === */
+        /* === 底部导航 - 轻量化 === */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(15, 41, 59, 0.95);
+            background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid var(--glass-border);
-            padding: 12px 24px;
+            border-top: 1px solid var(--gray-100);
+            padding: 12px 24px 20px;
             display: flex;
             justify-content: space-between;
             z-index: 1000;
@@ -633,7 +574,7 @@
         .nav-item::after {
             content: '';
             position: absolute;
-            bottom: -12px;
+            bottom: -20px;
             width: 4px;
             height: 4px;
             background: var(--primary-500);
@@ -643,12 +584,12 @@
         }
         
         .nav-item.active {
-            color: white;
+            color: var(--primary-600);
         }
         
         .nav-item.active::after {
             opacity: 1;
-            bottom: -8px;
+            bottom: -16px;
         }
         
         .nav-icon {
@@ -662,13 +603,13 @@
         }
         
         .nav-item.active .nav-icon {
-            transform: translateY(-4px);
+            transform: translateY(-2px);
         }
         
         .nav-label {
             font-size: 11px;
             font-weight: 600;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.03em;
         }
         
         .nav-center {
@@ -676,74 +617,128 @@
             bottom: 24px;
             left: 50%;
             transform: translateX(-50%);
-            width: 64px;
-            height: 64px;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(135deg, var(--primary-500), var(--secondary-500));
             border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 12px 32px rgba(59, 116, 255, 0.3);
+            color: white;
+            box-shadow: var(--shadow-primary);
             z-index: 1001;
-            transition: all 0.3s var(--bounce);
+            transition: all 0.3s var(--ease-out);
         }
         
         .nav-center:hover {
-            transform: translateX(-50%) scale(1.1);
-            box-shadow: 0 16px 40px rgba(59, 116, 255, 0.4);
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: var(--shadow-primary), 0 10px 25px rgba(59, 130, 246, 0.25);
         }
         
         .nav-center i {
-            font-size: 24px;
+            font-size: 22px;
+        }
+        
+        /* === 主内容区 === */
+        .main-content {
+            padding: 24px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* === 无边框区域示例 === */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gray-200), transparent);
+            margin: 32px 0;
+            border: none;
         }
         
         /* === 响应式设计 === */
-        @media (max-width: 380px) {
+        @media (max-width: 400px) {
             .main-content {
                 padding: 20px;
             }
             
-            .super-card {
+            .card, .card-content {
                 padding: 24px;
             }
             
             .features-grid {
                 grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
             }
             
-            .stats-grid {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-group {
                 grid-template-columns: 1fr;
             }
         }
         
+        @media (max-width: 340px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
         /* === 工具类 === */
-        .gradient-text {
-            background: linear-gradient(135deg, var(--secondary-400), var(--primary-300));
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary-600), var(--secondary-600));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
-        .text-center { text-align: center; }
-        .mt-1 { margin-top: 8px; }
+        .text-primary { color: var(--primary-600); }
+        .text-secondary { color: var(--secondary-600); }
+        .text-success { color: var(--profit); }
+        .text-warning { color: var(--warning); }
+        .text-danger { color: var(--danger); }
+        
+        .bg-primary-light { background: var(--primary-50); }
+        .bg-secondary-light { background: var(--secondary-50); }
+        .bg-success-light { background: var(--profit-light); }
+        .bg-warning-light { background: var(--warning-light); }
+        
+        .space-y-2 > * + * { margin-top: 8px; }
+        .space-y-3 > * + * { margin-top: 16px; }
+        .space-y-4 > * + * { margin-top: 24px; }
+        .space-y-6 > * + * { margin-top: 32px; }
+        
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-2 { gap: 8px; }
+        .gap-3 { gap: 16px; }
+        .gap-4 { gap: 24px; }
+        
         .mt-2 { margin-top: 16px; }
-        .mt-3 { margin-top: 24px; }
-        .mt-4 { margin-top: 32px; }
-        .mb-1 { margin-bottom: 8px; }
+        .mt-4 { margin-top: 24px; }
+        .mt-6 { margin-top: 32px; }
         .mb-2 { margin-bottom: 16px; }
-        .mb-3 { margin-bottom: 24px; }
-        .mb-4 { margin-bottom: 32px; }
-        .px-1 { padding-left: 8px; padding-right: 8px; }
-        .px-2 { padding-left: 16px; padding-right: 16px; }
-        .px-3 { padding-left: 24px; padding-right: 24px; }
-        .px-4 { padding-left: 32px; padding-right: 32px; }
-        .py-1 { padding-top: 8px; padding-bottom: 8px; }
-        .py-2 { padding-top: 16px; padding-bottom: 16px; }
-        .py-3 { padding-top: 24px; padding-bottom: 24px; }
-        .py-4 { padding-top: 32px; padding-bottom: 32px; }
+        .mb-4 { margin-bottom: 24px; }
+        .mb-6 { margin-bottom: 32px; }
+        
+        .text-sm { font-size: 14px; }
+        .text-base { font-size: 16px; }
+        .text-lg { font-size: 18px; }
+        .text-xl { font-size: 20px; }
+        .text-2xl { font-size: 24px; }
+        .text-3xl { font-size: 30px; }
+        
+        .font-medium { font-weight: 500; }
+        .font-semibold { font-weight: 600; }
+        .font-bold { font-weight: 700; }
+        .font-extrabold { font-weight: 800; }
     </style>
 </head>
 <body>
+    <!-- 背景装饰 -->
+    <div class="bg-decoration"></div>
+    
     <!-- 主页面 -->
     <div id="home" class="page active">
         <header class="app-header">
@@ -757,19 +752,17 @@
                         <div class="brand-tagline">链上资产加速器</div>
                     </div>
                 </div>
-                <div class="user-menu">
-                    <button class="notification-btn active">
-                        <i class="fas fa-bell"></i>
-                    </button>
+                <div class="notification-btn">
+                    <i class="fas fa-bell"></i>
                 </div>
             </div>
         </header>
         
         <main class="main-content">
-            <!-- Boost活动卡片 -->
-            <section class="super-card">
+            <!-- Boost活动卡片 - 有边框 -->
+            <section class="card">
                 <div class="card-header">
-                    <div class="card-title">
+                    <div class="title-group">
                         <div class="title-icon">
                             <i class="fas fa-rocket"></i>
                         </div>
@@ -778,10 +771,10 @@
                             <div class="title-sub">阶梯式收益模型 | 社区协同策略</div>
                         </div>
                     </div>
-                    <div class="card-badge">APR 18.5%</div>
+                    <div class="badge badge-success">APR 18.5%</div>
                 </div>
                 
-                <p style="color: var(--gray-300); line-height: 1.6; font-size: 15px; margin-bottom: 24px;">
+                <p style="color: var(--gray-600); line-height: 1.6; font-size: 15px; margin-bottom: 24px;">
                     通过创新的阶梯式模型与社区协同策略，参与OKX Boost活动，实现稳定收益与超额价值回报，重新定义链上资产增值体验。
                 </p>
                 
@@ -790,110 +783,126 @@
                         <i class="fas fa-chart-line"></i>
                         立即参与
                     </button>
-                    <button class="btn btn-outline" onclick="showPage('guide')">
+                    <button class="btn btn-light" onclick="showPage('guide')">
                         <i class="fas fa-play-circle"></i>
                         观看教程
                     </button>
                 </div>
             </section>
             
-            <!-- 数据仪表板 -->
-            <section class="super-card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <div class="title-icon">
-                            <i class="fas fa-chart-network"></i>
+            <!-- 数据仪表板 - 无边框设计 -->
+            <section class="card borderless">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="title-group">
+                            <div class="title-icon">
+                                <i class="fas fa-chart-network"></i>
+                            </div>
+                            <div class="title-text">
+                                <div class="title-main">实时数据看板</div>
+                                <div class="title-sub">更新于 2分钟前</div>
+                            </div>
                         </div>
-                        <div class="title-text">
-                            <div class="title-main">实时数据看板</div>
-                            <div class="title-sub">更新于 2分钟前</div>
+                    </div>
+                    
+                    <div class="stats-container">
+                        <div class="stat-item">
+                            <div class="stat-value">$2.47M<span class="stat-unit">USD</span></div>
+                            <div class="stat-label">
+                                <div class="stat-icon">
+                                    <i class="fas fa-layer-group"></i>
+                                </div>
+                                质押总量
+                                <span class="stat-trend trend-up">+5.2%</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">$1.82M<span class="stat-unit">USD</span></div>
+                            <div class="stat-label">
+                                <div class="stat-icon">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </div>
+                                总交易量
+                                <span class="stat-trend trend-up">+12.7%</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">$124.5K<span class="stat-unit">USD</span></div>
+                            <div class="stat-label">
+                                <div class="stat-icon">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                                日交易量
+                                <span class="stat-trend trend-up">+8.3%</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">#48</div>
+                            <div class="stat-label">
+                                <div class="stat-icon">
+                                    <i class="fas fa-crown"></i>
+                                </div>
+                                我的排名
+                                <span class="stat-trend trend-up">↑3位</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-value">$2.47M<span class="stat-unit">USD</span></div>
-                        <div class="stat-label">
-                            <i class="fas fa-layer-group"></i>
-                            质押总量
-                            <span class="stat-trend">+5.2%</span>
+            </section>
+            
+            <!-- 快捷入口 - 无边框设计 -->
+            <section class="card borderless">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="title-group">
+                            <div class="title-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="title-text">
+                                <div class="title-main">快速通道</div>
+                                <div class="title-sub">一键直达核心功能</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-value">$1.82M<span class="stat-unit">USD</span></div>
-                        <div class="stat-label">
-                            <i class="fas fa-exchange-alt"></i>
-                            总交易量
-                            <span class="stat-trend">+12.7%</span>
+                    
+                    <div class="features-grid">
+                        <div class="feature-item borderless" onclick="showPage('boost')">
+                            <div class="feature-icon primary">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <div class="feature-text">链上赚币</div>
                         </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">$124.5K<span class="stat-unit">USD</span></div>
-                        <div class="stat-label">
-                            <i class="fas fa-bolt"></i>
-                            日交易量
-                            <span class="stat-trend">+8.3%</span>
+                        <div class="feature-item borderless" onclick="showModal('buyModal')">
+                            <div class="feature-icon secondary">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="feature-text">购买H币</div>
+                            <div class="new-badge">!</div>
                         </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">#48</div>
-                        <div class="stat-label">
-                            <i class="fas fa-crown"></i>
-                            我的排名
-                            <span class="stat-trend">↑3位</span>
+                        <div class="feature-item borderless" onclick="showModal('communityModal')">
+                            <div class="feature-icon warning">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="feature-text">社区红包</div>
+                            <div class="feature-subtext">3个未读</div>
+                        </div>
+                        <div class="feature-item borderless" onclick="showPage('form')">
+                            <div class="feature-icon success">
+                                <i class="fas fa-clipboard-list"></i>
+                            </div>
+                            <div class="feature-text">提交表单</div>
                         </div>
                     </div>
                 </div>
             </section>
             
-            <!-- 快捷入口 -->
-            <section class="super-card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <div class="title-icon">
-                            <i class="fas fa-bolt"></i>
-                        </div>
-                        <div class="title-text">
-                            <div class="title-main">快速通道</div>
-                            <div class="title-sub">一键直达核心功能</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="features-grid">
-                    <div class="feature-item" onclick="showPage('boost')">
-                        <div class="feature-icon">
-                            <i class="fas fa-coins"></i>
-                        </div>
-                        <div class="feature-text">链上赚币</div>
-                    </div>
-                    <div class="feature-item" onclick="showModal('buyModal')">
-                        <div class="feature-icon">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                        <div class="feature-text">购买H币</div>
-                    </div>
-                    <div class="feature-item" onclick="showModal('communityModal')">
-                        <div class="feature-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="feature-text">社区红包</div>
-                        <div class="feature-badge">3</div>
-                    </div>
-                    <div class="feature-item" onclick="showPage('form')">
-                        <div class="feature-icon">
-                            <i class="fas fa-clipboard-list"></i>
-                        </div>
-                        <div class="feature-text">提交表单</div>
-                    </div>
-                </div>
-            </section>
+            <!-- 分隔线 -->
+            <hr class="section-divider">
             
-            <!-- 工具集合 -->
-            <section class="super-card">
+            <!-- 工具集合 - 混合设计 -->
+            <section class="card">
                 <div class="card-header">
-                    <div class="card-title">
+                    <div class="title-group">
                         <div class="title-icon">
                             <i class="fas fa-toolbox"></i>
                         </div>
@@ -906,55 +915,61 @@
                 
                 <div class="features-grid">
                     <div class="feature-item" onclick="checkIn()">
-                        <div class="feature-icon">
+                        <div class="feature-icon primary">
                             <i class="fas fa-calendar-check"></i>
                         </div>
                         <div class="feature-text">每日签到</div>
                     </div>
                     <div class="feature-item" onclick="showModal('lotteryModal')">
-                        <div class="feature-icon">
+                        <div class="feature-icon warning">
                             <i class="fas fa-gift"></i>
                         </div>
                         <div class="feature-text">幸运抽奖</div>
                     </div>
                     <div class="feature-item" onclick="showModal('comingSoonModal')">
-                        <div class="feature-icon">
+                        <div class="feature-icon secondary">
                             <i class="fas fa-robot"></i>
                         </div>
                         <div class="feature-text">AI助手</div>
                     </div>
                     <div class="feature-item" onclick="showPage('calculator')">
-                        <div class="feature-icon">
+                        <div class="feature-icon success">
                             <i class="fas fa-calculator"></i>
                         </div>
                         <div class="feature-text">收益计算</div>
                     </div>
                     <div class="feature-item" onclick="showModal('queryModal')">
-                        <div class="feature-icon">
+                        <div class="feature-icon primary">
                             <i class="fas fa-search"></i>
                         </div>
                         <div class="feature-text">链上查询</div>
                     </div>
                     <div class="feature-item" onclick="showModal('redpacketModal')">
-                        <div class="feature-icon">
+                        <div class="feature-icon warning">
                             <i class="fas fa-hongbao"></i>
                         </div>
                         <div class="feature-text">OKX红包</div>
                     </div>
                     <div class="feature-item" onclick="showPage('download')">
-                        <div class="feature-icon">
+                        <div class="feature-icon secondary">
                             <i class="fas fa-download"></i>
                         </div>
                         <div class="feature-text">下载中心</div>
                     </div>
                 </div>
+                
+                <div class="space-y-3 mt-6">
+                    <button class="btn btn-light" onclick="showPage('guide')">
+                        <i class="fas fa-user-plus"></i>
+                        新人操作指南
+                    </button>
+                    <button class="btn btn-light" onclick="showPage('strategy')">
+                        <i class="fas fa-chess-knight"></i>
+                        社区策略详情
+                    </button>
+                </div>
             </section>
         </main>
-    </div>
-    
-    <!-- Boost详情页（其他页面结构类似） -->
-    <div id="boost" class="page">
-        <!-- 页面内容结构类似，保持一致的视觉语言 -->
     </div>
     
     <!-- 底部导航 -->
@@ -1000,8 +1015,6 @@
                 item.classList.remove('active');
             });
             
-            document.getElementById(pageId).classList.add('active');
-            
             // 更新导航激活状态
             const navMap = {
                 'home': 0,
@@ -1015,23 +1028,65 @@
             }
         }
         
-        // 弹窗管理
+        // 弹窗系统
         function showModal(modalId) {
-            // 创建动态弹窗
+            // 根据modalId创建不同的弹窗内容
+            let title = '';
+            let content = '';
+            
+            switch(modalId) {
+                case 'comingSoonModal':
+                    title = '即将开放';
+                    content = '<div style="text-align: center; padding: 20px;"><i class="fas fa-tools" style="font-size: 48px; color: var(--primary-500); margin-bottom: 20px;"></i><p style="color: var(--gray-600); line-height: 1.6; margin-bottom: 24px;">该功能正在紧张开发中，即将上线，敬请期待！</p></div>';
+                    break;
+                case 'buyModal':
+                    title = '购买H代币';
+                    content = '<div style="padding: 20px 0;"><p style="color: var(--gray-600); margin-bottom: 16px;">请选择购买方式：</p><div class="space-y-2"><button class="btn btn-primary" style="width: 100%;">通过OKX购买</button><button class="btn btn-light" style="width: 100%;">通过社区购买</button></div></div>';
+                    break;
+            }
+            
             const modalHtml = `
-                <div class="modal-overlay" id="${modalId}" onclick="hideModal('${modalId}')">
-                    <div class="modal-content" onclick="event.stopPropagation()">
-                        <!-- 弹窗内容 -->
+                <div class="modal-overlay" id="${modalId}" onclick="hideModal('${modalId}')" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; z-index: 2000; animation: fadeIn 0.3s var(--ease-out);">
+                    <div class="modal-content" onclick="event.stopPropagation()" style="background: white; border-radius: var(--radius-lg); padding: 0; max-width: 320px; width: 90%; animation: slideUp 0.3s var(--ease-out); box-shadow: var(--shadow-xl);">
+                        <div style="padding: 24px; border-bottom: 1px solid var(--gray-100);">
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <h3 style="color: var(--gray-900); font-size: 18px; font-weight: 700;">${title}</h3>
+                                <button onclick="hideModal('${modalId}')" style="background: none; border: none; font-size: 20px; color: var(--gray-500); cursor: pointer;">×</button>
+                            </div>
+                        </div>
+                        <div style="padding: 24px;">
+                            ${content}
+                            <button class="btn btn-light" onclick="hideModal('${modalId}')" style="width: 100%; margin-top: 16px;">关闭</button>
+                        </div>
                     </div>
                 </div>
             `;
+            
             document.body.insertAdjacentHTML('beforeend', modalHtml);
+            
+            // 添加动画样式
+            if (!document.getElementById('modal-styles')) {
+                const style = document.createElement('style');
+                style.id = 'modal-styles';
+                style.textContent = `
+                    @keyframes fadeIn {
+                        from { opacity: 0; }
+                        to { opacity: 1; }
+                    }
+                    @keyframes slideUp {
+                        from { transform: translateY(20px); opacity: 0; }
+                        to { transform: translateY(0); opacity: 1; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
         }
         
         function hideModal(modalId) {
             const modal = document.getElementById(modalId);
             if (modal) {
-                modal.remove();
+                modal.style.animation = 'fadeOut 0.2s var(--ease-out)';
+                setTimeout(() => modal.remove(), 200);
             }
         }
         
@@ -1045,15 +1100,21 @@
                 return;
             }
             
-            // 模拟API调用
+            // 显示加载状态
+            const originalText = event.target.innerHTML;
+            event.target.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 签到中...';
+            event.target.disabled = true;
+            
             setTimeout(() => {
                 localStorage.setItem('dolphin_lastCheckIn', today);
+                event.target.innerHTML = originalText;
+                event.target.disabled = false;
                 
-                // 显示签到成功动画
+                // 显示成功动画
                 const reward = Math.floor(Math.random() * 10) + 5;
-                showToast(`签到成功！获得${reward}积分`, 'success');
+                showToast(`签到成功！获得 ${reward} 积分`, 'success');
                 
-                // 震动反馈（如果支持）
+                // 震动反馈
                 if (navigator.vibrate) {
                     navigator.vibrate([100, 50, 100]);
                 }
@@ -1063,35 +1124,39 @@
         // 显示提示
         function showToast(message, type = 'info') {
             const toast = document.createElement('div');
-            toast.className = `toast toast-${type}`;
-            toast.textContent = message;
+            const bgColor = type === 'success' ? 'var(--profit)' : 
+                           type === 'warning' ? 'var(--warning)' : 
+                           type === 'error' ? 'var(--danger)' : 'var(--primary-500)';
+            
             toast.style.cssText = `
                 position: fixed;
                 top: 100px;
                 left: 50%;
                 transform: translateX(-50%);
-                background: rgba(15, 41, 59, 0.95);
-                backdrop-filter: blur(20px);
-                border: 1px solid var(--glass-border);
+                background: ${bgColor};
                 color: white;
-                padding: 16px 24px;
+                padding: 14px 24px;
                 border-radius: 12px;
+                font-size: 14px;
+                font-weight: 500;
                 z-index: 9999;
-                animation: toastIn 0.3s var(--ease-out);
+                animation: toastIn 0.3s var(--ease-out), toastOut 0.3s var(--ease-out) 2.7s;
                 box-shadow: var(--shadow-lg);
+                max-width: 80%;
+                text-align: center;
             `;
             
+            toast.textContent = message;
             document.body.appendChild(toast);
             
             setTimeout(() => {
-                toast.style.animation = 'toastOut 0.3s var(--ease-out)';
-                setTimeout(() => toast.remove(), 300);
+                toast.remove();
             }, 3000);
         }
         
         // 初始化
         document.addEventListener('DOMContentLoaded', () => {
-            // 添加CSS动画
+            // 添加toast动画样式
             const style = document.createElement('style');
             style.textContent = `
                 @keyframes toastIn {
@@ -1102,48 +1167,20 @@
                     from { opacity: 1; transform: translate(-50%, 0); }
                     to { opacity: 0; transform: translate(-50%, -20px); }
                 }
-                
-                .modal-overlay {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    background: rgba(0, 0, 0, 0.7);
-                    backdrop-filter: blur(10px);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    z-index: 2000;
-                    animation: fadeIn 0.3s var(--ease-out);
-                }
-                
-                .modal-content {
-                    background: var(--glass-bg);
-                    backdrop-filter: blur(30px);
-                    border: 1px solid var(--glass-border);
-                    border-radius: 24px;
-                    padding: 32px;
-                    max-width: 90%;
-                    max-height: 80vh;
-                    overflow-y: auto;
-                    animation: modalIn 0.4s var(--ease-out);
-                }
-                
-                @keyframes modalIn {
-                    from { opacity: 0; transform: scale(0.9); }
-                    to { opacity: 1; transform: scale(1); }
+                @keyframes fadeOut {
+                    from { opacity: 1; }
+                    to { opacity: 0; }
                 }
             `;
             document.head.appendChild(style);
             
-            // 预加载页面
-            preloadPages();
+            // 检查是否需要显示签到提示
+            const today = new Date().toISOString().split('T')[0];
+            const lastCheckIn = localStorage.getItem('dolphin_lastCheckIn');
+            if (lastCheckIn !== today) {
+                // 可以在这里添加每日提醒逻辑
+            }
         });
-        
-        function preloadPages() {
-            // 这里可以预加载其他页面内容
-        }
         
         // 收益计算器
         function calculateEarnings() {
@@ -1163,21 +1200,36 @@
             else if (days > 60) dailyRate = 0.012;
             
             const totalEarnings = amount * dailyRate * days;
+            const dailyEarnings = amount * dailyRate;
             
             // 显示结果
-            const resultHtml = `
-                <div style="text-align: center; padding: 20px;">
-                    <div style="font-size: 13px; color: var(--gray-400); margin-bottom: 8px;">预计总收益</div>
-                    <div style="font-size: 42px; font-weight: 800; background: linear-gradient(135deg, var(--profit), #00E0D1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 10px 0;">
-                        $${totalEarnings.toFixed(2)}
+            const resultEl = document.getElementById('earningsResult');
+            if (resultEl) {
+                resultEl.innerHTML = `
+                    <div style="background: linear-gradient(135deg, var(--primary-50), var(--secondary-50)); border-radius: var(--radius-lg); padding: 24px; margin-top: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                            <div>
+                                <div style="font-size: 14px; color: var(--gray-600);">预计总收益</div>
+                                <div style="font-size: 32px; font-weight: 800; color: var(--profit); margin-top: 4px;">$${totalEarnings.toFixed(2)}</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 14px; color: var(--gray-600);">年化收益率</div>
+                                <div style="font-size: 20px; font-weight: 700; color: var(--primary-600); margin-top: 4px;">${(dailyRate * 365 * 100).toFixed(1)}%</div>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;">
+                            <div style="background: white; border-radius: var(--radius-md); padding: 12px; text-align: center;">
+                                <div style="font-size: 13px; color: var(--gray-500);">每日收益</div>
+                                <div style="font-size: 18px; font-weight: 700; color: var(--gray-800); margin-top: 4px;">$${dailyEarnings.toFixed(2)}</div>
+                            </div>
+                            <div style="background: white; border-radius: var(--radius-md); padding: 12px; text-align: center;">
+                                <div style="font-size: 13px; color: var(--gray-500);">投资天数</div>
+                                <div style="font-size: 18px; font-weight: 700; color: var(--gray-800); margin-top: 4px;">${days}天</div>
+                            </div>
+                        </div>
                     </div>
-                    <div style="font-size: 14px; color: var(--gray-400);">
-                        日均：$${(amount * dailyRate).toFixed(2)} | 年化：${(dailyRate * 365 * 100).toFixed(1)}%
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('earningsResult').innerHTML = resultHtml;
+                `;
+            }
         }
     </script>
 </body>
