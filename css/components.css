@@ -2,6 +2,9 @@
 html { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 body { margin: 0; }
 
+.skip-link { position: absolute; left: -9999px; z-index: 9999; }
+.skip-link:focus { left: 0; top: 0; background: var(--primary-500); color: white; padding: 8px 16px; }
+
 .container { max-width: var(--content-max); margin: 0 auto; padding: 0 var(--space-4); }
 
 .btn { display: inline-flex; align-items:center; justify-content:center; gap: 8px; padding: 10px 14px; border-radius: 12px; font-weight: 700; cursor: pointer; border: none; transition: transform var(--motion-base) var(--motion-ease), box-shadow var(--motion-base); background: transparent; color: inherit; }

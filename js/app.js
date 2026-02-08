@@ -5,16 +5,23 @@
   document.body.appendChild(toastContainer);
 
   window.showToast = function(message, type = 'info'){
-    const t = document.createElement('div');
-    t.className = 'toast';
+    const toast = document.createElement('div');
+    toast.className = 'toast';
     const icon = document.createElement('div');
-    icon.innerHTML = type === 'success' ? '✓' : 'ℹ';
+    icon.textContent = type === 'success' ? '✓' : 'ℹ';
     const content = document.createElement('div');
-    content.innerHTML = `<div style="font-weight:700">${type==='success'?'成功':'提示'}</div><div style="color:var(--muted)">${message}</div>`;
-    t.appendChild(icon);
-    t.appendChild(content);
-    toastContainer.appendChild(t);
-    setTimeout(()=>{ t.style.opacity = '0'; t.style.transform = 'translateX(12px)'; setTimeout(()=>t.remove(),300); }, 2800);
+    const title = document.createElement('div');
+    title.style.fontWeight = '700';
+    title.textContent = type === 'success' ? '成功' : '提示';
+    const messageDiv = document.createElement('div');
+    messageDiv.style.color = 'var(--muted)';
+    messageDiv.textContent = message;
+    content.appendChild(title);
+    content.appendChild(messageDiv);
+    toast.appendChild(icon);
+    toast.appendChild(content);
+    toastContainer.appendChild(toast);
+    setTimeout(()=>{ toast.style.opacity = '0'; toast.style.transform = 'translateX(12px)'; setTimeout(()=>toast.remove(),300); }, 2800);
   };
 
   const themeToggle = document.getElementById('themeToggle');
@@ -56,21 +63,22 @@
     el.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); el.click(); } });
   });
 
+  const DEFAULT_APR = 0.12;
+  const VALID_PAGE_IDS = ['main','signin','lottery','model','ai','wallet','calculator'];
+
   window.calculateYield = function(){
     const input = document.getElementById('stake');
     const out = document.getElementById('yieldResult');
     if(!input || !out) return;
     const v = Number(input.value);
     if(!v || v <= 0){ out.textContent = '请输入有效金额'; return; }
-    const APR = 0.12;
-    const y = v * APR;
-    out.textContent = `预计年化收益: ${y.toFixed(2)} （按 ${APR*100}% APR）`;
+    const y = v * DEFAULT_APR;
+    out.textContent = `预计年化收益: ${y.toFixed(2)} （按 ${DEFAULT_APR*100}% APR）`;
     showToast('计算完成', 'success');
   };
 
   window.switchPage = function(id){
-    const known = ['main','signin','lottery','model','ai','wallet','calculator'];
-    if(!known.includes(id)){ showToast('页面未实现', 'info'); return; }
+    if(!VALID_PAGE_IDS.includes(id)){ showToast('页面未实现', 'info'); return; }
     if(id === 'signin') showToast('打开每日签到');
     else if(id === 'lottery') showToast('打开幸运抽奖');
     else if(id === 'ai') showToast('打开 AI 助手');
