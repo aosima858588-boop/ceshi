@@ -2,558 +2,277 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Dolphin Boost | 海豚社区</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>海豚社区 | 链上辅助工具</title>
     <style>
-        /* === 明亮设计系统 === */
+        /* 基础样式 - 专业简洁 */
         :root {
-            /* 主色系 - 科技蓝 */
-            --primary-50: #EFF6FF;
-            --primary-100: #DBEAFE;
-            --primary-200: #BFDBFE;
-            --primary-300: #93C5FD;
-            --primary-400: #60A5FA;
-            --primary-500: #3B82F6;
-            --primary-600: #2563EB;
-            --primary-700: #1D4ED8;
-            --primary-800: #1E40AF;
-            --primary-900: #1E3A8A;
-            
-            /* 辅助色 - 海豚青 */
-            --secondary-50: #F0FDFA;
-            --secondary-100: #CCFBF1;
-            --secondary-200: #99F6E4;
-            --secondary-300: #5EEAD4;
-            --secondary-400: #2DD4BF;
-            --secondary-500: #14B8A6;
-            --secondary-600: #0D9488;
-            --secondary-700: #0F766E;
-            --secondary-800: #115E59;
-            --secondary-900: #134E4A;
-            
-            /* 功能色 */
-            --profit: #10B981;
-            --profit-light: #D1FAE5;
-            --warning: #F59E0B;
-            --warning-light: #FEF3C7;
-            --danger: #EF4444;
-            --danger-light: #FEE2E2;
-            
-            /* 中性色 */
+            --primary: #2563EB;      /* 主蓝色 */
+            --secondary: #059669;    /* 成功绿 */
+            --warning: #D97706;      /* 提醒黄 */
+            --danger: #DC2626;       /* 警告红 */
             --gray-50: #F9FAFB;
             --gray-100: #F3F4F6;
             --gray-200: #E5E7EB;
             --gray-300: #D1D5DB;
             --gray-400: #9CA3AF;
-            --gray-500: #6B7280;
             --gray-600: #4B5563;
-            --gray-700: #374151;
             --gray-800: #1F2937;
             --gray-900: #111827;
-            
-            /* 阴影系统 - 更轻盈 */
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
-            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.06);
-            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.08);
-            --shadow-primary: 0 6px 20px rgba(59, 130, 246, 0.12);
-            --shadow-secondary: 0 6px 20px rgba(20, 184, 166, 0.12);
-            
-            /* 圆角系统 */
-            --radius-sm: 8px;
-            --radius-md: 16px;
-            --radius-lg: 24px;
-            --radius-xl: 32px;
-            
-            /* 动效曲线 */
-            --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
-            --ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
         }
         
-        /* === 基础重置 === */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
         
-        html, body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background-color: white;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", sans-serif;
+            background: var(--gray-50);
             color: var(--gray-800);
-            min-height: 100vh;
-            max-width: 500px;
-            margin: 0 auto;
-            position: relative;
+            line-height: 1.5;
+            padding-bottom: 80px;
         }
         
-        /* === 背景装饰 === */
-        .bg-decoration {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            z-index: 0;
-            background: 
-                radial-gradient(circle at 10% 20%, var(--primary-50) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, var(--secondary-50) 0%, transparent 40%);
-            opacity: 0.6;
-        }
-        
-        /* === 页面容器 === */
-        .page {
-            display: none;
-            position: relative;
-            z-index: 1;
-            min-height: 100vh;
-            padding-bottom: 100px;
-        }
-        
-        .page.active {
-            display: block;
-            animation: pageEnter 0.5s var(--ease-out);
-        }
-        
-        @keyframes pageEnter {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* === 顶部导航 - 轻量化 === */
-        .app-header {
+        /* 顶部导航 */
+        .header {
+            background: white;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--gray-200);
             position: sticky;
             top: 0;
-            z-index: 1000;
-            padding: 20px 24px 16px;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--gray-100);
+            z-index: 100;
         }
         
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        
-        .logo {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, var(--primary-500), var(--secondary-500));
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
+        .header-title {
             font-size: 20px;
-            box-shadow: var(--shadow-primary);
-        }
-        
-        .brand-text {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .brand-name {
-            font-size: 20px;
-            font-weight: 800;
+            font-weight: 700;
             color: var(--gray-900);
-            letter-spacing: -0.02em;
-        }
-        
-        .brand-tagline {
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--gray-500);
-            letter-spacing: 0.03em;
-        }
-        
-        /* === 无边框卡片设计 === */
-        .card {
-            background: white;
-            border-radius: var(--radius-lg);
-            padding: 28px;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow-md);
-            transition: all 0.3s var(--ease-out);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* 无边框变体 - 仅用阴影和留白区分 */
-        .card.borderless {
-            border: none;
-            background: transparent;
-            box-shadow: none;
-            padding: 0;
-            margin-bottom: 32px;
-        }
-        
-        /* 悬浮效果 */
-        .card:not(.borderless):hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        /* 卡片内部内容容器 */
-        .card-content {
-            background: white;
-            border-radius: var(--radius-lg);
-            padding: 28px;
-            box-shadow: var(--shadow-md);
-        }
-        
-        /* === 轻量级标题系统 === */
-        .card-header {
             display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .header-subtitle {
+            font-size: 13px;
+            color: var(--gray-600);
+            margin-top: 4px;
+        }
+        
+        /* 主要内容区 */
+        .container {
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        /* 功能区卡片 */
+        .section {
             margin-bottom: 24px;
         }
         
-        .title-group {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        
-        .title-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            color: var(--primary-600);
-            background: var(--primary-50);
-        }
-        
-        .title-text {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .title-main {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--gray-900);
-            letter-spacing: -0.02em;
-            line-height: 1.3;
-        }
-        
-        .title-sub {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--gray-500);
-            margin-top: 6px;
-            line-height: 1.5;
-        }
-        
-        /* 标签系统 */
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.03em;
-        }
-        
-        .badge-primary {
-            background: linear-gradient(135deg, var(--primary-100), var(--primary-50));
-            color: var(--primary-700);
-            border: 1px solid var(--primary-200);
-        }
-        
-        .badge-success {
-            background: var(--profit-light);
-            color: var(--profit);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-        
-        .badge-warning {
-            background: var(--warning-light);
-            color: var(--warning);
-            border: 1px solid rgba(245, 158, 11, 0.2);
-        }
-        
-        /* === 按钮系统 - 扁平化 === */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 18px 28px;
-            border-radius: var(--radius-md);
-            font-weight: 600;
+        .section-title {
             font-size: 16px;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s var(--ease-out);
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+            padding-left: 20px;
             position: relative;
-            overflow: hidden;
-            letter-spacing: 0.02em;
+        }
+        
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        /* 主功能卡片 */
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 1px solid var(--gray-200);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        
+        .card-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        .icon-primary { background: #EFF6FF; color: var(--primary); }
+        .icon-success { background: #D1FAE5; color: var(--secondary); }
+        .icon-warning { background: #FEF3C7; color: var(--warning); }
+        .icon-danger { background: #FEE2E2; color: var(--danger); }
+        
+        .card-badge {
+            background: var(--primary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .card-desc {
+            color: var(--gray-600);
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        
+        /* 按钮系统 */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            background: var(--primary);
             color: white;
-            box-shadow: var(--shadow-primary);
         }
         
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-primary), 0 10px 20px rgba(59, 130, 246, 0.2);
+            background: #1D4ED8;
         }
         
         .btn-secondary {
-            background: linear-gradient(135deg, var(--secondary-500), var(--secondary-600));
+            background: var(--secondary);
             color: white;
-            box-shadow: var(--shadow-secondary);
         }
         
-        .btn-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-secondary), 0 10px 20px rgba(20, 184, 166, 0.2);
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1.5px solid var(--primary);
         }
         
-        /* 轻量级按钮变体 */
-        .btn-light {
-            background: white;
-            color: var(--primary-600);
-            border: 2px solid var(--primary-200);
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .btn-light:hover {
-            background: var(--primary-50);
-            border-color: var(--primary-300);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .btn-group {
+        /* 网格布局 */
+        .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 14px;
-            margin-top: 24px;
+            gap: 12px;
         }
         
-        /* === 数据展示 - 简洁版 === */
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin: 24px 0;
-        }
-        
-        .stat-item {
-            background: var(--gray-50);
-            border-radius: var(--radius-md);
-            padding: 22px;
-            border: 1px solid var(--gray-100);
-            transition: all 0.3s var(--ease-out);
-        }
-        
-        .stat-item:hover {
-            background: white;
-            border-color: var(--primary-200);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .stat-value {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--gray-900);
-            line-height: 1.2;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: baseline;
-            gap: 4px;
-        }
-        
-        .stat-unit {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--gray-500);
-        }
-        
-        .stat-label {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--gray-600);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .stat-icon {
-            width: 24px;
-            height: 24px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: var(--primary-500);
-            background: var(--primary-100);
-        }
-        
-        .stat-trend {
-            font-size: 12px;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 12px;
-            margin-left: auto;
-        }
-        
-        .trend-up {
-            background: var(--profit-light);
-            color: var(--profit);
-        }
-        
-        .trend-down {
-            background: var(--danger-light);
-            color: var(--danger);
-        }
-        
-        /* === 功能网格 - 无边框版 === */
-        .features-grid {
+        .grid-4 {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin: 24px 0;
+            gap: 12px;
         }
         
-        .feature-item {
+        /* 工具项 */
+        .tool-item {
             background: white;
-            border-radius: var(--radius-md);
-            padding: 20px 12px;
+            border-radius: 10px;
+            padding: 16px 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            transition: all 0.3s var(--ease-out);
-            cursor: pointer;
-            border: 1px solid var(--gray-100);
-            position: relative;
+            border: 1px solid var(--gray-200);
+            text-decoration: none;
+            transition: all 0.2s;
         }
         
-        /* 无边框变体 */
-        .feature-item.borderless {
-            border: none;
-            background: var(--gray-50);
-            box-shadow: none;
+        .tool-item:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
         
-        .feature-item:hover {
-            transform: translateY(-4px);
-            border-color: var(--primary-300);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .feature-item.borderless:hover {
-            background: white;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .feature-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: var(--radius-md);
+        .tool-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 14px;
-            font-size: 22px;
-            transition: all 0.3s var(--ease-out);
+            font-size: 18px;
+            margin-bottom: 8px;
         }
         
-        /* 图标颜色分类 */
-        .feature-icon.primary {
-            background: var(--primary-50);
-            color: var(--primary-600);
-        }
-        
-        .feature-icon.secondary {
-            background: var(--secondary-50);
-            color: var(--secondary-600);
-        }
-        
-        .feature-icon.warning {
-            background: var(--warning-light);
-            color: var(--warning);
-        }
-        
-        .feature-icon.success {
-            background: var(--profit-light);
-            color: var(--profit);
-        }
-        
-        .feature-text {
+        .tool-text {
             font-size: 13px;
             font-weight: 600;
             color: var(--gray-800);
-            line-height: 1.4;
         }
         
-        .feature-subtext {
-            font-size: 11px;
-            color: var(--gray-500);
-            margin-top: 4px;
-            font-weight: 500;
+        /* 数据展示 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
         }
         
-        /* 新功能徽章 */
-        .new-badge {
-            position: absolute;
-            top: -6px;
-            right: -6px;
-            width: 22px;
-            height: 22px;
-            background: linear-gradient(135deg, var(--secondary-500), var(--secondary-600));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            color: white;
-            font-weight: 800;
-            box-shadow: 0 4px 10px rgba(20, 184, 166, 0.3);
+        .stat-item {
+            background: white;
+            border-radius: 10px;
+            padding: 16px;
+            border: 1px solid var(--gray-200);
         }
         
-        /* === 底部导航 - 轻量化 === */
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 13px;
+            color: var(--gray-600);
+        }
+        
+        /* 底部导航 */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid var(--gray-100);
-            padding: 12px 24px 20px;
+            background: white;
             display: flex;
-            justify-content: space-between;
-            z-index: 1000;
+            padding: 12px 0;
+            border-top: 1px solid var(--gray-200);
+            z-index: 100;
             max-width: 500px;
             margin: 0 auto;
         }
@@ -563,674 +282,276 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
-            padding: 8px 0;
             text-decoration: none;
-            color: var(--gray-500);
-            transition: all 0.3s var(--ease-out);
-            position: relative;
-        }
-        
-        .nav-item::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            width: 4px;
-            height: 4px;
-            background: var(--primary-500);
-            border-radius: 50%;
-            opacity: 0;
-            transition: all 0.3s var(--ease-out);
+            color: var(--gray-600);
+            font-size: 11px;
+            padding: 4px 0;
         }
         
         .nav-item.active {
-            color: var(--primary-600);
-        }
-        
-        .nav-item.active::after {
-            opacity: 1;
-            bottom: -16px;
+            color: var(--primary);
         }
         
         .nav-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+        
+        /* 返回按钮 */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 20px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: #EFF6FF;
+        }
+        
+        /* 列表样式 */
+        .list-item {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .list-item:last-child {
+            border-bottom: none;
+        }
+        
+        .list-number {
             width: 24px;
             height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            transition: all 0.3s var(--ease-out);
-        }
-        
-        .nav-item.active .nav-icon {
-            transform: translateY(-2px);
-        }
-        
-        .nav-label {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.03em;
-        }
-        
-        .nav-center {
-            position: absolute;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary-500), var(--secondary-500));
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: var(--primary);
             color: white;
-            box-shadow: var(--shadow-primary);
-            z-index: 1001;
-            transition: all 0.3s var(--ease-out);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 600;
+            margin-right: 12px;
+            flex-shrink: 0;
+            margin-top: 2px;
         }
         
-        .nav-center:hover {
-            transform: translateX(-50%) scale(1.05);
-            box-shadow: var(--shadow-primary), 0 10px 25px rgba(59, 130, 246, 0.25);
+        /* 响应式 */
+        @media (max-width: 380px) {
+            .container { padding: 16px; }
+            .feature-card { padding: 16px; }
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
         }
-        
-        .nav-center i {
-            font-size: 22px;
-        }
-        
-        /* === 主内容区 === */
-        .main-content {
-            padding: 24px;
-            position: relative;
-            z-index: 2;
-        }
-        
-        /* === 无边框区域示例 === */
-        .section-divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gray-200), transparent);
-            margin: 32px 0;
-            border: none;
-        }
-        
-        /* === 响应式设计 === */
-        @media (max-width: 400px) {
-            .main-content {
-                padding: 20px;
-            }
-            
-            .card, .card-content {
-                padding: 24px;
-            }
-            
-            .features-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 12px;
-            }
-            
-            .stats-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .btn-group {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 340px) {
-            .features-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        /* === 工具类 === */
-        .text-gradient {
-            background: linear-gradient(135deg, var(--primary-600), var(--secondary-600));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .text-primary { color: var(--primary-600); }
-        .text-secondary { color: var(--secondary-600); }
-        .text-success { color: var(--profit); }
-        .text-warning { color: var(--warning); }
-        .text-danger { color: var(--danger); }
-        
-        .bg-primary-light { background: var(--primary-50); }
-        .bg-secondary-light { background: var(--secondary-50); }
-        .bg-success-light { background: var(--profit-light); }
-        .bg-warning-light { background: var(--warning-light); }
-        
-        .space-y-2 > * + * { margin-top: 8px; }
-        .space-y-3 > * + * { margin-top: 16px; }
-        .space-y-4 > * + * { margin-top: 24px; }
-        .space-y-6 > * + * { margin-top: 32px; }
-        
-        .flex { display: flex; }
-        .items-center { align-items: center; }
-        .justify-between { justify-content: space-between; }
-        .gap-2 { gap: 8px; }
-        .gap-3 { gap: 16px; }
-        .gap-4 { gap: 24px; }
-        
-        .mt-2 { margin-top: 16px; }
-        .mt-4 { margin-top: 24px; }
-        .mt-6 { margin-top: 32px; }
-        .mb-2 { margin-bottom: 16px; }
-        .mb-4 { margin-bottom: 24px; }
-        .mb-6 { margin-bottom: 32px; }
-        
-        .text-sm { font-size: 14px; }
-        .text-base { font-size: 16px; }
-        .text-lg { font-size: 18px; }
-        .text-xl { font-size: 20px; }
-        .text-2xl { font-size: 24px; }
-        .text-3xl { font-size: 30px; }
-        
-        .font-medium { font-weight: 500; }
-        .font-semibold { font-weight: 600; }
-        .font-bold { font-weight: 700; }
-        .font-extrabold { font-weight: 800; }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- 背景装饰 -->
-    <div class="bg-decoration"></div>
+    <!-- 顶部导航 -->
+    <div class="header">
+        <div class="header-title">
+            <i class="fas fa-dolphin" style="color: var(--primary);"></i>
+            海豚社区辅助工具
+        </div>
+        <div class="header-subtitle">链上资产增值加速器</div>
+    </div>
     
-    <!-- 主页面 -->
-    <div id="home" class="page active">
-        <header class="app-header">
-            <div class="header-content">
-                <div class="brand">
-                    <div class="logo">
-                        <i class="fas fa-dolphin"></i>
-                    </div>
-                    <div class="brand-text">
-                        <div class="brand-name">Dolphin Boost</div>
-                        <div class="brand-tagline">链上资产加速器</div>
-                    </div>
-                </div>
-                <div class="notification-btn">
-                    <i class="fas fa-bell"></i>
-                </div>
-            </div>
-        </header>
-        
-        <main class="main-content">
-            <!-- Boost活动卡片 - 有边框 -->
-            <section class="card">
+    <!-- 主要内容 -->
+    <div class="container">
+        <!-- Boost活动 -->
+        <section class="section">
+            <h2 class="section-title">核心活动</h2>
+            <div class="feature-card">
                 <div class="card-header">
-                    <div class="title-group">
-                        <div class="title-icon">
+                    <div class="card-title">
+                        <div class="card-icon icon-primary">
                             <i class="fas fa-rocket"></i>
                         </div>
-                        <div class="title-text">
-                            <div class="title-main">Boost加速计划</div>
-                            <div class="title-sub">阶梯式收益模型 | 社区协同策略</div>
+                        <div>
+                            <div>Boost加速计划</div>
+                            <div style="font-size: 13px; color: var(--gray-500); margin-top: 2px;">
+                                阶梯收益模型 | 社区协同策略
+                            </div>
                         </div>
                     </div>
-                    <div class="badge badge-success">APR 18.5%</div>
+                    <div class="card-badge">进行中</div>
                 </div>
-                
-                <p style="color: var(--gray-600); line-height: 1.6; font-size: 15px; margin-bottom: 24px;">
-                    通过创新的阶梯式模型与社区协同策略，参与OKX Boost活动，实现稳定收益与超额价值回报，重新定义链上资产增值体验。
+                <p class="card-desc">
+                    通过创新的阶梯式模型与社区协同策略，参与OKX Boost的活动，实现稳定收益与超额价值回报。
                 </p>
-                
-                <div class="btn-group">
-                    <button class="btn btn-primary" onclick="showPage('boost')">
-                        <i class="fas fa-chart-line"></i>
-                        立即参与
-                    </button>
-                    <button class="btn btn-light" onclick="showPage('guide')">
-                        <i class="fas fa-play-circle"></i>
-                        观看教程
-                    </button>
+                <a href="boost.html" class="btn btn-primary">
+                    <i class="fas fa-chart-line"></i> 查看活动详情
+                </a>
+            </div>
+        </section>
+        
+        <!-- 数据总览 -->
+        <section class="section">
+            <h2 class="section-title">数据总览</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">$2.47M</div>
+                    <div class="stat-label">质押总量</div>
                 </div>
-            </section>
-            
-            <!-- 数据仪表板 - 无边框设计 -->
-            <section class="card borderless">
-                <div class="card-content">
-                    <div class="card-header">
-                        <div class="title-group">
-                            <div class="title-icon">
-                                <i class="fas fa-chart-network"></i>
-                            </div>
-                            <div class="title-text">
-                                <div class="title-main">实时数据看板</div>
-                                <div class="title-sub">更新于 2分钟前</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stats-container">
-                        <div class="stat-item">
-                            <div class="stat-value">$2.47M<span class="stat-unit">USD</span></div>
-                            <div class="stat-label">
-                                <div class="stat-icon">
-                                    <i class="fas fa-layer-group"></i>
-                                </div>
-                                质押总量
-                                <span class="stat-trend trend-up">+5.2%</span>
-                            </div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value">$1.82M<span class="stat-unit">USD</span></div>
-                            <div class="stat-label">
-                                <div class="stat-icon">
-                                    <i class="fas fa-exchange-alt"></i>
-                                </div>
-                                总交易量
-                                <span class="stat-trend trend-up">+12.7%</span>
-                            </div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value">$124.5K<span class="stat-unit">USD</span></div>
-                            <div class="stat-label">
-                                <div class="stat-icon">
-                                    <i class="fas fa-bolt"></i>
-                                </div>
-                                日交易量
-                                <span class="stat-trend trend-up">+8.3%</span>
-                            </div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value">#48</div>
-                            <div class="stat-label">
-                                <div class="stat-icon">
-                                    <i class="fas fa-crown"></i>
-                                </div>
-                                我的排名
-                                <span class="stat-trend trend-up">↑3位</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="stat-item">
+                    <div class="stat-value">$1.82M</div>
+                    <div class="stat-label">总交易量</div>
                 </div>
-            </section>
-            
-            <!-- 快捷入口 - 无边框设计 -->
-            <section class="card borderless">
-                <div class="card-content">
-                    <div class="card-header">
-                        <div class="title-group">
-                            <div class="title-icon">
-                                <i class="fas fa-bolt"></i>
-                            </div>
-                            <div class="title-text">
-                                <div class="title-main">快速通道</div>
-                                <div class="title-sub">一键直达核心功能</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="features-grid">
-                        <div class="feature-item borderless" onclick="showPage('boost')">
-                            <div class="feature-icon primary">
-                                <i class="fas fa-coins"></i>
-                            </div>
-                            <div class="feature-text">链上赚币</div>
-                        </div>
-                        <div class="feature-item borderless" onclick="showModal('buyModal')">
-                            <div class="feature-icon secondary">
-                                <i class="fas fa-shopping-cart"></i>
-                            </div>
-                            <div class="feature-text">购买H币</div>
-                            <div class="new-badge">!</div>
-                        </div>
-                        <div class="feature-item borderless" onclick="showModal('communityModal')">
-                            <div class="feature-icon warning">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <div class="feature-text">社区红包</div>
-                            <div class="feature-subtext">3个未读</div>
-                        </div>
-                        <div class="feature-item borderless" onclick="showPage('form')">
-                            <div class="feature-icon success">
-                                <i class="fas fa-clipboard-list"></i>
-                            </div>
-                            <div class="feature-text">提交表单</div>
-                        </div>
-                    </div>
+                <div class="stat-item">
+                    <div class="stat-value">$124.5K</div>
+                    <div class="stat-label">日交易量</div>
                 </div>
-            </section>
-            
-            <!-- 分隔线 -->
-            <hr class="section-divider">
-            
-            <!-- 工具集合 - 混合设计 -->
-            <section class="card">
+                <div class="stat-item">
+                    <div class="stat-value">#48</div>
+                    <div class="stat-label">我的排名</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 快捷入口 -->
+        <section class="section">
+            <h2 class="section-title">快捷入口</h2>
+            <div class="grid-4">
+                <a href="boost.html" class="tool-item">
+                    <div class="tool-icon icon-primary">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="tool-text">链上赚币</div>
+                </a>
+                <a href="buy.html" class="tool-item">
+                    <div class="tool-icon icon-warning">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="tool-text">购买H币</div>
+                </a>
+                <a href="community.html" class="tool-item">
+                    <div class="tool-icon icon-success">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="tool-text">社区红包</div>
+                </a>
+                <a href="form.html" class="tool-item">
+                    <div class="tool-icon icon-danger">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <div class="tool-text">提交表单</div>
+                </a>
+            </div>
+        </section>
+        
+        <!-- 常用工具 -->
+        <section class="section">
+            <h2 class="section-title">常用工具</h2>
+            <div class="grid-4">
+                <a href="checkin.html" class="tool-item">
+                    <div class="tool-icon icon-primary">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="tool-text">每日签到</div>
+                </a>
+                <a href="lottery.html" class="tool-item">
+                    <div class="tool-icon icon-warning">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <div class="tool-text">幸运抽奖</div>
+                </a>
+                <a href="ai.html" class="tool-item">
+                    <div class="tool-icon icon-success">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="tool-text">AI助手</div>
+                </a>
+                <a href="calculator.html" class="tool-item">
+                    <div class="tool-icon icon-danger">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="tool-text">收益计算</div>
+                </a>
+                <a href="query.html" class="tool-item">
+                    <div class="tool-icon icon-primary">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="tool-text">链上查询</div>
+                </a>
+                <a href="redpacket.html" class="tool-item">
+                    <div class="tool-icon icon-warning">
+                        <i class="fas fa-hongbao"></i>
+                    </div>
+                    <div class="tool-text">OKX红包</div>
+                </a>
+                <a href="download.html" class="tool-item">
+                    <div class="tool-icon icon-success">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <div class="tool-text">下载中心</div>
+                </a>
+            </div>
+        </section>
+        
+        <!-- 新手指南 -->
+        <section class="section">
+            <h2 class="section-title">新手指南</h2>
+            <div class="feature-card">
                 <div class="card-header">
-                    <div class="title-group">
-                        <div class="title-icon">
-                            <i class="fas fa-toolbox"></i>
+                    <div class="card-title">
+                        <div class="card-icon icon-success">
+                            <i class="fas fa-user-plus"></i>
                         </div>
-                        <div class="title-text">
-                            <div class="title-main">专业工具包</div>
-                            <div class="title-sub">提升您的操作效率</div>
-                        </div>
+                        <div>新人操作指南</div>
                     </div>
                 </div>
-                
-                <div class="features-grid">
-                    <div class="feature-item" onclick="checkIn()">
-                        <div class="feature-icon primary">
-                            <i class="fas fa-calendar-check"></i>
+                <p class="card-desc">
+                    下载OKX Wallet，绑定邀请人DPH777，完成新手目标：达到一次Boost交易量$500。
+                </p>
+                <a href="guide.html" class="btn btn-secondary">
+                    <i class="fas fa-graduation-cap"></i> 查看完整指南
+                </a>
+            </div>
+        </section>
+        
+        <!-- 社区策略 -->
+        <section class="section">
+            <h2 class="section-title">社区策略</h2>
+            <div class="feature-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-icon icon-warning">
+                            <i class="fas fa-chess-knight"></i>
                         </div>
-                        <div class="feature-text">每日签到</div>
-                    </div>
-                    <div class="feature-item" onclick="showModal('lotteryModal')">
-                        <div class="feature-icon warning">
-                            <i class="fas fa-gift"></i>
-                        </div>
-                        <div class="feature-text">幸运抽奖</div>
-                    </div>
-                    <div class="feature-item" onclick="showModal('comingSoonModal')">
-                        <div class="feature-icon secondary">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <div class="feature-text">AI助手</div>
-                    </div>
-                    <div class="feature-item" onclick="showPage('calculator')">
-                        <div class="feature-icon success">
-                            <i class="fas fa-calculator"></i>
-                        </div>
-                        <div class="feature-text">收益计算</div>
-                    </div>
-                    <div class="feature-item" onclick="showModal('queryModal')">
-                        <div class="feature-icon primary">
-                            <i class="fas fa-search"></i>
-                        </div>
-                        <div class="feature-text">链上查询</div>
-                    </div>
-                    <div class="feature-item" onclick="showModal('redpacketModal')">
-                        <div class="feature-icon warning">
-                            <i class="fas fa-hongbao"></i>
-                        </div>
-                        <div class="feature-text">OKX红包</div>
-                    </div>
-                    <div class="feature-item" onclick="showPage('download')">
-                        <div class="feature-icon secondary">
-                            <i class="fas fa-download"></i>
-                        </div>
-                        <div class="feature-text">下载中心</div>
+                        <div>四步参与法</div>
                     </div>
                 </div>
-                
-                <div class="space-y-3 mt-6">
-                    <button class="btn btn-light" onclick="showPage('guide')">
-                        <i class="fas fa-user-plus"></i>
-                        新人操作指南
-                    </button>
-                    <button class="btn btn-light" onclick="showPage('strategy')">
-                        <i class="fas fa-chess-knight"></i>
-                        社区策略详情
-                    </button>
-                </div>
-            </section>
-        </main>
+                <p class="card-desc">
+                    质押获取弹药 → 择时兑换 → 执行交易 → 循环滚动，形成飞轮增长效应。
+                </p>
+                <a href="strategy.html" class="btn btn-outline">
+                    <i class="fas fa-lightbulb"></i> 查看详细策略
+                </a>
+            </div>
+        </section>
     </div>
     
     <!-- 底部导航 -->
-    <nav class="bottom-nav">
-        <a href="javascript:void(0)" class="nav-item active" onclick="showPage('home')">
-            <div class="nav-icon">
-                <i class="fas fa-home"></i>
-            </div>
-            <div class="nav-label">首页</div>
+    <div class="bottom-nav">
+        <a href="index.html" class="nav-item active">
+            <i class="fas fa-home nav-icon"></i>
+            <span>首页</span>
         </a>
-        <a href="javascript:void(0)" class="nav-item" onclick="showPage('model')">
-            <div class="nav-icon">
-                <i class="fas fa-dolphin"></i>
-            </div>
-            <div class="nav-label">模型</div>
+        <a href="model.html" class="nav-item">
+            <i class="fas fa-dolphin nav-icon"></i>
+            <span>海豚模型</span>
         </a>
-        
-        <div class="nav-center" onclick="showModal('quickActionModal')">
-            <i class="fas fa-bolt"></i>
-        </div>
-        
-        <a href="javascript:void(0)" class="nav-item" onclick="showModal('comingSoonModal')">
-            <div class="nav-icon">
-                <i class="fas fa-robot"></i>
-            </div>
-            <div class="nav-label">AI助手</div>
+        <a href="ai.html" class="nav-item">
+            <i class="fas fa-robot nav-icon"></i>
+            <span>AI助手</span>
         </a>
-        <a href="javascript:void(0)" class="nav-item" onclick="showModal('comingSoonModal')">
-            <div class="nav-icon">
-                <i class="fas fa-wallet"></i>
-            </div>
-            <div class="nav-label">钱包</div>
+        <a href="wallet.html" class="nav-item">
+            <i class="fas fa-wallet nav-icon"></i>
+            <span>钱包</span>
         </a>
-    </nav>
-
-    <script>
-        // 页面管理
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // 更新导航激活状态
-            const navMap = {
-                'home': 0,
-                'model': 1,
-                'calculator': 3,
-                'download': 3
-            };
-            
-            if (navMap[pageId] !== undefined) {
-                document.querySelectorAll('.nav-item')[navMap[pageId]].classList.add('active');
-            }
-        }
-        
-        // 弹窗系统
-        function showModal(modalId) {
-            // 根据modalId创建不同的弹窗内容
-            let title = '';
-            let content = '';
-            
-            switch(modalId) {
-                case 'comingSoonModal':
-                    title = '即将开放';
-                    content = '<div style="text-align: center; padding: 20px;"><i class="fas fa-tools" style="font-size: 48px; color: var(--primary-500); margin-bottom: 20px;"></i><p style="color: var(--gray-600); line-height: 1.6; margin-bottom: 24px;">该功能正在紧张开发中，即将上线，敬请期待！</p></div>';
-                    break;
-                case 'buyModal':
-                    title = '购买H代币';
-                    content = '<div style="padding: 20px 0;"><p style="color: var(--gray-600); margin-bottom: 16px;">请选择购买方式：</p><div class="space-y-2"><button class="btn btn-primary" style="width: 100%;">通过OKX购买</button><button class="btn btn-light" style="width: 100%;">通过社区购买</button></div></div>';
-                    break;
-            }
-            
-            const modalHtml = `
-                <div class="modal-overlay" id="${modalId}" onclick="hideModal('${modalId}')" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; z-index: 2000; animation: fadeIn 0.3s var(--ease-out);">
-                    <div class="modal-content" onclick="event.stopPropagation()" style="background: white; border-radius: var(--radius-lg); padding: 0; max-width: 320px; width: 90%; animation: slideUp 0.3s var(--ease-out); box-shadow: var(--shadow-xl);">
-                        <div style="padding: 24px; border-bottom: 1px solid var(--gray-100);">
-                            <div style="display: flex; align-items: center; justify-content: space-between;">
-                                <h3 style="color: var(--gray-900); font-size: 18px; font-weight: 700;">${title}</h3>
-                                <button onclick="hideModal('${modalId}')" style="background: none; border: none; font-size: 20px; color: var(--gray-500); cursor: pointer;">×</button>
-                            </div>
-                        </div>
-                        <div style="padding: 24px;">
-                            ${content}
-                            <button class="btn btn-light" onclick="hideModal('${modalId}')" style="width: 100%; margin-top: 16px;">关闭</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            document.body.insertAdjacentHTML('beforeend', modalHtml);
-            
-            // 添加动画样式
-            if (!document.getElementById('modal-styles')) {
-                const style = document.createElement('style');
-                style.id = 'modal-styles';
-                style.textContent = `
-                    @keyframes fadeIn {
-                        from { opacity: 0; }
-                        to { opacity: 1; }
-                    }
-                    @keyframes slideUp {
-                        from { transform: translateY(20px); opacity: 0; }
-                        to { transform: translateY(0); opacity: 1; }
-                    }
-                `;
-                document.head.appendChild(style);
-            }
-        }
-        
-        function hideModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.animation = 'fadeOut 0.2s var(--ease-out)';
-                setTimeout(() => modal.remove(), 200);
-            }
-        }
-        
-        // 签到功能
-        function checkIn() {
-            const today = new Date().toISOString().split('T')[0];
-            const lastCheckIn = localStorage.getItem('dolphin_lastCheckIn');
-            
-            if (lastCheckIn === today) {
-                showToast('今日已签到，明日再来吧！', 'info');
-                return;
-            }
-            
-            // 显示加载状态
-            const originalText = event.target.innerHTML;
-            event.target.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 签到中...';
-            event.target.disabled = true;
-            
-            setTimeout(() => {
-                localStorage.setItem('dolphin_lastCheckIn', today);
-                event.target.innerHTML = originalText;
-                event.target.disabled = false;
-                
-                // 显示成功动画
-                const reward = Math.floor(Math.random() * 10) + 5;
-                showToast(`签到成功！获得 ${reward} 积分`, 'success');
-                
-                // 震动反馈
-                if (navigator.vibrate) {
-                    navigator.vibrate([100, 50, 100]);
-                }
-            }, 800);
-        }
-        
-        // 显示提示
-        function showToast(message, type = 'info') {
-            const toast = document.createElement('div');
-            const bgColor = type === 'success' ? 'var(--profit)' : 
-                           type === 'warning' ? 'var(--warning)' : 
-                           type === 'error' ? 'var(--danger)' : 'var(--primary-500)';
-            
-            toast.style.cssText = `
-                position: fixed;
-                top: 100px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: ${bgColor};
-                color: white;
-                padding: 14px 24px;
-                border-radius: 12px;
-                font-size: 14px;
-                font-weight: 500;
-                z-index: 9999;
-                animation: toastIn 0.3s var(--ease-out), toastOut 0.3s var(--ease-out) 2.7s;
-                box-shadow: var(--shadow-lg);
-                max-width: 80%;
-                text-align: center;
-            `;
-            
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.remove();
-            }, 3000);
-        }
-        
-        // 初始化
-        document.addEventListener('DOMContentLoaded', () => {
-            // 添加toast动画样式
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes toastIn {
-                    from { opacity: 0; transform: translate(-50%, -20px); }
-                    to { opacity: 1; transform: translate(-50%, 0); }
-                }
-                @keyframes toastOut {
-                    from { opacity: 1; transform: translate(-50%, 0); }
-                    to { opacity: 0; transform: translate(-50%, -20px); }
-                }
-                @keyframes fadeOut {
-                    from { opacity: 1; }
-                    to { opacity: 0; }
-                }
-            `;
-            document.head.appendChild(style);
-            
-            // 检查是否需要显示签到提示
-            const today = new Date().toISOString().split('T')[0];
-            const lastCheckIn = localStorage.getItem('dolphin_lastCheckIn');
-            if (lastCheckIn !== today) {
-                // 可以在这里添加每日提醒逻辑
-            }
-        });
-        
-        // 收益计算器
-        function calculateEarnings() {
-            const amount = parseFloat(document.getElementById('stakeAmount')?.value) || 0;
-            const days = parseInt(document.getElementById('stakeDays')?.value) || 0;
-            
-            if (amount <= 0 || days <= 0) {
-                showToast('请输入有效的金额和天数', 'warning');
-                return;
-            }
-            
-            // 计算逻辑
-            let dailyRate = 0.005;
-            if (days >= 8 && days <= 15) dailyRate = 0.006;
-            else if (days >= 16 && days <= 30) dailyRate = 0.008;
-            else if (days >= 31 && days <= 60) dailyRate = 0.01;
-            else if (days > 60) dailyRate = 0.012;
-            
-            const totalEarnings = amount * dailyRate * days;
-            const dailyEarnings = amount * dailyRate;
-            
-            // 显示结果
-            const resultEl = document.getElementById('earningsResult');
-            if (resultEl) {
-                resultEl.innerHTML = `
-                    <div style="background: linear-gradient(135deg, var(--primary-50), var(--secondary-50)); border-radius: var(--radius-lg); padding: 24px; margin-top: 20px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                            <div>
-                                <div style="font-size: 14px; color: var(--gray-600);">预计总收益</div>
-                                <div style="font-size: 32px; font-weight: 800; color: var(--profit); margin-top: 4px;">$${totalEarnings.toFixed(2)}</div>
-                            </div>
-                            <div style="text-align: right;">
-                                <div style="font-size: 14px; color: var(--gray-600);">年化收益率</div>
-                                <div style="font-size: 20px; font-weight: 700; color: var(--primary-600); margin-top: 4px;">${(dailyRate * 365 * 100).toFixed(1)}%</div>
-                            </div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;">
-                            <div style="background: white; border-radius: var(--radius-md); padding: 12px; text-align: center;">
-                                <div style="font-size: 13px; color: var(--gray-500);">每日收益</div>
-                                <div style="font-size: 18px; font-weight: 700; color: var(--gray-800); margin-top: 4px;">$${dailyEarnings.toFixed(2)}</div>
-                            </div>
-                            <div style="background: white; border-radius: var(--radius-md); padding: 12px; text-align: center;">
-                                <div style="font-size: 13px; color: var(--gray-500);">投资天数</div>
-                                <div style="font-size: 18px; font-weight: 700; color: var(--gray-800); margin-top: 4px;">${days}天</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-        }
-    </script>
+    </div>
 </body>
 </html>
