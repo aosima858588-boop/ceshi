@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>海豚社区 - 链上辅助工具</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -10,51 +10,96 @@
             --primary: #1A6DFF;
             --secondary: #00D4C8;
             --accent: #00C853;
+            --warning: #FF9500;
+            --danger: #FF3B30;
             --bg-light: #F8FAFD;
-            --text-dark: #2C3E50;
-            --text-medium: #5A6C7D;
             --card-bg: #FFFFFF;
+            --text-dark: #1A1A1A;
+            --text-medium: #666666;
+            --text-light: #999999;
             --border: #E9EEF5;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
-            background-color: var(--bg-light);
+            font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-light);
             color: var(--text-dark);
-            padding-bottom: 80px; /* 为底部导航留出空间 */
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+        
+        /* 页面容器 */
+        .page-container {
+            display: none;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+        
+        .page-active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         /* 顶部导航 */
-        .header {
+        .app-header {
             background: linear-gradient(135deg, var(--primary), #0088FF);
             color: white;
-            padding: 18px 20px;
-            box-shadow: 0 4px 12px rgba(26, 109, 255, 0.15);
+            padding: 16px 20px;
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 2px 10px rgba(26, 109, 255, 0.2);
         }
         
-        .header h1 {
-            font-size: 20px;
-            font-weight: 700;
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
             display: flex;
             align-items: center;
             gap: 10px;
+            font-weight: 700;
+            font-size: 18px;
         }
         
-        .header h1 i {
+        .logo i {
             color: var(--secondary);
+            animation: float 3s ease-in-out infinite;
         }
         
-        /* 主要内容区域 */
-        .main-content {
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* 主内容区 */
+        .app-content {
             padding: 20px;
             max-width: 500px;
             margin: 0 auto;
@@ -65,9 +110,15 @@
             background: var(--card-bg);
             border-radius: 16px;
             padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
             border: 1px solid var(--border);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .card:active {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
         
         .card-header {
@@ -80,7 +131,6 @@
         .card-title {
             font-size: 18px;
             font-weight: 700;
-            color: var(--text-dark);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -88,32 +138,41 @@
         
         .card-title i {
             color: var(--primary);
-            font-size: 20px;
+            width: 24px;
+            text-align: center;
         }
         
+        /* 标签样式 */
         .badge {
             background: linear-gradient(to right, var(--accent), #00E676);
             color: white;
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
         }
         
-        /* 按钮样式 */
+        .badge-warning {
+            background: linear-gradient(to right, var(--warning), #FFAA33);
+        }
+        
+        /* 按钮系统 */
         .btn {
-            display: block;
-            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             padding: 16px;
-            text-align: center;
             border-radius: 12px;
             font-weight: 600;
-            text-decoration: none;
-            margin-top: 15px;
-            border: none;
             font-size: 16px;
-            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            border: none;
             transition: all 0.2s ease;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 12px;
         }
         
         .btn-primary {
@@ -131,123 +190,97 @@
             color: white;
         }
         
+        .btn-warning {
+            background: linear-gradient(to right, var(--warning), #FFAA33);
+            color: white;
+        }
+        
         .btn-outline {
             background: transparent;
             color: var(--primary);
             border: 2px solid var(--primary);
         }
         
-        .btn:hover {
+        .btn:hover, .btn:active {
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(26, 109, 255, 0.2);
+            box-shadow: 0 6px 20px rgba(26, 109, 255, 0.25);
+        }
+        
+        .btn-sm {
+            padding: 12px;
+            font-size: 14px;
         }
         
         /* 网格布局 */
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 12px;
         }
         
         .grid-4 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 12px;
         }
         
-        .icon-item {
+        /* 功能图标项 */
+        .feature-item {
             background: var(--card-bg);
             border-radius: 12px;
-            padding: 20px 15px;
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
             border: 1px solid var(--border);
             transition: all 0.2s ease;
+            cursor: pointer;
         }
         
-        .icon-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(26, 109, 255, 0.1);
-            border-color: var(--primary);
-        }
-        
-        .icon-item i {
+        .feature-item i {
             font-size: 28px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: var(--primary);
         }
         
-        .icon-item span {
-            display: block;
-            font-size: 14px;
+        .feature-item span {
+            font-size: 13px;
             font-weight: 600;
             color: var(--text-dark);
         }
         
-        /* 数据展示 */
-        .stats-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+        .feature-item:hover, .feature-item:active {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 16px rgba(26, 109, 255, 0.1);
         }
         
-        .stat-box {
-            background: linear-gradient(135deg, #1A6DFF15, #00D4C815);
+        /* 数据统计 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, rgba(26, 109, 255, 0.1), rgba(0, 212, 200, 0.1));
             border-radius: 12px;
-            padding: 15px;
+            padding: 16px;
             border-left: 4px solid var(--primary);
         }
         
         .stat-value {
             font-size: 22px;
-            font-weight: 700;
+            font-weight: 800;
             color: var(--primary);
+            line-height: 1.2;
         }
         
         .stat-label {
             font-size: 13px;
             color: var(--text-medium);
-            margin-top: 5px;
-        }
-        
-        /* 底部导航 */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--card-bg);
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0;
-            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
-            z-index: 1000;
-            border-top: 1px solid var(--border);
-        }
-        
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            color: var(--text-medium);
-            font-size: 12px;
-            flex: 1;
-            padding: 8px 0;
-            transition: all 0.2s ease;
-        }
-        
-        .nav-item.active {
-            color: var(--primary);
-        }
-        
-        .nav-item i {
-            font-size: 22px;
-            margin-bottom: 4px;
-        }
-        
-        .nav-item:hover {
-            color: var(--primary);
+            margin-top: 4px;
         }
         
         /* 列表样式 */
@@ -256,7 +289,7 @@
         }
         
         .info-list li {
-            padding: 12px 0;
+            padding: 14px 0;
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: flex-start;
@@ -270,30 +303,190 @@
             color: var(--primary);
             margin-right: 12px;
             font-size: 18px;
+            flex-shrink: 0;
             margin-top: 2px;
         }
         
-        /* 返回按钮 */
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
+        .list-text {
+            flex: 1;
+        }
+        
+        /* 步骤指示器 */
+        .steps-container {
+            counter-reset: step;
+        }
+        
+        .step-item {
+            position: relative;
+            padding-left: 30px;
             margin-bottom: 20px;
-            padding: 8px 16px;
-            border-radius: 8px;
-            background: rgba(26, 109, 255, 0.1);
+            padding-bottom: 20px;
+            border-bottom: 1px dashed var(--border);
+        }
+        
+        .step-item:last-child {
+            border-bottom: none;
+        }
+        
+        .step-item::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        
+        /* 表单元素 */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            background: var(--card-bg);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 109, 255, 0.1);
+        }
+        
+        /* 底部导航 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            display: flex;
+            padding: 12px 0;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            border-top: 1px solid var(--border);
+        }
+        
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--text-medium);
+            font-size: 11px;
+            padding: 4px 0;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .nav-item i {
+            font-size: 22px;
+            margin-bottom: 4px;
             transition: all 0.2s ease;
         }
         
-        .back-btn:hover {
-            background: rgba(26, 109, 255, 0.2);
+        .nav-item.active {
+            color: var(--primary);
+        }
+        
+        .nav-item.active i {
+            transform: translateY(-2px);
+        }
+        
+        .nav-item:active {
+            transform: scale(0.95);
+        }
+        
+        /* 弹窗系统 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal-active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-light);
+            cursor: pointer;
         }
         
         /* 响应式调整 */
-        @media (max-width: 380px) {
-            .main-content {
+        @media (min-width: 400px) {
+            .grid-4 {
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 350px) {
+            .app-content {
                 padding: 15px;
             }
             
@@ -301,178 +494,465 @@
                 padding: 16px;
             }
             
-            .grid-4 {
+            .grid-2, .grid-4 {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 顶部导航 -->
-    <div class="header">
-        <h1><i class="fas fa-dolphin"></i> 海豚社区辅助工具</h1>
+    <!-- 首页 -->
+    <div id="home-page" class="page-container page-active">
+        <div class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-dolphin"></i>
+                    <span>海豚社区</span>
+                </div>
+                <div class="user-avatar" onclick="showPage('profile')">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="app-content">
+            <!-- Boost活动卡片 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-rocket"></i>
+                        <span>Boost活动详情</span>
+                    </div>
+                    <div class="badge">火热进行中</div>
+                </div>
+                <p style="color: var(--text-medium); margin-bottom: 16px; line-height: 1.6;">
+                    通过创新的阶梯式模型与社区协同策略，参与OKX Boost的活动，实现稳定收益与超额价值回报，重新定义资产增值体验。
+                </p>
+                <button class="btn btn-primary" onclick="showPage('boost')">
+                    <i class="fas fa-chart-line"></i>
+                    查看活动详情
+                </button>
+            </div>
+            
+            <!-- 便捷入口 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-bolt"></i>
+                        <span>便捷访问入口</span>
+                    </div>
+                </div>
+                <div class="grid-4">
+                    <div class="feature-item" onclick="showPage('boost')">
+                        <i class="fas fa-coins"></i>
+                        <span>链上赚币</span>
+                    </div>
+                    <div class="feature-item" onclick="showModal('buyModal')">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>立即购买H</span>
+                    </div>
+                    <div class="feature-item" onclick="showModal('communityModal')">
+                        <i class="fas fa-users"></i>
+                        <span>社区红包群</span>
+                    </div>
+                    <div class="feature-item" onclick="showPage('form')">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>社区表单</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 数据总览 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>数据总览</span>
+                    </div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">$2.47M</div>
+                        <div class="stat-label">质押总量</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">$1.82M</div>
+                        <div class="stat-label">总交易量</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">$124.5K</div>
+                        <div class="stat-label">日交易量</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">#48</div>
+                        <div class="stat-label">你的排名</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 常用工具 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-toolbox"></i>
+                        <span>常用工具</span>
+                    </div>
+                </div>
+                <div class="grid-4">
+                    <div class="feature-item" onclick="checkIn()">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>签到</span>
+                    </div>
+                    <div class="feature-item" onclick="showModal('lotteryModal')">
+                        <i class="fas fa-gift"></i>
+                        <span>抽奖</span>
+                    </div>
+                    <div class="feature-item" onclick="showModal('comingSoonModal')">
+                        <i class="fas fa-robot"></i>
+                        <span>AI助手</span>
+                    </div>
+                    <div class="feature-item" onclick="showPage('calculator')">
+                        <i class="fas fa-calculator"></i>
+                        <span>收益计算</span>
+                    </div>
+                    <div class="feature-item" onclick="showModal('queryModal')">
+                        <i class="fas fa-search"></i>
+                        <span>查询系统</span>
+                    </div>
+                    <div class="feature-item" onclick="showModal('redpacketModal')">
+                        <i class="fas fa-hongbao"></i>
+                        <span>OKX红包</span>
+                    </div>
+                    <div class="feature-item" onclick="showPage('download')">
+                        <i class="fas fa-download"></i>
+                        <span>下载中心</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 新手指南 -->
+            <div class="card" onclick="showPage('guide')">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-user-plus"></i>
+                        <span>新人操作指南</span>
+                    </div>
+                </div>
+                <p style="color: var(--text-medium); line-height: 1.6;">
+                    下载OKX Wallet，绑定邀请人DPH777，完成新手目标：达到一次Boost交易量$500。
+                </p>
+            </div>
+            
+            <!-- 社区策略 -->
+            <div class="card" onclick="showPage('strategy')">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-chess-knight"></i>
+                        <span>社区策略</span>
+                    </div>
+                </div>
+                <p style="color: var(--text-medium); line-height: 1.6;">
+                    四步参与法：质押获取弹药 → 择时兑换 → 执行交易 → 循环滚动，形成飞轮增长效应。
+                </p>
+            </div>
+        </div>
     </div>
     
-    <!-- 主要内容区域 -->
-    <div class="main-content">
-        <!-- 活动概览卡片 -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <i class="fas fa-rocket"></i> Boost活动详情
+    <!-- Boost活动详情页面 -->
+    <div id="boost-page" class="page-container">
+        <div class="app-header">
+            <div class="header-content">
+                <button class="btn-back" onclick="showPage('home')" style="background: none; border: none; color: white; font-size: 20px;">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="logo">
+                    <span>Boost活动</span>
                 </div>
-                <div class="badge">进行中</div>
-            </div>
-            <p style="color: var(--text-medium); line-height: 1.6; margin-bottom: 15px;">
-                通过创新的阶梯式模型与社区协同策略，参与OKX Boost的活动，实现稳定收益与超额价值回报，重新定义资产增值体验。
-            </p>
-            <a href="boost-detail.html" class="btn btn-primary">
-                <i class="fas fa-chart-line"></i> 查看活动详情
-            </a>
-        </div>
-        
-        <!-- 便捷入口 -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <i class="fas fa-bolt"></i> 便捷访问入口
-                </div>
-            </div>
-            <div class="grid-4">
-                <a href="boost-detail.html" class="icon-item">
-                    <i class="fas fa-coins"></i>
-                    <span>链上赚币</span>
-                </a>
-                <a href="buy-h.html" class="icon-item">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>立即购买H</span>
-                </a>
-                <a href="community.html" class="icon-item">
-                    <i class="fas fa-users"></i>
-                    <span>社区红包群</span>
-                </a>
-                <a href="form.html" class="icon-item">
-                    <i class="fas fa-clipboard-list"></i>
-                    <span>社区表单</span>
-                </a>
+                <div style="width: 36px;"></div>
             </div>
         </div>
         
-        <!-- 数据总览 -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <i class="fas fa-chart-bar"></i> 数据总览
+        <div class="app-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-rocket"></i>
+                        <span>链上赚币 | OKX Boost活动</span>
+                    </div>
+                    <div class="badge">官方活动</div>
+                </div>
+                
+                <div style="margin-bottom: 24px;">
+                    <h3 style="margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-info-circle" style="color: var(--primary);"></i>
+                        活动介绍
+                    </h3>
+                    <p style="color: var(--text-medium); line-height: 1.6;">
+                        通过创新的阶梯式模型与社区协同策略，参与OKX Boost的活动，实现稳定收益与超额价值回报，重新定义资产增值体验。
+                    </p>
+                </div>
+                
+                <div style="margin-bottom: 24px;">
+                    <h3 style="margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-cogs" style="color: var(--primary);"></i>
+                        活动核心机制
+                    </h3>
+                    <ul class="info-list">
+                        <li>
+                            <div class="list-icon"><i class="fas fa-exchange-alt"></i></div>
+                            <div class="list-text">
+                                <strong>在OKX Wallet使用 H代币 进行兑换交易</strong>
+                                <p style="color: var(--text-medium); font-size: 14px; margin-top: 4px;">积累交易量（Boost数据）</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list-icon"><i class="fas fa-chart-line"></i></div>
+                            <div class="list-text">
+                                <strong>交易量转化为积分</strong>
+                                <p style="color: var(--text-medium); font-size: 14px; margin-top: 4px;">直接决定您瓜分每期官方新币空投的份额</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list-icon"><i class="fas fa-sync-alt"></i></div>
+                            <div class="list-text">
+                                <strong>Boost数据每10天更新一次</strong>
+                                <p style="color: var(--text-medium); font-size: 14px; margin-top: 4px;">必须提前拥有交易量记录，才能参与下一期的奖励分配</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div style="margin-bottom: 24px;">
+                    <h3 style="margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-eye" style="color: var(--primary);"></i>
+                        如何查看我的数据？
+                    </h3>
+                    <div class="card" style="background: rgba(26, 109, 255, 0.05); border: 1px dashed var(--primary);">
+                        <p style="color: var(--text-dark); font-weight: 600;">
+                            打开 OKX Wallet → 底部菜单栏点击 【Boost】 → 查看您的实时交易量详情与排名。
+                        </p>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="showModal('rulesModal')">
+                    <i class="fas fa-book"></i>
+                    查看Boost详细规则介绍
+                </button>
+            </div>
+            
+            <!-- 奖励与规则部分 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-gift"></i>
+                        <span>奖励与规则</span>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <h4 style="margin-bottom: 12px; color: var(--primary);">奖励介绍</h4>
+                    <ul class="info-list">
+                        <li>
+                            <div class="list-icon"><i class="fas fa-trophy"></i></div>
+                            <div class="list-text">
+                                <strong>累计邀请3位新人参与质押总额达2000U</strong>
+                                <p style="color: var(--text-medium); font-size: 14px; margin-top: 4px;">奖励：价值188U的H币 | 500U瓜分额度</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list-icon"><i class="fas fa-trophy"></i></div>
+                            <div class="list-text">
+                                <strong>累计邀请5位新人参与质押总额达5000U</strong>
+                                <p style="color: var(--text-medium); font-size: 14px; margin-top: 4px;">奖励：价值388U的H币 | 1000U瓜分额度</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list-icon"><i class="fas fa-trophy"></i></div>
+                            <div class="list-text">
+                                <strong>累计邀请10位新人参与质押总额达10000U</strong>
+                                <p style="color: var(--text-medium); font-size: 14px; margin-top: 4px;">奖励：价值888U的H币 | 3000U瓜分额度</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="grid-2">
+                    <button class="btn btn-accent" onclick="showPage('form')">
+                        <i class="fas fa-edit"></i>
+                        填写表单
+                    </button>
+                    <button class="btn btn-warning" onclick="showModal('buyModal')">
+                        <i class="fas fa-shopping-cart"></i>
+                        购买H代币
+                    </button>
                 </div>
             </div>
-            <div class="stats-container">
-                <div class="stat-box">
-                    <div class="stat-value">$2.4M</div>
-                    <div class="stat-label">质押总量</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-value">$1.8M</div>
-                    <div class="stat-label">总交易量</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-value">$124K</div>
-                    <div class="stat-label">日交易量</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-value">#48</div>
-                    <div class="stat-label">你的排名</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 常用工具 -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <i class="fas fa-toolbox"></i> 常用工具
-                </div>
-            </div>
-            <div class="grid-4">
-                <a href="checkin.html" class="icon-item">
-                    <i class="fas fa-calendar-check"></i>
-                    <span>签到</span>
-                </a>
-                <a href="lottery.html" class="icon-item">
-                    <i class="fas fa-gift"></i>
-                    <span>抽奖</span>
-                </a>
-                <a href="ai-assistant.html" class="icon-item">
-                    <i class="fas fa-robot"></i>
-                    <span>AI助手</span>
-                </a>
-                <a href="calculator.html" class="icon-item">
-                    <i class="fas fa-calculator"></i>
-                    <span>收益计算</span>
-                </a>
-                <a href="query.html" class="icon-item">
-                    <i class="fas fa-search"></i>
-                    <span>查询系统</span>
-                </a>
-                <a href="redpacket.html" class="icon-item">
-                    <i class="fas fa-hongbao"></i>
-                    <span>OKX红包</span>
-                </a>
-                <a href="download.html" class="icon-item">
-                    <i class="fas fa-download"></i>
-                    <span>下载中心</span>
-                </a>
-            </div>
-        </div>
-        
-        <!-- 快速指南 -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <i class="fas fa-user-plus"></i> 新人操作指南
-                </div>
-            </div>
-            <p style="color: var(--text-medium); line-height: 1.6; margin-bottom: 15px;">
-                下载OKX Wallet，绑定邀请人DPH777，完成新手目标：达到一次Boost交易量$500。
-            </p>
-            <a href="guide.html" class="btn btn-secondary">
-                <i class="fas fa-graduation-cap"></i> 查看完整指南
-            </a>
-        </div>
-        
-        <!-- 社区策略 -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <i class="fas fa-chess-knight"></i> 社区策略
-                </div>
-            </div>
-            <p style="color: var(--text-medium); line-height: 1.6; margin-bottom: 15px;">
-                四步参与法：质押获取弹药 → 择时兑换 → 执行交易 → 循环滚动，形成飞轮增长效应。
-            </p>
-            <a href="strategy.html" class="btn btn-accent">
-                <i class="fas fa-lightbulb"></i> 查看详细策略
-            </a>
         </div>
     </div>
+    
+    <!-- 更多页面结构... -->
+    <!-- 由于篇幅限制，这里只展示首页和Boost页面，其他页面结构类似 -->
     
     <!-- 底部导航栏 -->
     <div class="bottom-nav">
-        <a href="index.html" class="nav-item active">
+        <a href="javascript:void(0)" class="nav-item active" onclick="showPage('home')">
             <i class="fas fa-home"></i>
             <span>首页</span>
         </a>
-        <a href="dolphin-model.html" class="nav-item">
+        <a href="javascript:void(0)" class="nav-item" onclick="showPage('model')">
             <i class="fas fa-dolphin"></i>
             <span>海豚模型</span>
         </a>
-        <a href="ai-assistant.html" class="nav-item">
+        <a href="javascript:void(0)" class="nav-item" onclick="showModal('comingSoonModal')">
             <i class="fas fa-robot"></i>
             <span>AI助手</span>
         </a>
-        <a href="wallet.html" class="nav-item">
+        <a href="javascript:void(0)" class="nav-item" onclick="showModal('comingSoonModal')">
             <i class="fas fa-wallet"></i>
             <span>钱包</span>
         </a>
     </div>
+    
+    <!-- 弹窗系统 -->
+    <div id="comingSoonModal" class="modal-overlay" onclick="hideModal(event, 'comingSoonModal')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 style="color: var(--primary);">即将开放</h3>
+                <button class="modal-close" onclick="hideModal(event, 'comingSoonModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="text-align: center; padding: 20px;">
+                    <i class="fas fa-tools" style="font-size: 48px; color: var(--primary); margin-bottom: 16px;"></i>
+                    <p style="color: var(--text-medium); font-size: 16px;">该功能正在紧张开发中，即将上线，敬请期待！</p>
+                </div>
+                <button class="btn btn-primary" onclick="hideModal(event, 'comingSoonModal')">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 更多弹窗... -->
+
+    <script>
+        // 页面管理函数
+        function showPage(pageId) {
+            // 隐藏所有页面
+            document.querySelectorAll('.page-container').forEach(page => {
+                page.classList.remove('page-active');
+            });
+            
+            // 显示目标页面
+            document.getElementById(pageId + '-page').classList.add('page-active');
+            
+            // 更新底部导航激活状态
+            updateNavActive(pageId);
+        }
+        
+        function updateNavActive(pageId) {
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            
+            // 根据页面ID激活对应导航项
+            const pageToNavMap = {
+                'home': 0,
+                'model': 1,
+                // AI助手和钱包有特殊处理
+            };
+            
+            if (pageToNavMap[pageId] !== undefined) {
+                navItems[pageToNavMap[pageId]].classList.add('active');
+            }
+        }
+        
+        // 弹窗管理函数
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.add('modal-active');
+        }
+        
+        function hideModal(event, modalId) {
+            event.stopPropagation();
+            document.getElementById(modalId).classList.remove('modal-active');
+        }
+        
+        // 签到功能
+        function checkIn() {
+            const today = new Date().toDateString();
+            const lastCheckIn = localStorage.getItem('lastCheckIn');
+            
+            if (lastCheckIn === today) {
+                alert('您今天已经签到过了！');
+                return;
+            }
+            
+            // 模拟签到成功
+            localStorage.setItem('lastCheckIn', today);
+            
+            // 显示签到成功提示
+            alert('签到成功！获得5积分');
+            
+            // 这里可以添加更多签到逻辑，比如更新用户积分等
+        }
+        
+        // 初始化函数
+        function initApp() {
+            // 设置默认显示首页
+            showPage('home');
+            
+            // 初始化一些模拟数据
+            // 这里可以添加从服务器获取数据的逻辑
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initApp);
+        
+        // 简单的表单验证示例
+        function validateForm(formId) {
+            const form = document.getElementById(formId);
+            if (!form) return true;
+            
+            const inputs = form.querySelectorAll('input[required]');
+            for (let input of inputs) {
+                if (!input.value.trim()) {
+                    alert('请填写完整信息');
+                    input.focus();
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+        
+        // 收益计算器函数
+        function calculateEarnings() {
+            const amount = parseFloat(document.getElementById('stakeAmount')?.value) || 0;
+            const days = parseInt(document.getElementById('stakeDays')?.value) || 0;
+            
+            if (amount <= 0 || days <= 0) {
+                document.getElementById('earningsResult').innerHTML = 
+                    '<p style="color: var(--danger);">请输入有效的金额和天数</p>';
+                return;
+            }
+            
+            // 根据规则计算收益
+            let dailyRate = 0.005; // 默认0.5%
+            if (days >= 8 && days <= 15) dailyRate = 0.006;
+            else if (days >= 16 && days <= 30) dailyRate = 0.008;
+            else if (days >= 31 && days <= 60) dailyRate = 0.01;
+            else if (days > 60) dailyRate = 0.012;
+            
+            const totalEarnings = amount * dailyRate * days;
+            const dailyEarnings = amount * dailyRate;
+            
+            document.getElementById('earningsResult').innerHTML = `
+                <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(0, 200, 83, 0.1), rgba(0, 212, 200, 0.1)); border-radius: 12px;">
+                    <p style="color: var(--text-medium);">预计总收益</p>
+                    <h2 style="color: var(--accent); font-size: 32px; margin: 10px 0;">$${totalEarnings.toFixed(2)}</h2>
+                    <p style="color: var(--text-medium);">每日收益: $${dailyEarnings.toFixed(2)}</p>
+                    <p style="color: var(--text-light); font-size: 14px; margin-top: 10px;">基于${days}天，${dailyRate*100}%日利率计算</p>
+                </div>
+            `;
+        }
+    </script>
 </body>
 </html>
