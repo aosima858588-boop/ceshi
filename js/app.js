@@ -2,6 +2,9 @@
   const toastContainer = document.createElement('div');
   toastContainer.id = 'toastContainer';
   toastContainer.className = 'toast-container';
+  toastContainer.setAttribute('role', 'status');
+  toastContainer.setAttribute('aria-live', 'polite');
+  toastContainer.setAttribute('aria-atomic', 'true');
   document.body.appendChild(toastContainer);
 
   window.showToast = function(message, type = 'info'){
@@ -26,11 +29,34 @@
 
   const themeToggle = document.getElementById('themeToggle');
   if(themeToggle){
+    const iconUse = themeToggle.querySelector('svg use') || themeToggle.querySelector('use');
+
+    function setThemeIcon(isLight){
+      if(!iconUse) return;
+      const iconId = isLight ? '#icon-sun' : '#icon-moon';
+      iconUse.setAttribute('href', iconId);
+      iconUse.setAttribute('xlink:href', iconId);
+    }
+
+    // Initialize icon state based on current theme
+    (function initThemeIcon(){
+      const root = document.documentElement;
+      const isLight = root.getAttribute('data-theme') === 'light';
+      setThemeIcon(isLight);
+    })();
+
     themeToggle.addEventListener('click', ()=>{
       const root = document.documentElement;
       const isLight = root.getAttribute('data-theme') === 'light';
-      if(isLight){ root.removeAttribute('data-theme'); themeToggle.setAttribute('aria-pressed','false'); }
-      else { root.setAttribute('data-theme','light'); themeToggle.setAttribute('aria-pressed','true'); }
+      if(isLight){
+        root.removeAttribute('data-theme');
+        themeToggle.setAttribute('aria-pressed','false');
+      } else {
+        root.setAttribute('data-theme','light');
+        themeToggle.setAttribute('aria-pressed','true');
+      }
+      const nowLight = root.getAttribute('data-theme') === 'light';
+      setThemeIcon(nowLight);
     });
   }
 
@@ -38,6 +64,11 @@
     const els = document.querySelectorAll('.tilt');
     els.forEach(el=>{
       let rect = null;
+      // Create a wrapper to avoid transform conflicts
+      const tiltWrapper = document.createElement('div');
+      tiltWrapper.style.transformStyle = 'preserve-3d';
+      tiltWrapper.style.transition = 'transform var(--motion-base) var(--motion-ease)';
+      
       function onMove(e){
         if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         if(!rect) rect = el.getBoundingClientRect();
@@ -49,18 +80,36 @@
         const ry = Math.max(Math.min(px * -6, 8), -8);
         el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
       }
-      function onLeave(){ el.style.transform='none'; rect = null; }
+      function onLeave(){ 
+        el.style.transform=''; 
+        rect = null; 
+      }
       el.addEventListener('mousemove', onMove);
       el.addEventListener('mouseleave', onLeave);
-      el.addEventListener('focus', ()=> el.style.transform='translateY(-6px) scale(1.01)');
-      el.addEventListener('blur', ()=> el.style.transform='none');
+      el.addEventListener('focus', ()=> {
+        if(!el.style.transform) el.style.transform='translateY(-6px) scale(1.01)';
+      });
+      el.addEventListener('blur', ()=> {
+        if(el.style.transform === 'translateY(-6px) scale(1.01)') el.style.transform='';
+      });
     });
   }
 
   attachTilt();
 
   document.querySelectorAll('.feature-item').forEach(el=>{
-    el.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); el.click(); } });
+    el.addEventListener('keydown', function(e){ 
+      if(e.key === 'Enter'){ 
+        e.preventDefault(); 
+        el.click(); 
+      } 
+    });
+    el.addEventListener('keyup', function(e){ 
+      if(e.key === ' ' || e.key === 'Spacebar'){ 
+        e.preventDefault(); 
+        el.click(); 
+      } 
+    });
   });
 
   const DEFAULT_APR = 0.12;
@@ -84,7 +133,11 @@
     else if(id === 'ai') showToast('打开 AI 助手');
     else if(id === 'wallet') showToast('打开钱包');
     else if(id === 'calculator') { const s = document.getElementById('stake'); if(s) s.focus(); showToast('打开计算器'); }
-    else window.scrollTo({ top: 0, behavior: 'smooth' });
+    else {
+      const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const scrollBehavior = prefersReducedMotion ? 'auto' : 'smooth';
+      window.scrollTo({ top: 0, behavior: scrollBehavior });
+    }
   };
 
 })();
