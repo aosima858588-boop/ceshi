@@ -2,105 +2,172 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>海豚社区 - 顶部动态海豚（已修复 MorphSVG）</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>海豚社区 · 会员中心</title>
+
+  <meta name="description" content="海豚社区会员中心 - 开启海豚模式，参与OKX Boost，享受社区智能助手服务" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --gradient-title: linear-gradient(90deg, #1e3a8a, #3b82f6 50%, #93c5fd);
+      --bg: #ffffff;
+      --bg-alt: #f8fafc;
+      --text: #0f172a;
+      --text-sec: #475569;
+      --border: #e2e8f0;
+      --blue: #3b82f6;
+      --blue-dark: #1e40af;
+      --blue-light: #60a5fa;
+      --blue-glow: rgba(59,130,246,0.25);
+      --radius: 20px;
+      --radius-sm: 12px;
+      --shadow-sm: 0 4px 20px rgba(0,0,0,0.06);
+      --shadow-md: 0 12px 40px rgba(59,130,246,0.18);
+      --transition: all 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --bg-alt: #1e293b;
+        --text: #f1f5f9;
+        --text-sec: #cbd5e1;
+        --border: #334155;
+        --blue: #60a5fa;
+        --blue-dark: #3b82f6;
+        --blue-light: #93c5fd;
+        --blue-glow: rgba(96,165,250,0.35);
+      }
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      margin: 0;
       font-family: 'Inter', system-ui, sans-serif;
-      background: linear-gradient(135deg, #f8fafc 0%, #f0f9ff 100%);
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
-      color: #0f172a;
+      -webkit-font-smoothing: antialiased;
     }
 
     .top-hero {
       position: relative;
-      padding: 100px 20px 60px;
+      padding: 120px 24px 80px;
       text-align: center;
       overflow: hidden;
+      background: linear-gradient(135deg, var(--bg-alt), var(--bg));
+    }
+
+    .main-title,
+    .subtitle {
+      background: var(--gradient-title);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .main-title {
       font-weight: 900;
-      font-size: clamp(44px, 10vw, 68px);
-      line-height: 1.05;
-      letter-spacing: -1.5px;
-      background: linear-gradient(90deg, #1e40af, #3b82f6 50%, #60a5fa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin: 0 0 16px;
-      animation: titleBreathe 8s ease-in-out infinite;
+      font-size: clamp(52px, 12vw, 80px);
+      line-height: 1.04;
+      letter-spacing: -2px;
+      margin: 0 0 24px;
+      animation: titleBreathe 7s ease-in-out infinite;
     }
 
     .subtitle {
-      font-weight: 500;
-      font-size: clamp(22px, 5vw, 28px);
-      color: #475569;
-      max-width: 680px;
-      margin: 0 auto 48px;
+      font-weight: 600;
+      font-size: clamp(26px, 6vw, 36px);
+      max-width: 780px;
+      margin: 0 auto 64px;
       opacity: 0;
-      transform: translateY(30px);
-      animation: subtitleFade 1.2s ease-out 0.5s forwards;
+      transform: translateY(40px);
+      animation: subtitleFade 1.6s ease-out 0.8s forwards;
     }
 
     .dolphin-wrapper {
       position: absolute;
-      top: 15%;
-      right: 8%;
-      width: 220px;
-      height: 140px;
+      top: 10%;
+      right: 6%;
+      width: 280px;
+      height: 170px;
       pointer-events: none;
       z-index: 1;
     }
 
-    .dolphin-svg {
-      width: 100%;
-      height: 100%;
+    @media (max-width: 768px) {
+      .dolphin-wrapper { top:8%; right:5%; width:220px; height:140px; }
     }
+
+    @media (max-width: 480px) {
+      .dolphin-wrapper { position:relative; top:0; right:0; width:200px; height:120px; margin:40px auto 50px; }
+      .top-hero { padding:80px 20px 60px; }
+    }
+
+    .dolphin-svg { width:100%; height:100%; }
 
     .quick-menu {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 16px 24px;
-      max-width: 640px;
-      margin: 0 auto;
+      gap: 20px 32px;
+      max-width: 780px;
+      margin: 0 auto 80px;
       padding: 0 20px;
     }
 
     .menu-btn {
-      padding: 12px 28px;
+      position: relative;
+      padding: 16px 36px;
       border-radius: 999px;
-      background: #f1f5f9;
-      color: #475569;
-      font-weight: 600;
-      font-size: 15px;
+      background: linear-gradient(145deg, #f8fafc, #e2e8f0);
+      color: var(--blue-dark);
+      font-weight: 700;
+      font-size: 16px;
       text-decoration: none;
-      transition: all 0.32s ease;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: var(--transition);
+      box-shadow: 0 6px 24px var(--blue-glow);
+      overflow: hidden;
+      border: 1px solid rgba(59,130,246,0.12);
+      backdrop-filter: blur(8px);
     }
 
-    .menu-btn:hover,
-    .menu-btn.active {
-      background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    .menu-btn:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 24px 48px var(--blue-glow);
+      background: linear-gradient(145deg, var(--blue), var(--blue-light));
       color: white;
-      transform: translateY(-3px);
-      box-shadow: 0 10px 24px rgba(59,130,246,0.28);
+      border-color: rgba(255,255,255,0.3);
     }
 
-    @keyframes titleBreathe {
-      0%, 100% { transform: scale(1); }
-      50%      { transform: scale(1.018); }
+    .menu-btn.active {
+      background: linear-gradient(145deg, var(--blue-dark), var(--blue));
+      color: white;
+      box-shadow: 0 16px 40px rgba(30,64,175,0.45);
+      transform: translateY(-4px);
     }
 
-    @keyframes subtitleFade {
-      to { opacity: 1; transform: translateY(0); }
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      transform: scale(0);
+      pointer-events: none;
     }
+
+    @keyframes titleBreathe { 0%,100% {transform:scale(1);} 50% {transform:scale(1.035);} }
+    @keyframes subtitleFade { to {opacity:1; transform:translateY(0);} }
+
+    /* 占位卡片区（可继续扩展） */
+    .container { max-width: 680px; margin: 0 auto; padding: 0 20px; }
+    .cards { margin: 40px 0 120px; }
+    .card { margin-bottom: 32px; background: white; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow-sm); overflow: hidden; }
+    .card-header { padding: 24px; background: var(--bg-alt); display: flex; align-items: center; gap: 16px; }
+    .card-icon { width: 60px; height: 60px; border-radius: 16px; background: linear-gradient(135deg, var(--blue), var(--blue-light)); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
+    .card-title { font-size: 1.4rem; font-weight: 700; color: var(--blue-dark); }
   </style>
 </head>
 <body>
@@ -109,101 +176,140 @@
     <h1 class="main-title">海豚社区 会员中心</h1>
     <p class="subtitle">开启海豚模式，陪现在的你，走未来的路</p>
 
-    <!-- 海豚容器 -->
     <div class="dolphin-wrapper">
       <svg class="dolphin-svg" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="4" result="blur"/>
-            <feMerge>
-              <feMergeNode in="blur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
+            <feGaussianBlur stdDeviation="5" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
-
-        <g class="dolphin-group" filter="url(#glow)">
-          <!-- 身体轮廓 -->
-          <path class="body" d="
-            M 290 85 
-            Q 240 30, 180 85 
-            T 70 85 
-            Q 30 135, 70 85 
-            L 110 105 
-            Q 135 125, 160 105 
-            L 290 85 Z" 
-            fill="none" stroke="#60a5fa" stroke-width="6" opacity="0.14"/>
-
-          <!-- 尾巴（用于 MorphSVG 变形） -->
-          <path class="tail" d="
-            M 70 85 
-            Q 50 75, 30 95 
-            Q 20 115, 40 105 
-            Q 60 95, 70 85" 
-            fill="none" stroke="#3b82f6" stroke-width="7" opacity="0.22"/>
-
-          <!-- 水花颗粒 -->
-          <circle class="splash1" cx="50" cy="110" r="5" fill="#93c5fd" opacity="0.35"/>
-          <circle class="splash2" cx="68" cy="128" r="4" fill="#60a5fa" opacity="0.28"/>
-          <circle class="splash3" cx="85" cy="118" r="3.5" fill="#93c5fd" opacity="0.4"/>
+        <g class="dolphin-group" filter="url(#glow)" style="will-change: transform;">
+          <path d="M290 85 Q240 30,180 85 T70 85 Q30 135,70 85 L110 105 Q135 125,160 105 L290 85 Z" fill="none" stroke="#60a5fa" stroke-width="7" opacity="0.18"/>
+          <path class="tail" d="M70 85 Q50 75,30 95 Q20 115,40 105 Q60 95,70 85" fill="none" stroke="#3b82f6" stroke-width="8" opacity="0.28"/>
+          <circle class="splash" cx="50" cy="110" r="6" fill="#93c5fd" opacity="0.4"/>
+          <circle class="splash" cx="70" cy="130" r="5" fill="#60a5fa" opacity="0.35"/>
+          <circle class="splash" cx="90" cy="120" r="4" fill="#93c5fd" opacity="0.45"/>
         </g>
       </svg>
     </div>
 
-    <!-- 菜单 -->
     <div class="quick-menu">
-      <a href="#" class="menu-btn active">OKX Boost</a>
-      <a href="#" class="menu-btn">经济模型演示</a>
-      <a href="#" class="menu-btn">常用工具</a>
-      <a href="#" class="menu-btn">个人中心</a>
+      <a href="#" class="menu-btn" data-action="boost">OKX Boost</a>
+      <a href="#" class="menu-btn" data-action="model">经济模型演示</a>
+      <a href="#" class="menu-btn" data-action="tools">常用工具</a>
+      <a href="#" class="menu-btn" data-action="profile">个人中心</a>
     </div>
   </section>
 
-  <!-- GSAP 核心 + MorphSVGPlugin -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MorphSVGPlugin.min.js"></script>
+  <div class="container">
+    <div class="cards">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon"><i class="fas fa-rocket"></i></div>
+          <div class="card-title">欢迎使用海豚智能助手</div>
+        </div>
+        <div style="padding:32px; color:var(--text-sec);">
+          <p>点击上方按钮快速进入对应功能模块</p>
+          <p style="margin-top:16px;">当前版本已优化交互与视觉统一性，后续可继续扩展卡片内容。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 
   <script>
-    // 必须注册插件（这一行是关键！）
-    gsap.registerPlugin(MorphSVGPlugin);
+    // 海豚大动作循环
+    gsap.timeline({repeat:-1, yoyo:true, repeatDelay:1})
+      .to(".dolphin-group", {y:-80, rotation:-12, duration:2.4, ease:"power3.out"})
+      .to(".dolphin-group", {y:0, rotation:10, duration:3.2, ease:"power3.inOut"}, "-=1.8");
 
-    // 海豚整体跃动 + 轻微旋转
-    gsap.timeline({ repeat: -1, yoyo: true, repeatDelay: 2 })
-      .to(".dolphin-group", {
-        y: -42,
-        rotation: -5,
-        duration: 3.2,
-        ease: "power3.out"
-      })
-      .to(".dolphin-group", {
-        y: 0,
-        rotation: 2,
-        duration: 3.8,
-        ease: "power3.inOut"
-      }, "-=2.2");
-
-    // 尾巴自然摆动（MorphSVG 变形）
+    // 尾巴摆动
     gsap.to(".tail", {
-      morphSVG: {
-        type: "rotational",
-        shape: "M70 85 Q45 65,25 90 Q15 110,35 100 Q55 90,70 85"
-      },
-      duration: 1.6,
+      rotation: 18,
+      transformOrigin: "right center",
+      duration: 0.75,
       repeat: -1,
       yoyo: true,
       ease: "sine.inOut"
     });
 
-    // 水花随机闪烁 + 上升 + 缩放
-    gsap.utils.toArray(".splash1, .splash2, .splash3").forEach((el, i) => {
+    // 水花
+    gsap.utils.toArray(".splash").forEach((el,i) => {
       gsap.to(el, {
-        keyframes: [
-          { opacity: 0.8, scale: 1.4, y: -18, duration: 1.2 },
-          { opacity: 0.3, scale: 0.8, y: 0, duration: 1.8 }
-        ],
-        repeat: -1,
-        delay: i * 0.6 + Math.random() * 0.8,
-        ease: "sine.inOut"
+        keyframes:[{opacity:0.95,scale:1.8,y:-32,duration:0.9},{opacity:0.1,scale:0.5,y:0,duration:2.1}],
+        repeat:-1,
+        delay:i*0.4 + Math.random()*0.5,
+        ease:"sine.inOut"
+      });
+    });
+
+    // 按钮交互
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = document.querySelectorAll('.menu-btn');
+
+      buttons.forEach(btn => {
+        let isHovering = false;
+
+        btn.addEventListener('mouseenter', () => {
+          isHovering = true;
+          gsap.to('.dolphin-group', {
+            y: '-=28',
+            rotation: '+=16',
+            duration: 0.65,
+            ease: "back.out(2)"
+          });
+        });
+
+        btn.addEventListener('mouseleave', () => {
+          isHovering = false;
+          setTimeout(() => {
+            if (!isHovering) {
+              gsap.to('.dolphin-group', {
+                y: '+=28',
+                rotation: '-=16',
+                duration: 1.2,
+                ease: "elastic.out(1.2, 0.35)"
+              });
+            }
+          }, 200);
+        });
+
+        btn.addEventListener('click', function(e) {
+          buttons.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+
+          gsap.to(this, {scale:0.9, duration:0.1, yoyo:true, repeat:1});
+
+          const action = this.getAttribute('data-action');
+          let rotateDeg = 18;
+          if (action === 'boost') rotateDeg = 24;
+          if (action === 'model') rotateDeg = -20;
+
+          gsap.to('.dolphin-group', {
+            y: -50,
+            rotation: rotateDeg,
+            duration: 0.35,
+            yoyo: true,
+            repeat: 1,
+            ease: "power2.out"
+          });
+
+          // 涟漪
+          const ripple = document.createElement('div');
+          ripple.className = 'ripple';
+          this.appendChild(ripple);
+
+          const rect = this.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height) * 3.2;
+          ripple.style.width = ripple.style.height = size + 'px';
+
+          gsap.fromTo(ripple,
+            { scale: 0, x: e.offsetX - size/2, y: e.offsetY - size/2 },
+            { scale: 1, opacity: 0, duration: 1, ease: "power2.out", onComplete: () => ripple.remove() }
+          );
+        });
       });
     });
   </script>
