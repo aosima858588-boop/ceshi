@@ -3,452 +3,777 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>加密货币钱包界面</title>
+    <title>设计灵感库 | 官网与工具App设计参考</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --accent: #00d2ff;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --transition: all 0.3s ease;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            font-family: 'Segoe UI', 'Inter', 'Microsoft YaHei', sans-serif;
         }
         
         body {
-            background-color: #0a0e17;
-            color: #ffffff;
-            line-height: 1.5;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
             padding: 20px;
-            max-width: 400px;
+        }
+        
+        .container {
+            max-width: 1400px;
             margin: 0 auto;
-            position: relative;
         }
         
-        /* 状态栏 */
-        .status-bar {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            font-size: 14px;
-            color: #a0a0a0;
-            margin-bottom: 20px;
-        }
-        
-        /* 标题区域 */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-        
-        .tabs {
-            display: flex;
-            background-color: #1a2236;
-            border-radius: 12px;
-            padding: 4px;
-            width: fit-content;
-        }
-        
-        .tab {
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .tab.active {
-            background-color: #2d3748;
-            color: #60a5fa;
-        }
-        
-        .invite-code {
-            background-color: #1a2236;
-            padding: 8px 12px;
-            border-radius: 12px;
-            font-size: 14px;
-        }
-        
-        .invite-code .code {
-            color: #60a5fa;
-            font-weight: bold;
-        }
-        
-        /* 余额卡片 */
-        .balance-card {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            border-radius: 20px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-        
-        .balance-amount {
-            font-size: 36px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-        
-        .balance-change {
-            color: #4ade80;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-        
-        /* 操作按钮 */
-        .action-buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 30px;
-        }
-        
-        .action-btn {
-            background-color: #1a2236;
-            border-radius: 12px;
-            padding: 16px 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .action-btn:hover {
-            background-color: #2d3748;
-        }
-        
-        .action-btn i {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: #60a5fa;
-        }
-        
-        /* 奖励横幅 */
-        .reward-banner {
-            background: linear-gradient(90deg, #3b82f6, #1d4ed8);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .reward-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-        
-        .reward-rate {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        
-        /* 导航栏 */
-        .nav-tabs {
-            display: flex;
-            justify-content: space-between;
-            background-color: #1a2236;
-            border-radius: 16px;
-            padding: 8px;
-            margin-bottom: 20px;
-        }
-        
-        .nav-tab {
-            padding: 10px 16px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            flex: 1;
+        /* 头部样式 */
+        header {
             text-align: center;
+            padding: 60px 20px 40px;
+            margin-bottom: 40px;
         }
         
-        .nav-tab.active {
-            background-color: #2d3748;
-            color: #60a5fa;
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
-        /* 资产列表 */
-        .assets-list {
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* 标签导航 */
+        .tab-navigation {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 50px;
+        }
+        
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--light);
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tab-btn:hover, .tab-btn.active {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(106, 17, 203, 0.3);
+        }
+        
+        /* 内容区域 */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 通用卡片样式 */
+        .section-title {
+            font-size: 2.2rem;
             margin-bottom: 30px;
-        }
-        
-        .asset-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 0;
-            border-bottom: 1px solid #2d3748;
-        }
-        
-        .asset-info {
+            color: var(--light);
             display: flex;
             align-items: center;
+            gap: 15px;
         }
         
-        .asset-icon {
-            width: 40px;
-            height: 40px;
-            background-color: #3b82f6;
+        .section-title i {
+            color: var(--accent);
+        }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            height: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(106, 17, 203, 0.3);
+        }
+        
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 12px;
-            font-weight: bold;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
         }
         
-        .asset-name {
-            font-weight: 500;
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--light);
         }
         
-        .asset-amount {
-            font-weight: bold;
-            font-size: 18px;
+        .card-desc {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
         }
         
-        /* DeFi 网格 */
-        .defi-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
+        /* 标签样式 */
+        .tag {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .tag.interaction {
+            background: rgba(37, 117, 252, 0.2);
+            color: #83b4ff;
+        }
+        
+        .tag.color {
+            background: rgba(106, 17, 203, 0.2);
+            color: #c792ff;
+        }
+        
+        .tag.ui {
+            background: rgba(0, 210, 255, 0.2);
+            color: #8ae8ff;
+        }
+        
+        /* 灵感网站特定样式 */
+        .site-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: var(--transition);
+        }
+        
+        .site-link:hover {
+            color: var(--secondary);
+            gap: 12px;
+        }
+        
+        /* 案例展示特定样式 */
+        .case-study {
+            border-left: 4px solid var(--primary);
+            padding-left: 20px;
             margin-top: 20px;
         }
         
-        .defi-item {
-            background-color: #1a2236;
-            border-radius: 16px;
-            padding: 20px 12px;
+        .case-point {
+            margin-bottom: 12px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            align-items: flex-start;
+            gap: 10px;
         }
         
-        .defi-item:hover {
-            background-color: #2d3748;
+        .case-point i {
+            color: var(--success);
+            margin-top: 3px;
         }
         
-        .defi-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        /* 调色板展示 */
+        .palette-container {
+            display: flex;
+            height: 80px;
             border-radius: 12px;
+            overflow: hidden;
+            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .color-item {
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 12px;
-            font-size: 18px;
+            color: white;
+            font-weight: 600;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
         
-        .defi-name {
-            font-size: 14px;
-            text-align: center;
+        /* 工具卡片特定样式 */
+        .tool-link {
+            display: block;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+            text-decoration: none;
+            color: var(--light);
+            transition: var(--transition);
+            border: 1px solid transparent;
         }
         
-        /* 底部导航 */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: #0a0e17;
-            padding: 16px 20px;
+        .tool-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(106, 17, 203, 0.3);
+            transform: translateY(-5px);
+        }
+        
+        .tool-link-header {
             display: flex;
-            justify-content: space-between;
-            border-top: 1px solid #1a2236;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        
-        .nav-item {
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            color: #a0a0a0;
-            cursor: pointer;
+            justify-content: space-between;
+            margin-bottom: 10px;
         }
         
-        .nav-item.active {
-            color: #60a5fa;
+        /* 响应式设计 */
+        @media (max-width: 1100px) {
+            .cards-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
         }
         
-        .nav-item i {
-            font-size: 20px;
-            margin-bottom: 4px;
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tab-navigation {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
         }
         
-        .nav-label {
-            font-size: 12px;
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .card-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+        
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            color: rgba(255, 255, 255, 0.6);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
-    <!-- 状态栏 -->
-    <div class="status-bar">
-        <div class="time">04:20</div>
-        <div class="status-icons">
-            <i class="fas fa-signal"></i>
-            <i class="fas fa-wifi"></i>
-            <i class="fas fa-battery-three-quarters"></i>
-        </div>
-    </div>
-    
-    <!-- 标题区域 -->
-    <div class="header">
-        <div class="tabs">
-            <div class="tab active">币种</div>
-            <div class="tab">地址</div>
-            <div class="tab">DApp</div>
-        </div>
-        <div class="invite-code">
-            常用 - 质押管理地址 | 邀请码<span class="code">666</span>
-        </div>
-    </div>
-    
-    <!-- 余额卡片 -->
-    <div class="balance-card">
-        <div class="balance-amount">$16.32</div>
-        <div class="balance-change">+$0.06 (+0.39%) 1日</div>
-    </div>
-    
-    <!-- 操作按钮 -->
-    <div class="action-buttons">
-        <div class="action-btn">
-            <i class="fas fa-paper-plane"></i>
-            <span>发送</span>
-        </div>
-        <div class="action-btn">
-            <i class="fas fa-qrcode"></i>
-            <span>接收</span>
-        </div>
-        <div class="action-btn">
-            <i class="fas fa-history"></i>
-            <span>交易历史</span>
-        </div>
-        <div class="action-btn">
-            <i class="fas fa-ellipsis-h"></i>
-            <span>更多</span>
-        </div>
-    </div>
-    
-    <!-- 奖励横幅 -->
-    <div class="reward-banner">
-        <div class="reward-title">USDG奖励</div>
-        <div class="reward-rate">在 X Layer 持有 USDG 即可获得最高 3.85% 年化收益</div>
-    </div>
-    
-    <!-- 导航栏 -->
-    <div class="nav-tabs">
-        <div class="nav-tab active">币种</div>
-        <div class="nav-tab">DeFi</div>
-        <div class="nav-tab">DApp</div>
-        <div class="nav-tab">NFT</div>
-        <div class="nav-tab">授权</div>
-    </div>
-    
-    <!-- 资产列表 -->
-    <div class="assets-list">
-        <div class="asset-item">
-            <div class="asset-info">
-                <div class="asset-icon">O</div>
-                <div class="asset-name">OKB</div>
+    <div class="container">
+        <header>
+            <h1>设计灵感库</h1>
+            <p class="subtitle">精选优秀官网与工具类App的交互设计、色彩搭配与视觉表现案例，为你提供创意参考与实践指南。</p>
+            
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="inspiration">
+                    <i class="fas fa-lightbulb"></i> 灵感网站
+                </button>
+                <button class="tab-btn" data-tab="principles">
+                    <i class="fas fa-star"></i> 设计原则
+                </button>
+                <button class="tab-btn" data-tab="case-studies">
+                    <i class="fas fa-desktop"></i> 案例分析
+                </button>
+                <button class="tab-btn" data-tab="tools">
+                    <i class="fas fa-palette"></i> 配色工具
+                </button>
             </div>
-            <div class="asset-amount">0.154267</div>
-        </div>
-        <div class="asset-item">
-            <div class="asset-info">
-                <div class="asset-icon">H</div>
-                <div class="asset-name">H</div>
-            </div>
-            <div class="asset-amount">1,276,778.61</div>
-        </div>
-        <div class="asset-item">
-            <div class="asset-info">
-                <div class="asset-icon">U</div>
-                <div class="asset-name">USDT</div>
-            </div>
-            <div class="asset-amount">0.01</div>
-        </div>
-        <div class="asset-item">
-            <div class="asset-info">
-                <div class="asset-icon">U</div>
-                <div class="asset-name">USDC</div>
-            </div>
-            <div class="asset-amount">0</div>
-        </div>
+        </header>
+        
+        <main>
+            <!-- 灵感网站标签页 -->
+            <section id="inspiration" class="tab-content active">
+                <h2 class="section-title"><i class="fas fa-compass"></i> 设计灵感来源网站</h2>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-basketball-ball"></i>
+                        </div>
+                        <h3 class="card-title">Dribbble</h3>
+                        <div>
+                            <span class="tag ui">UI设计</span>
+                            <span class="tag color">色彩灵感</span>
+                            <span class="tag interaction">动效设计</span>
+                        </div>
+                        <p class="card-desc">全球设计师作品展示平台，以高质量的UI设计、插画和动效作品闻名。是寻找最新设计趋势和视觉风格的绝佳场所。</p>
+                        <a href="https://dribbble.com" target="_blank" class="site-link">
+                            访问网站 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3 class="card-title">Awwwards</h3>
+                        <div>
+                            <span class="tag interaction">交互设计</span>
+                            <span class="tag ui">网页设计</span>
+                        </div>
+                        <p class="card-desc">专业网页设计奖项平台，收录全球顶尖的创意网站。特别适合寻找官网设计灵感和前沿交互技术。</p>
+                        <a href="https://www.awwwards.com" target="_blank" class="site-link">
+                            访问网站 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fab fa-behance"></i>
+                        </div>
+                        <h3 class="card-title">Behance</h3>
+                        <div>
+                            <span class="tag ui">项目案例</span>
+                            <span class="tag color">品牌设计</span>
+                        </div>
+                        <p class="card-desc">Adobe旗下的设计社区，展示包括UI/UX、品牌、插画等完整设计项目。适合深入学习和研究设计流程。</p>
+                        <a href="https://www.behance.net" target="_blank" class="site-link">
+                            访问网站 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3 class="card-title">Mobbin</h3>
+                        <div>
+                            <span class="tag interaction">UX模式</span>
+                            <span class="tag ui">App界面</span>
+                        </div>
+                        <p class="card-desc">专注于真实产品UI/UX的资源库，提供Airbnb、Spotify等热门App的界面截图。是进行竞品分析和界面参考的宝贵资源。</p>
+                        <a href="https://mobbin.com" target="_blank" class="site-link">
+                            访问网站 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 设计原则标签页 -->
+            <section id="principles" class="tab-content">
+                <h2 class="section-title"><i class="fas fa-pen-fancy"></i> 核心设计原则</h2>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3 class="card-title">清晰与简化</h3>
+                        <div>
+                            <span class="tag interaction">交互原则</span>
+                        </div>
+                        <p class="card-desc">优秀的设计应该直观易懂，用户无需猜测如何操作。通过减少不必要的元素、限制选项数量来降低用户的认知负荷。</p>
+                        <div class="case-study">
+                            <div class="case-point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>保持界面简洁，突出重点功能</span>
+                            </div>
+                            <div class="case-point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>使用清晰的视觉层次引导用户</span>
+                            </div>
+                            <div class="case-point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>避免信息过载，保持专注</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h3 class="card-title">一致性与反馈</h3>
+                        <div>
+                            <span class="tag interaction">交互原则</span>
+                        </div>
+                        <p class="card-desc">保持设计元素和行为的一致性，同时为用户操作提供即时、明确的反馈，增强用户的控制感和信心。</p>
+                        <div class="case-study">
+                            <div class="case-point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>在整个产品中使用统一的组件和模式</span>
+                            </div>
+                            <div class="case-point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>按钮悬停、点击状态变化明确</span>
+                            </div>
+                            <div class="case-point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>表单提交后显示明确的成功/错误提示</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-fill-drip"></i>
+                        </div>
+                        <h3 class="card-title">色彩策略</h3>
+                        <div>
+                            <span class="tag color">色彩原则</span>
+                        </div>
+                        <p class="card-desc">色彩不仅关乎美观，更是功能性的设计工具。通过色彩建立品牌识别、引导注意力并传达信息层次。</p>
+                        <div class="case-study">
+                            <div class="case-point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>建立品牌主色、辅助色和点缀色系统</span>
+                            </div>
+                            <div class="case-point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>确保文本与背景有足够的对比度</span>
+                            </div>
+                            <div class="case-point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>使用色彩突出重要操作和状态</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-universal-access"></i>
+                        </div>
+                        <h3 class="card-title">可访问性</h3>
+                        <div>
+                            <span class="tag ui">UI原则</span>
+                        </div>
+                        <p class="card-desc">设计应服务于所有用户，包括残障人士。良好的可访问性设计能扩大用户群体并提升整体体验质量。</p>
+                        <div class="case-study">
+                            <div class="case-point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>确保颜色对比度符合WCAG标准</span>
+                            </div>
+                            <div class="case-point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>为所有图像提供替代文本</span>
+                            </div>
+                            <div class="case-point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>确保界面可通过键盘完全操作</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 案例分析标签页 -->
+            <section id="case-studies" class="tab-content">
+                <h2 class="section-title"><i class="fas fa-chart-line"></i> 优秀案例解析</h2>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fab fa-slack"></i>
+                        </div>
+                        <h3 class="card-title">Slack</h3>
+                        <div>
+                            <span class="tag interaction">极简交互</span>
+                            <span class="tag color">品牌一致</span>
+                        </div>
+                        <p class="card-desc">官网设计极其简洁，没有多余装饰，信息直截了当。与App本身的设计语言高度一致，强化了品牌识别度。</p>
+                        
+                        <div class="palette-container">
+                            <div class="color-item" style="background: #4A154B;">#4A154B</div>
+                            <div class="color-item" style="background: #36C5F0;">#36C5F0</div>
+                            <div class="color-item" style="background: #2EB67D;">#2EB67D</div>
+                            <div class="color-item" style="background: #E01E5A;">#E01E5A</div>
+                            <div class="color-item" style="background: #ECB22E;">#ECB22E</div>
+                        </div>
+                        
+                        <div class="case-study">
+                            <div class="case-point">
+                                <i class="fas fa-star"></i>
+                                <span><strong>交互亮点</strong>：页面无分散注意力的元素，信息层级清晰</span>
+                            </div>
+                            <div class="case-point">
+                                <i class="fas fa-star"></i>
+                                <span><strong>色彩策略</strong>：使用品牌多色系统，保持与产品高度一致</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fab fa-dropbox"></i>
+                        </div>
+                        <h3 class="card-title">Dropbox</h3>
+                        <div>
+                            <span class="tag interaction">清晰布局</span>
+                            <span class="tag color">友好视觉</span>
+                        </div>
+                        <p class="card-desc">官网布局干净清晰，使用有趣的手绘插画友好地传达产品理念。设计简约，通过不同色块清晰划分功能区域。</p>
+                        
+                        <div class="palette-container">
+                            <div class="color-item" style="background: #0061FF;">#0061FF</div>
+                            <div class="color-item" style="background: #00B0F4;">#00B0F4</div>
+                            <div class="color-item" style="background: #00D2FF;">#00D2FF</div>
+                            <div class="color-item" style="background: #F5F5F5; color: #333;">#F5F5F5</div>
+                            <div class="color-item" style="background: #FFFFFF; color: #333;">#FFFFFF</div>
+                        </div>
+                        
+                        <div class="case-study">
+                            <div class="case-point">
+                                <i class="fas fa-star"></i>
+                                <span><strong>交互亮点</strong>：导航直观，手绘插画增加亲和力</span>
+                            </div>
+                            <div class="case-point">
+                                <i class="fas fa-star"></i>
+                                <span><strong>色彩策略</strong>：蓝色渐变主色调，搭配大量留白</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fab fa-trello"></i>
+                        </div>
+                        <h3 class="card-title">Trello</h3>
+                        <div>
+                            <span class="tag interaction">价值传达</span>
+                            <span class="tag color">愉悦配色</span>
+                        </div>
+                        <p class="card-desc">主页直接阐明其核心价值，通过简短的图文迅速解释工作原理。明亮愉快的颜色组合传达出产品兼具趣味性和专业性。</p>
+                        
+                        <div class="palette-container">
+                            <div class="color-item" style="background: #0079BF;">#0079BF</div>
+                            <div class="color-item" style="background: #70B500;">#70B500</div>
+                            <div class="color-item" style="background: #FF9F1A;">#FF9F1A</div>
+                            <div class="color-item" style="background: #EB5A46;">#EB5A46</div>
+                            <div class="color-item" style="background: #F2D600;">#F2D600</div>
+                        </div>
+                        
+                        <div class="case-study">
+                            <div class="case-point">
+                                <i class="fas fa-star"></i>
+                                <span><strong>交互亮点</strong>：主页直接展示产品价值，快速建立认知</span>
+                            </div>
+                            <div class="case-point">
+                                <i class="fas fa-star"></i>
+                                <span><strong>色彩策略</strong>：多彩设计反映产品卡片的多彩特性</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3 class="card-title">ZHOOSH</h3>
+                        <div>
+                            <span class="tag interaction">动态交互</span>
+                            <span class="tag color">视觉冲击</span>
+                        </div>
+                        <p class="card-desc">通过色彩变换的按钮、微妙的动画和交互效果，营造出强烈的个性与动感，吸引用户探索。体现了现代感和创新性。</p>
+                        
+                        <div class="palette-container">
+                            <div class="color-item" style="background: #FF3E80;">#FF3E80</div>
+                            <div class="color-item" style="background: #00C2FF;">#00C2FF</div>
+                            <div class="color-item" style="background: #00FFC3;">#00FFC3</div>
+                            <div class="color-item" style="background: #FFD166;">#FFD166</div>
+                            <div class="color-item" style="background: #1A1A2E;">#1A1A2E</div>
+                        </div>
+                        
+                        <div class="case-study">
+                            <div class="case-point">
+                                <i class="fas fa-star"></i>
+                                <span><strong>交互亮点</strong>：丰富的微交互和动画效果</span>
+                            </div>
+                            <div class="case-point">
+                                <i class="fas fa-star"></i>
+                                <span><strong>色彩策略</strong>：高饱和度对比色，营造活力感</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 配色工具标签页 -->
+            <section id="tools" class="tab-content">
+                <h2 class="section-title"><i class="fas fa-tools"></i> 实用设计工具</h2>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fab fa-adobe"></i>
+                        </div>
+                        <h3 class="card-title">Adobe Color</h3>
+                        <p class="card-desc">Adobe旗下的专业色彩工具，支持从图片提取配色、创建色轮规则，并能与Adobe全家桶软件无缝同步。</p>
+                        
+                        <a href="https://color.adobe.com" target="_blank" class="tool-link">
+                            <div class="tool-link-header">
+                                <span>主要功能</span>
+                                <i class="fas fa-external-link-alt"></i>
+                            </div>
+                            <div>从图像取色、色彩规则生成、可访问性检查</div>
+                        </a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-random"></i>
+                        </div>
+                        <h3 class="card-title">Coolors</h3>
+                        <p class="card-desc">快速配色方案生成器，按空格键即可随机生成调色板，支持调整、保存和导出，非常适合快速探索配色方案。</p>
+                        
+                        <a href="https://coolors.co" target="_blank" class="tool-link">
+                            <div class="tool-link-header">
+                                <span>主要功能</span>
+                                <i class="fas fa-external-link-alt"></i>
+                            </div>
+                            <div>快速生成配色、上传图片取色、调色板调整</div>
+                        </a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-hunt"></i>
+                        </div>
+                        <h3 class="card-title">Color Hunt</h3>
+                        <p class="card-desc">精心策划的调色板集合，每日更新流行配色方案。可以浏览、收藏和下载喜欢的配色，获取当下流行的色彩趋势。</p>
+                        
+                        <a href="https://colorhunt.co" target="_blank" class="tool-link">
+                            <div class="tool-link-header">
+                                <span>主要功能</span>
+                                <i class="fas fa-external-link-alt"></i>
+                            </div>
+                            <div>浏览精选调色板、按流行度筛选、收藏喜欢方案</div>
+                        </a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3 class="card-title">iColors App</h3>
+                        <p class="card-desc">移动端配色助手，内置丰富色卡，支持从照片取色，方便设计师随时随地获取灵感，并与桌面端同步。</p>
+                        
+                        <a href="https://apps.apple.com/app/icolors/id1248236046" target="_blank" class="tool-link">
+                            <div class="tool-link-header">
+                                <span>主要功能</span>
+                                <i class="fas fa-external-link-alt"></i>
+                            </div>
+                            <div>移动端取色、预置色卡、调色板管理</div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>设计灵感库 &copy; 2023 | 持续更新的设计资源与参考指南</p>
+            <p style="margin-top: 10px; font-size: 0.85rem; opacity: 0.7;">
+                提示：点击标签切换不同分类，卡片悬停有交互效果，链接可直接访问对应网站
+            </p>
+        </footer>
     </div>
-    
-    <!-- DeFi 网格 -->
-    <div class="defi-grid">
-        <div class="defi-item">
-            <div class="defi-icon"><i class="fas fa-wallet"></i></div>
-            <div class="defi-name">OKX<br>探索</div>
-        </div>
-        <div class="defi-item">
-            <div class="defi-icon"><i class="fas fa-exchange-alt"></i></div>
-            <div class="defi-name">DEX</div>
-        </div>
-        <div class="defi-item">
-            <div class="defi-icon"><i class="fas fa-chart-line"></i></div>
-            <div class="defi-name">DeFi</div>
-        </div>
-        <div class="defi-item">
-            <div class="defi-icon"><i class="fas fa-rocket"></i></div>
-            <div class="defi-name">Boost</div>
-        </div>
-    </div>
-    
-    <!-- 底部导航 -->
-    <div class="bottom-nav">
-        <div class="nav-item active">
-            <i class="fas fa-home"></i>
-            <div class="nav-label">首页</div>
-        </div>
-        <div class="nav-item">
-            <i class="fas fa-chart-bar"></i>
-            <div class="nav-label">市场</div>
-        </div>
-        <div class="nav-item">
-            <i class="fas fa-wallet"></i>
-            <div class="nav-label">钱包</div>
-        </div>
-        <div class="nav-item">
-            <i class="fas fa-user"></i>
-            <div class="nav-label">我的</div>
-        </div>
-    </div>
-    
+
     <script>
-        // 简单的交互效果
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
+        // 标签切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // 移除所有按钮和内容的active类
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // 为当前点击的按钮和对应的内容添加active类
+                    this.classList.add('active');
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
             });
-        });
-        
-        document.querySelectorAll('.nav-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
+            
+            // 为所有外部链接添加target="_blank"
+            document.querySelectorAll('a[href^="http"]').forEach(link => {
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
             });
-        });
-        
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function() {
-                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-        
-        // 操作按钮点击效果
-        document.querySelectorAll('.action-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const action = this.querySelector('span').textContent;
-                alert(`执行 ${action} 操作`);
-            });
+            
+            // 添加页面加载动画
+            setTimeout(() => {
+                document.body.style.opacity = 1;
+            }, 100);
         });
     </script>
 </body>
