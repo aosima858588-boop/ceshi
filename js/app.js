@@ -70,7 +70,7 @@
       tiltWrapper.style.transition = 'transform var(--motion-base) var(--motion-ease)';
       
       function onMove(e){
-        if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         if(!rect) rect = el.getBoundingClientRect();
         const cx = rect.left + rect.width/2;
         const cy = rect.top + rect.height/2;
