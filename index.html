@@ -23,7 +23,7 @@
       --shadow-md: 0 12px 28px rgba(59, 130, 246, 0.18);
       --radius-lg: 24px;
       --radius-md: 16px;
-      --radius-sm: 16px;    /* 按钮圆角略微加大 */
+      --radius-sm: 18px;    /* 按钮圆角更圆润 */
     }
 
     * { 
@@ -39,7 +39,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      padding: 2rem 1.5rem;
+      padding: 0 1.5rem;
       position: relative;
       overflow-x: hidden;
     }
@@ -68,23 +68,23 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 1.5rem 0 1rem;  /* 增加上内边距，为下移按钮留空间 */
+      padding: 2.2rem 0 1rem;  /* 增加上内边距，整体更居中 */
     }
 
-    /* 海豚图标单独展示，去掉文字 */
+    /* 海豚图标——独立展示 */
     .dolphin {
-      width: 96px;
-      height: 96px;
+      width: 100px;
+      height: 100px;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 4rem;
+      font-size: 4.2rem;
       color: white;
       box-shadow: var(--shadow-md);
       animation: float 3s ease-in-out infinite;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.8rem;   /* 与标题间距加大，呼吸感更强 */
     }
 
     @keyframes float {
@@ -93,9 +93,9 @@
     }
 
     h1 {
-      font-size: 2.4rem;
+      font-size: 2.5rem;
       font-weight: 800;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.9rem;   /* 标题与标语间距舒适 */
       background: linear-gradient(145deg, var(--primary), var(--accent));
       -webkit-background-clip: text;
       background-clip: text;
@@ -104,105 +104,106 @@
       line-height: 1.2;
     }
 
-    /* 全新副标题——温暖陪伴感 */
+    /* 温暖陪伴标语 */
     .tagline {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       color: var(--text-soft);
       font-weight: 500;
-      margin-bottom: 3rem;    /* 增大与按钮间距，按钮自然下移 */
-      max-width: 28ch;
+      margin-bottom: 3.2rem;    /* 标语与按钮组留白充足，视觉重心下移 */
+      max-width: 30ch;
       line-height: 1.5;
-      border-bottom: 2px solid rgba(59,130,246,0.15);
-      padding-bottom: 0.6rem;
+      border-bottom: 2px solid rgba(59,130,246,0.18);
+      padding-bottom: 0.7rem;
       display: inline-block;
     }
 
-    /* 2×2 按钮网格——整体下移，细节优化 */
+    /* 2×2 按钮网格——整体下移，间距精细调校 */
     .btn-grid-2x2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1.3rem;
+      gap: 1.4rem;
       width: 100%;
-      max-width: 400px;       /* 稍放宽，容纳更大按钮 */
-      margin-top: 1.2rem;     /* 主动下移 */
-      margin-bottom: 1rem;
+      max-width: 420px;        /* 稍宽，按钮更舒展 */
+      margin-top: 2rem;        /* 主动下移，与标语拉开层次 */
+      margin-bottom: 1.8rem;
     }
 
     .btn {
-      padding: 1.1rem 0.7rem; /* 增大按钮内边距 */
-      font-size: 1.1rem;      /* 字体略大 */
+      padding: 1.15rem 0.8rem;
+      font-size: 1.15rem;
       font-weight: 700;
       border-radius: var(--radius-sm);
       text-decoration: none;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.7rem;
-      transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+      gap: 0.75rem;
+      transition: all 0.28s cubic-bezier(0.2, 0, 0, 1);
       border: none;
       cursor: pointer;
       letter-spacing: 0.8px;
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.02);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.02);
     }
 
     .btn i {
-      font-size: 1.15em;
+      font-size: 1.2em;
       transition: transform 0.2s ease;
     }
 
     .btn:hover i {
-      transform: scale(1.15) translateX(3px);
+      transform: scale(1.18) translateX(4px);
     }
 
     .btn-primary {
       background: linear-gradient(145deg, var(--primary), var(--primary-dark));
       color: white;
-      box-shadow: 0 12px 20px -8px rgba(37, 99, 235, 0.4);
-      border: 1px solid rgba(255,255,255,0.25);
+      box-shadow: 0 14px 24px -8px rgba(37, 99, 235, 0.4);
+      border: 1px solid rgba(255,255,255,0.3);
     }
 
     .btn-primary:hover {
       background: linear-gradient(145deg, #2563eb, #1d4ed8);
-      transform: translateY(-5px);
-      box-shadow: 0 24px 28px -8px rgba(37, 99, 235, 0.5);
+      transform: translateY(-6px);
+      box-shadow: 0 26px 32px -8px rgba(37, 99, 235, 0.5);
     }
 
     .btn-primary:active {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 20px -8px rgba(37, 99, 235, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 22px -8px rgba(37, 99, 235, 0.5);
     }
 
     .btn-outline {
-      border: 1.8px solid var(--primary);
+      border: 2px solid var(--primary);
       color: var(--primary);
-      background: rgba(255,255,255,0.75);
+      background: rgba(255,255,255,0.8);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      box-shadow: 0 8px 16px rgba(59,130,246,0.1);
+      box-shadow: 0 10px 18px rgba(59,130,246,0.1);
     }
 
     .btn-outline:hover {
       background: var(--primary);
       color: white;
       border-color: var(--primary-dark);
-      transform: translateY(-5px);
-      box-shadow: 0 22px 28px -8px rgba(59,130,246,0.35);
+      transform: translateY(-6px);
+      box-shadow: 0 24px 30px -8px rgba(59,130,246,0.4);
     }
 
     .btn-outline:active {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 20px -8px rgba(59,130,246,0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 22px -8px rgba(59,130,246,0.35);
     }
 
     .footer {
       margin-top: auto;
       text-align: center;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       color: var(--text-soft);
-      line-height: 1.6;
-      padding-top: 2rem;
+      line-height: 1.7;
+      padding-top: 2.2rem;
+      padding-bottom: 0.8rem;
       border-top: 1px solid var(--border);
     }
 
@@ -227,35 +228,43 @@
       to { transform: rotate(360deg); }
     }
 
+    /* 移动端精细优化 */
     @media (max-width: 480px) {
       body {
-        padding: 1.5rem 1rem;
+        padding: 0 1rem;
       }
       
+      .hero {
+        padding-top: 1.8rem;
+      }
+
       .dolphin {
-        width: 80px;
-        height: 80px;
-        font-size: 3.2rem;
-        margin-bottom: 1rem;
+        width: 84px;
+        height: 84px;
+        font-size: 3.4rem;
+        margin-bottom: 1.5rem;
       }
 
       h1 {
         font-size: 2rem;
+        margin-bottom: 0.7rem;
       }
       
       .tagline {
-        font-size: 1.1rem;
-        margin-bottom: 2.5rem;
+        font-size: 1.15rem;
+        margin-bottom: 2.6rem;
+        padding-bottom: 0.5rem;
       }
       
       .btn-grid-2x2 {
-        gap: 1rem;
+        gap: 1.1rem;
         max-width: 360px;
-        margin-top: 0.8rem;
+        margin-top: 1.5rem;
+        margin-bottom: 1.2rem;
       }
 
       .btn {
-        padding: 0.95rem 0.5rem;
+        padding: 0.95rem 0.6rem;
         font-size: 1rem;
       }
     }
@@ -263,20 +272,20 @@
 </head>
 <body>
 
-  <!-- Canvas 流动线条背景（粗+细，动态游走） -->
+  <!-- 流动线条背景（粗细交织，动态游走） -->
   <canvas id="flow-canvas"></canvas>
 
   <main class="hero">
-    <!-- 只保留海豚图标，移除“海豚社区”文字 -->
+    <!-- 纯净海豚图标，无文字干扰 -->
     <div class="dolphin">🐬</div>
 
-    <!-- 主标题：开启海豚模式 -->
+    <!-- 主标题 -->
     <h1 data-editable="welcome-title">开启海豚模式</h1>
 
-    <!-- 全新温暖标语：陪今天的你，走未来的路（无动态覆盖，固定文案） -->
+    <!-- 固定温暖标语 -->
     <p class="tagline">陪今天的你，走未来的路</p>
 
-    <!-- 2×2 按钮组件 —— 文字已完全符合要求（进入社区 / 先看在玩 / 注册一个 / 领个红包，均有图标） -->
+    <!-- 2×2 按钮组件 —— 全部配齐图标，文字精准 -->
     <div class="btn-grid-2x2">
       <a href="login.html" class="btn btn-primary" data-editable="btn-enter">
         <i class="fas fa-sign-in-alt"></i>
@@ -302,7 +311,7 @@
   </footer>
 
   <script type="module">
-    // ---------- 流动线条背景动画 (粗细交织，数量更多，持续流动) ----------
+    // ---------- 流动线条背景动画 (粗细交织，数量丰富) ----------
     const canvas = document.getElementById('flow-canvas');
     const ctx = canvas.getContext('2d');
     let width, height;
@@ -314,18 +323,18 @@
       canvas.width = width;
       canvas.height = height;
       
-      // 增加线条数量，60～80条，粗细差异更明显
-      const count = Math.floor(Math.random() * 25 + 60);
+      // 线条数量 65～85 条，粗细差异明显
+      const count = Math.floor(Math.random() * 25 + 65);
       lines = [];
       for (let i = 0; i < count; i++) {
         lines.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          length: Math.random() * 240 + 90,   // 长度 90～330
-          speed: Math.random() * 1.4 + 0.5,    // 速度 0.5～1.9
-          thickness: Math.random() * 4.2 + 0.7, // 粗细 0.7～4.9px，包含明显的粗线
+          length: Math.random() * 260 + 100,   // 100～360
+          speed: Math.random() * 1.5 + 0.5,     // 0.5～2.0
+          thickness: Math.random() * 4.8 + 0.8, // 0.8～5.6px (粗线明显)
           angle: Math.random() * Math.PI / 3 - Math.PI / 6,
-          opacity: Math.random() * 0.2 + 0.12,
+          opacity: Math.random() * 0.2 + 0.13,
           color: `rgba(59, 130, 246, ${Math.random() * 0.2 + 0.15})`
         });
       }
@@ -350,22 +359,22 @@
         ctx.lineTo(line.x + dx, line.y + dy);
         ctx.stroke();
         
-        line.x += line.speed * Math.cos(line.angle) * 1.3;
-        line.y += line.speed * Math.sin(line.angle) * 0.9;
+        line.x += line.speed * Math.cos(line.angle) * 1.4;
+        line.y += line.speed * Math.sin(line.angle) * 1.0;
         
         if (line.x > width + line.length) {
           line.x = -line.length;
           line.y = Math.random() * height;
         }
-        if (line.y > height + 60) {
-          line.y = -60;
+        if (line.y > height + 70) {
+          line.y = -70;
           line.x = Math.random() * width;
         }
         if (line.x < -line.length) {
           line.x = width + line.length;
         }
-        if (line.y < -60) {
-          line.y = height + 60;
+        if (line.y < -70) {
+          line.y = height + 70;
         }
       });
       
@@ -379,7 +388,7 @@
     initCanvas();
     drawLines();
 
-    // ---------- 动态文案加载（仅保留有用字段，不受删除元素影响）----------
+    // ---------- 动态文案加载（完全保留）----------
     const API_BASE = 'https://haitun-backend.onrender.com';
     
     document.body.classList.add('loading');
