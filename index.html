@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>海豚社区助手 | Dolphin Community</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/design-tokens.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/layout.css">
@@ -69,7 +70,7 @@
 
   <div class="container">
     <!-- Status Bar -->
-    <div class="status-bar card">
+    <div class="status-bar">
       <div style="display:flex;align-items:center;gap:12px;">
         <svg width="32" height="32" viewBox="0 0 24 24" style="color:var(--primary-500);">
           <use href="#icon-home"/>
@@ -79,9 +80,9 @@
           <div style="font-size:var(--fs-sm);color:var(--muted);">Dolphin Community</div>
         </div>
       </div>
-      <button id="themeToggle" class="btn btn-ghost" aria-label="切换主题" aria-pressed="false">
+      <button type="button" id="themeToggle" class="btn btn-ghost" aria-label="切换主题" aria-pressed="false">
         <svg width="20" height="20" viewBox="0 0 24 24">
-          <use href="#icon-sun"/>
+          <use href="#icon-moon"/>
         </svg>
       </button>
     </div>
@@ -253,7 +254,7 @@
   </div>
 
   <!-- Bottom Navigation -->
-  <nav class="bottom-nav card" role="navigation" aria-label="主导航">
+  <nav class="bottom-nav" role="navigation" aria-label="主导航">
     <button type="button" class="nav-btn active" onclick="switchPage('main')" aria-label="首页">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
         <use href="#icon-home"/>

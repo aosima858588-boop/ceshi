@@ -38,11 +38,12 @@
       iconUse.setAttribute('xlink:href', iconId);
     }
 
-    // Initialize icon state based on current theme
+    // Initialize icon and aria-pressed state based on current theme
     (function initThemeIcon(){
       const root = document.documentElement;
       const isLight = root.getAttribute('data-theme') === 'light';
       setThemeIcon(isLight);
+      themeToggle.setAttribute('aria-pressed', isLight ? 'true' : 'false');
     })();
 
     themeToggle.addEventListener('click', ()=>{
@@ -104,7 +105,11 @@
       if(e.key === 'Enter'){ 
         e.preventDefault(); 
         el.click(); 
-      } 
+      }
+      // Prevent Space from scrolling while keeping click on keyup
+      if(e.key === ' ' || e.key === 'Spacebar'){
+        e.preventDefault();
+      }
     });
     el.addEventListener('keyup', function(e){ 
       if(e.key === ' ' || e.key === 'Spacebar'){ 
@@ -130,6 +135,21 @@
 
   window.switchPage = function(id){
     if(!VALID_PAGE_IDS.includes(id)){ showToast('页面未实现', 'info'); return; }
+    
+    // Update active state on nav buttons
+    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+    const navMap = {
+      'main': 0,
+      'signin': 1,
+      'lottery': 2,
+      'ai': 3,
+      'wallet': 4
+    };
+    if(navMap.hasOwnProperty(id)){
+      const navBtns = document.querySelectorAll('.nav-btn');
+      if(navBtns[navMap[id]]) navBtns[navMap[id]].classList.add('active');
+    }
+    
     if(id === 'signin') showToast('打开每日签到');
     else if(id === 'lottery') showToast('打开幸运抽奖');
     else if(id === 'ai') showToast('打开 AI 助手');
