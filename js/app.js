@@ -87,9 +87,11 @@
       el.addEventListener('mousemove', onMove);
       el.addEventListener('mouseleave', onLeave);
       el.addEventListener('focus', ()=> {
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         if(!el.style.transform) el.style.transform='translateY(-6px) scale(1.01)';
       });
       el.addEventListener('blur', ()=> {
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         if(el.style.transform === 'translateY(-6px) scale(1.01)') el.style.transform='';
       });
     });
