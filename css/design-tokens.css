@@ -1,17 +1,17 @@
-:root{
-  /* Colors (semantic) */
-  --bg: #0f1724;
-  --bg-dark: #0f1724;
-  --bg-light: #F8FAFC;
+  :root{
+    /* Colors (semantic) */
+    --bg: #0f1724;
+    --bg-dark: #0f1724;
+    --bg-light: #F8FAFC;
 
-  --surface: #ffffff;
-  --muted: #9CA3AF;
-  --text: #F9FAFB;
-  --primary-500: #2563EB;
-  --primary-600: #1e40af;
-  --accent: #F59E0B;
-  --success: #10B981;
-  --danger: #EF4444;
+    --surface: #ffffff;
+    --muted: #9CA3AF;
+    --text: #F9FAFB;
+    --primary-500: #2563EB;
+    --primary-600: #1e40af;
+    --accent: #F59E0B;
+    --success: #10B981;
+    --danger: #EF4444;
   --glass: rgba(255,255,255,0.06);
   --glass-strong: rgba(255,255,255,0.08);
   --border: rgba(255,255,255,0.06);
