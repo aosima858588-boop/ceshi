@@ -120,7 +120,7 @@
   });
 
   const DEFAULT_APR = 0.12;
-  const VALID_PAGE_IDS = ['main','signin','lottery','model','ai','wallet','calculator'];
+  const VALID_PAGE_IDS = ['main','signin','lottery','ai','wallet','calculator'];
 
   window.calculateYield = function(){
     const input = document.getElementById('stake');
