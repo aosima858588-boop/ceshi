@@ -2,8 +2,8 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>海豚社区 · 动态流光边框</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>海豚社区 · 能量连线 · 光点环绕</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -24,6 +24,10 @@
             --card-bg: rgba(255, 255, 255, 0.92);
             --card-shadow: 0 5px 20px rgba(0, 102, 255, 0.08);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            --boost-glow: #0066ff;
+            --model-glow: #8b5cf6;
+            --data-glow: #f59e0b;
         }
 
         * {
@@ -45,7 +49,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* 顶部流动H字母 */
+        /* 顶部流动H字母 - 发动机三色光点 */
         .h-letter-container {
             position: relative;
             width: 100%;
@@ -54,7 +58,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .flowing-h {
@@ -101,7 +105,7 @@
             background: linear-gradient(45deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             background-clip: text;
-            z-index: 2;
+            z-index: 10;
             letter-spacing: 5px;
             transition: var(--transition);
             animation: hGlow 3s ease-in-out infinite;
@@ -113,7 +117,61 @@
             50% { filter: drop-shadow(0 0 25px rgba(0, 102, 255, 0.6)); transform: scale(1.05) rotate(1deg); }
         }
 
-        /* 线条连接动画背景 - 亮度提升 */
+        /* 三色流水光点 · 发动机输出养分 */
+        .h-glow-dot {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 5;
+            box-shadow: 0 0 20px currentColor;
+            animation: orbitFlow 2.4s linear infinite;
+        }
+        .h-glow-dot:nth-child(1) {
+            background: var(--boost-glow);
+            box-shadow: 0 0 30px var(--boost-glow), 0 0 60px var(--boost-glow);
+            transform-origin: calc(50% + 70px) 50%;
+            animation-duration: 2.4s;
+            opacity: 0.9;
+        }
+        .h-glow-dot:nth-child(2) {
+            background: var(--model-glow);
+            box-shadow: 0 0 30px var(--model-glow), 0 0 60px var(--model-glow);
+            transform-origin: calc(50% + 95px) 50%;
+            animation-duration: 3.2s;
+            opacity: 0.85;
+        }
+        .h-glow-dot:nth-child(3) {
+            background: var(--data-glow);
+            box-shadow: 0 0 30px var(--data-glow), 0 0 60px var(--data-glow);
+            transform-origin: calc(50% + 120px) 50%;
+            animation-duration: 4.0s;
+            opacity: 0.8;
+        }
+        @keyframes orbitFlow {
+            0% { transform: translate(-50%, -50%) rotate(0deg) translateX(var(--radius, 70px)); }
+            100% { transform: translate(-50%, -50%) rotate(360deg) translateX(var(--radius, 70px)); }
+        }
+        .h-glow-dot:nth-child(1) { --radius: 70px; }
+        .h-glow-dot:nth-child(2) { --radius: 95px; }
+        .h-glow-dot:nth-child(3) { --radius: 120px; }
+
+        @media (max-width: 768px) {
+            .h-glow-dot:nth-child(1) { --radius: 55px; width: 12px; height: 12px; }
+            .h-glow-dot:nth-child(2) { --radius: 75px; width: 12px; height: 12px; }
+            .h-glow-dot:nth-child(3) { --radius: 95px; width: 12px; height: 12px; }
+        }
+        @media (max-width: 480px) {
+            .h-glow-dot:nth-child(1) { --radius: 45px; width: 10px; height: 10px; }
+            .h-glow-dot:nth-child(2) { --radius: 65px; width: 10px; height: 10px; }
+            .h-glow-dot:nth-child(3) { --radius: 85px; width: 10px; height: 10px; }
+        }
+
+        /* 线条连接动画背景 */
         .line-background {
             position: fixed;
             top: 0;
@@ -139,7 +197,7 @@
             100% { stroke-dashoffset: 0; opacity: 0.15; }
         }
 
-        /* ===== 全局卡片边框加粗至3px（线条交互更明显）===== */
+        /* 全局卡片边框 */
         .activity-card {
             border: 3px solid rgba(0, 102, 255, 0.08);
             position: relative;
@@ -157,18 +215,11 @@
             transition: var(--transition);
             z-index: 2;
         }
-        .activity-card:hover {
-            border-color: rgba(0, 102, 255, 0.2);
-        }
-        .activity-card.active {
-            border-color: rgba(0, 102, 255, 0.3);
-        }
-        .activity-card.active::before {
-            opacity: 1;
-            animation: linePulse 2s infinite;
-        }
+        .activity-card:hover { border-color: rgba(0, 102, 255, 0.2); }
+        .activity-card.active { border-color: rgba(0, 102, 255, 0.3); }
+        .activity-card.active::before { opacity: 1; animation: linePulse 2s infinite; }
 
-        /* ===== 动态流光边框 · 3px粗线·沿边旋转 ===== */
+        /* 动态流光边框 · 三色独立 */
         .activity-card::after {
             content: '';
             position: absolute;
@@ -178,15 +229,6 @@
             bottom: -3px;
             border-radius: inherit;
             padding: 3px;
-            background: conic-gradient(
-                from var(--angle, 0deg),
-                transparent 0deg,
-                var(--primary) 60deg,
-                var(--accent) 120deg,
-                var(--primary) 180deg,
-                transparent 240deg,
-                transparent 360deg
-            );
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
@@ -197,40 +239,177 @@
             animation: rotateBorder 4s linear infinite;
             z-index: 1;
         }
+        .boost-card::after {
+            background: conic-gradient(
+                from var(--angle, 0deg),
+                transparent 0deg,
+                var(--boost-glow) 60deg,
+                var(--boost-glow) 120deg,
+                var(--boost-glow) 180deg,
+                transparent 240deg,
+                transparent 360deg
+            );
+        }
+        .model-card::after {
+            background: conic-gradient(
+                from var(--angle, 0deg),
+                transparent 0deg,
+                var(--model-glow) 60deg,
+                var(--model-glow) 120deg,
+                var(--model-glow) 180deg,
+                transparent 240deg,
+                transparent 360deg
+            );
+        }
+        .data-card-activity::after {
+            background: conic-gradient(
+                from var(--angle, 0deg),
+                transparent 0deg,
+                var(--data-glow) 60deg,
+                var(--data-glow) 120deg,
+                var(--data-glow) 180deg,
+                transparent 240deg,
+                transparent 360deg
+            );
+        }
         .activity-card:hover::after,
-        .activity-card.active::after {
-            opacity: 1;
-        }
-        @keyframes rotateBorder {
-            to { --angle: 360deg; }
-        }
+        .activity-card.active::after { opacity: 1; }
+        @keyframes rotateBorder { to { --angle: 360deg; } }
         @property --angle {
             syntax: '<angle>';
             inherits: false;
             initial-value: 0deg;
         }
 
-        /* 按钮边框同步加粗（保持视觉平衡） */
+        /* ===== 三个核心按钮 - 完全分离，无边框无背景 ===== */
+        .action-buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 32px;
+            padding: 0 10px;
+        }
         .action-btn {
-            border-width: 3px;
+            flex: 0 1 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            min-height: 0;
+            padding: 0;
+        }
+        .action-btn:hover {
+            transform: translateY(-3px);
+            background: transparent;
+            border: none;
+            box-shadow: none;
         }
         .action-btn.active {
-            border-width: 3px;
+            transform: translateY(-2px);
+            background: transparent;
+            border: none;
+            box-shadow: none;
         }
+        .action-btn::before,
+        .action-btn:hover::before,
+        .action-btn.active::before { display: none; }
+
         .btn-icon {
-            border-width: 3px;
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 2.2rem;
+            transition: var(--transition);
+            border: none;
+            box-shadow: none;
+            position: static;
         }
-        .status-badge {
-            border-width: 3px;
+        .btn-icon::before,
+        .action-btn:hover .btn-icon::before,
+        .action-btn.active .btn-icon::before { display: none; }
+        .action-btn:hover .btn-icon {
+            transform: scale(1.08);
+            border: none;
+            box-shadow: none;
         }
-        .card-expand {
-            border-width: 3px;
-        }
-        .card-icon {
-            border-width: 3px;
+        .action-btn.active .btn-icon {
+            transform: scale(1.08);
+            border: none;
+            box-shadow: none;
         }
 
-        /* 用户信息面板 */
+        .btn-label {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            transition: var(--transition);
+            letter-spacing: -0.01em;
+            text-align: center;
+            text-shadow: none;
+        }
+        .btn-label::after { display: none; }
+        .action-btn:hover .btn-label { color: var(--text-primary); }
+        .action-btn.active .btn-label {
+            font-weight: 700;
+            text-shadow: none;
+        }
+        .action-btn:nth-child(1) .btn-icon { color: var(--boost-glow); }
+        .action-btn:nth-child(2) .btn-icon { color: var(--model-glow); }
+        .action-btn:nth-child(3) .btn-icon { color: var(--data-glow); }
+        .action-btn:nth-child(1).active .btn-label { color: var(--boost-glow); }
+        .action-btn:nth-child(2).active .btn-label { color: var(--model-glow); }
+        .action-btn:nth-child(3).active .btn-label { color: var(--data-glow); }
+
+        /* ===== 卡片图标环绕光点 · 三色独立 ===== */
+        .card-icon {
+            position: relative;
+            z-index: 2;
+        }
+        .card-icon.boost-flow::after,
+        .card-icon.model-flow::after,
+        .card-icon.data-flow::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform-origin: 0 0;
+            animation: orbitIcon 2.4s linear infinite;
+            box-shadow: 0 0 20px currentColor;
+            z-index: 5;
+            pointer-events: none;
+        }
+        .card-icon.boost-flow::after {
+            background: var(--boost-glow);
+            box-shadow: 0 0 25px var(--boost-glow), 0 0 50px var(--boost-glow);
+        }
+        .card-icon.model-flow::after {
+            background: var(--model-glow);
+            box-shadow: 0 0 25px var(--model-glow), 0 0 50px var(--model-glow);
+        }
+        .card-icon.data-flow::after {
+            background: var(--data-glow);
+            box-shadow: 0 0 25px var(--data-glow), 0 0 50px var(--data-glow);
+        }
+        @keyframes orbitIcon {
+            0% { transform: rotate(0deg) translateX(45px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(45px) rotate(-360deg); }
+        }
+
+        /* 用户信息面板 (保持不变) */
         .user-panel {
             background: transparent;
             border-radius: 18px;
@@ -242,7 +421,6 @@
             overflow: hidden;
             border: 1px solid transparent;
         }
-
         .user-panel:hover { border: 1px solid rgba(0, 102, 255, 0.1); }
         .user-panel::before {
             content: '';
@@ -258,13 +436,11 @@
         .user-panel:hover::before { opacity: 0.5; }
         .user-panel.expanded { border: 1px solid rgba(0, 102, 255, 0.15); }
         .user-panel.expanded::before { opacity: 1; animation: lineDraw 2s ease-out; }
-
         .user-info-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
-
         .user-identity { flex: 1; }
         .user-nickname {
             font-size: 1.3rem;
@@ -278,7 +454,6 @@
         }
         .user-nickname span { opacity: 0; transition: var(--transition); }
         .user-panel.expanded .user-nickname span { opacity: 1; }
-
         .user-id {
             font-size: 0.85rem;
             color: var(--text-light);
@@ -294,7 +469,6 @@
             color: var(--primary);
             border-color: rgba(0, 102, 255, 0.1);
         }
-
         .user-rank {
             display: flex;
             align-items: center;
@@ -309,7 +483,6 @@
             width: fit-content;
         }
         .user-rank i { color: var(--gold); }
-
         .expand-btn {
             width: 32px;
             height: 32px;
@@ -353,8 +526,6 @@
             border-color: var(--primary);
         }
         .user-panel.expanded .expand-btn::before { opacity: 1; }
-
-        /* 数据网格 */
         .user-details {
             max-height: 0;
             overflow: hidden;
@@ -374,7 +545,6 @@
             transform: translateY(0);
             transition-delay: 0.1s;
         }
-
         .data-card {
             background: transparent;
             border-radius: 14px;
@@ -401,7 +571,6 @@
             background: rgba(255, 255, 255, 0.5);
         }
         .data-card:hover::before { opacity: 1; }
-
         .data-value {
             font-size: 1.6rem;
             font-weight: 800;
@@ -435,197 +604,6 @@
         .data-card:nth-child(3) .data-value { color: var(--warning); }
         .data-card:nth-child(4) .data-value { color: var(--secondary); }
 
-        /* 三个核心按钮 */
-        .action-buttons {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            gap: 20px;
-            margin-bottom: 32px;
-            overflow-x: auto;
-            padding-bottom: 5px;
-        }
-        .action-buttons::-webkit-scrollbar { display: none; }
-
-        .action-btn {
-            flex: 1;
-            background: transparent;
-            border: 3px solid rgba(0, 102, 255, 0.08);
-            border-radius: 22px;
-            padding: 32px 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            min-width: 0;
-            min-height: 180px;
-        }
-        .action-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            opacity: 0;
-            transition: var(--transition);
-        }
-        .action-btn:hover {
-            border-color: rgba(0, 102, 255, 0.25);
-            background: rgba(255, 255, 255, 0.8);
-            transform: translateY(-6px);
-            box-shadow: 0 15px 30px rgba(0, 102, 255, 0.15);
-        }
-        .action-btn:hover::before { opacity: 1; }
-        .action-btn.active {
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.95);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(0, 102, 255, 0.2);
-        }
-        .action-btn.active::before {
-            opacity: 1;
-            animation: linePulse 2s infinite;
-        }
-
-        @keyframes linePulse { 0%,100% { opacity: 0.7; } 50% { opacity: 1; } }
-
-        .action-btn:nth-child(1).active { border-color: var(--primary); }
-        .action-btn:nth-child(1).active::before { background: linear-gradient(90deg, var(--primary), var(--accent)); }
-        .action-btn:nth-child(2).active { border-color: var(--secondary); }
-        .action-btn:nth-child(2).active::before { background: linear-gradient(90deg, var(--secondary), #c084fc); }
-        .action-btn:nth-child(3).active { border-color: var(--warning); }
-        .action-btn:nth-child(3).active::before { background: linear-gradient(90deg, var(--warning), #f97316); }
-
-        .btn-icon {
-            width: 90px;
-            height: 90px;
-            border-radius: 22px;
-            background: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-size: 2.2rem;
-            transition: var(--transition);
-            position: relative;
-            z-index: 1;
-            border: 3px solid rgba(0, 102, 255, 0.1);
-        }
-        .btn-icon::before {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            border-radius: 22px;
-            border: 3px solid transparent;
-            background: linear-gradient(45deg, var(--primary), transparent) border-box;
-            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: var(--transition);
-        }
-        .action-btn:hover .btn-icon {
-            color: var(--primary);
-            border-color: rgba(0, 102, 255, 0.2);
-            transform: scale(1.12);
-        }
-        .action-btn:hover .btn-icon::before { opacity: 0.7; }
-        .action-btn.active .btn-icon {
-            color: var(--primary);
-            border-color: rgba(0, 102, 255, 0.3);
-            transform: scale(1.12);
-        }
-        .action-btn.active .btn-icon::before {
-            opacity: 1;
-            animation: borderRotate 3s linear infinite;
-        }
-        @keyframes borderRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        .action-btn:nth-child(2) .btn-icon {
-            color: var(--secondary);
-            border-color: rgba(139, 92, 246, 0.1);
-        }
-        .action-btn:nth-child(2) .btn-icon::before { background: linear-gradient(45deg, var(--secondary), transparent) border-box; }
-        .action-btn:nth-child(2):hover .btn-icon {
-            color: var(--secondary);
-            border-color: rgba(139, 92, 246, 0.2);
-        }
-        .action-btn:nth-child(2).active .btn-icon {
-            color: var(--secondary);
-            border-color: rgba(139, 92, 246, 0.3);
-        }
-
-        .action-btn:nth-child(3) .btn-icon {
-            color: var(--warning);
-            border-color: rgba(245, 158, 11, 0.1);
-        }
-        .action-btn:nth-child(3) .btn-icon::before { background: linear-gradient(45deg, var(--warning), transparent) border-box; }
-        .action-btn:nth-child(3):hover .btn-icon {
-            color: var(--warning);
-            border-color: rgba(245, 158, 11, 0.2);
-        }
-        .action-btn:nth-child(3).active .btn-icon {
-            color: var(--warning);
-            border-color: rgba(245, 158, 11, 0.3);
-        }
-
-        .btn-label {
-            font-weight: 900;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            transition: var(--transition);
-            position: relative;
-            z-index: 1;
-            letter-spacing: -0.01em;
-            text-align: center;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        }
-        .btn-label::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 2px;
-            transition: var(--transition);
-        }
-        .action-btn:hover .btn-label { color: var(--text-primary); }
-        .action-btn:hover .btn-label::after { width: 90%; }
-        .action-btn.active .btn-label {
-            color: var(--primary);
-            font-weight: 900;
-            text-shadow: 0 2px 15px rgba(0, 102, 255, 0.25);
-        }
-        .action-btn.active .btn-label::after {
-            width: 100%;
-            animation: linePulse 2s infinite;
-        }
-        .action-btn:nth-child(2).active .btn-label {
-            color: var(--secondary);
-            text-shadow: 0 2px 15px rgba(139, 92, 246, 0.25);
-        }
-        .action-btn:nth-child(2).active .btn-label::after { background: linear-gradient(90deg, var(--secondary), #c084fc); }
-        .action-btn:nth-child(3).active .btn-label {
-            color: var(--warning);
-            text-shadow: 0 2px 15px rgba(245, 158, 11, 0.25);
-        }
-        .action-btn:nth-child(3).active .btn-label::after { background: linear-gradient(90deg, var(--warning), #f97316); }
-
-        /* 卡片容器 */
         .cards-container {
             display: flex;
             flex-direction: column;
@@ -633,7 +611,6 @@
             position: relative;
             z-index: 2;
         }
-
         .activity-card {
             background: transparent;
             border-radius: 20px;
@@ -652,14 +629,9 @@
             opacity: 0;
             transition: var(--transition);
         }
-        .activity-card:hover {
-            background: rgba(255, 255, 255, 0.5);
-        }
+        .activity-card:hover { background: rgba(255, 255, 255, 0.5); }
         .activity-card:hover::before { opacity: 1; }
-        .activity-card.active {
-            background: rgba(255, 255, 255, 0.8);
-        }
-
+        .activity-card.active { background: rgba(255, 255, 255, 0.8); }
         .card-header {
             padding: 24px;
             display: flex;
@@ -677,7 +649,6 @@
             height: 2px;
             background: linear-gradient(90deg, transparent, rgba(0, 102, 255, 0.1), transparent);
         }
-
         .card-main {
             display: flex;
             align-items: center;
@@ -731,7 +702,6 @@
             opacity: 1;
             animation: borderRotate 3s linear infinite;
         }
-
         .card-icon.green {
             color: var(--success);
             border-color: rgba(16, 185, 129, 0.1);
@@ -745,7 +715,6 @@
             color: var(--success);
             border-color: rgba(16, 185, 129, 0.3);
         }
-
         .card-icon.purple {
             color: var(--secondary);
             border-color: rgba(139, 92, 246, 0.1);
@@ -759,7 +728,6 @@
             color: var(--secondary);
             border-color: rgba(139, 92, 246, 0.3);
         }
-
         .card-text h3 {
             font-size: 1.4rem;
             font-weight: 800;
@@ -790,7 +758,6 @@
             line-height: 1.6;
             max-width: 90%;
         }
-
         .card-status {
             display: flex;
             align-items: center;
@@ -809,14 +776,10 @@
         }
         .activity-card:hover .status-badge { border-color: rgba(0, 102, 255, 0.2); }
         .activity-card.active .status-badge { border-color: rgba(0, 102, 255, 0.3); }
-
         .status-badge.green {
             color: var(--success);
             border-color: rgba(16, 185, 129, 0.1);
         }
-        .activity-card:hover .status-badge.green { border-color: rgba(16, 185, 129, 0.2); }
-        .activity-card.active .status-badge.green { border-color: rgba(16, 185, 129, 0.3); }
-
         .status-badge.purple {
             color: var(--secondary);
             border-color: rgba(139, 92, 246, 0.1);
@@ -825,7 +788,6 @@
             color: #ff4d4d;
             border-color: rgba(255, 77, 77, 0.2);
         }
-
         .card-expand {
             width: 44px;
             height: 44px;
@@ -871,7 +833,6 @@
             transform: rotate(180deg) scale(1.1);
         }
         .activity-card.active .card-expand::before { opacity: 1; }
-
         .card-content {
             max-height: 0;
             overflow: hidden;
@@ -889,7 +850,6 @@
             transition-delay: 0.1s;
             padding-bottom: 24px;
         }
-
         .content-section { margin-top: 20px; }
         .section-title {
             font-size: 1.05rem;
@@ -912,14 +872,12 @@
             background: linear-gradient(90deg, var(--primary), var(--accent));
         }
         .section-title i { font-size: 0.9rem; }
-
         .description {
             color: var(--text-secondary);
             font-size: 0.95rem;
             line-height: 1.6;
             margin-bottom: 16px;
         }
-
         .rules-list {
             list-style: none;
             margin-bottom: 20px;
@@ -955,7 +913,6 @@
             color: var(--primary);
             font-size: 0.8rem;
         }
-
         .rewards {
             background: rgba(255, 255, 255, 0.5);
             border-radius: 16px;
@@ -982,7 +939,6 @@
             font-weight: 800;
             color: var(--primary);
         }
-
         .card-actions {
             display: flex;
             flex-direction: column;
@@ -1028,8 +984,6 @@
             transform: translateY(-3px);
         }
         .action-button-icon { font-size: 1.3rem; }
-
-        /* 飞轮节点列表 */
         .flywheel-node {
             padding: 12px 0;
             border-bottom: 1px solid rgba(0, 102, 255, 0.08);
@@ -1045,8 +999,6 @@
             min-width: 100px;
         }
         .flywheel-node:last-child { border-bottom: none; }
-
-        /* 纯视频卡片 - 整屏沉浸滚动 */
         .video-full-frame {
             width: 100%;
             border-radius: 16px;
@@ -1064,13 +1016,8 @@
             vertical-align: bottom;
         }
         @media (max-width: 768px) {
-            .video-full-frame iframe {
-                height: 60vh;
-                min-height: 450px;
-            }
+            .video-full-frame iframe { height: 60vh; min-height: 450px; }
         }
-
-        /* 留言板组件 */
         .comment-item {
             padding: 16px;
             border-bottom: 1px solid rgba(0, 102, 255, 0.08);
@@ -1144,7 +1091,7 @@
             box-shadow: 0 5px 15px rgba(0, 102, 255, 0.3);
         }
 
-        /* ===== 经济模型专用样式（完全适配主页无边框+悬停浮现）===== */
+        /* 经济模型专用样式 */
         .stats-grid {
             display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-bottom: 20px;
         }
@@ -1167,7 +1114,6 @@
             line-height: 1.2; margin-bottom: 4px; letter-spacing: -0.5px;
         }
         .stat-trend { font-size: 0.6rem; color: var(--text-light); }
-
         .sim-row {
             display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px;
         }
@@ -1203,7 +1149,6 @@
             width: 110px; text-align: right; outline: none; transition: var(--transition);
         }
         .number-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,102,255,0.1); }
-
         .earning-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;
         }
@@ -1229,7 +1174,6 @@
         }
         .total-value:hover { background: white; }
         .total-value span:last-child { font-size: 1.8rem; font-weight: 700; color: var(--primary); }
-
         .kline-card {
             background: transparent; border-radius: 28px; padding: 20px; margin-top: 24px;
             transition: var(--transition);
@@ -1253,7 +1197,6 @@
             width: 100%; height: 100%; display: block; border-radius: 20px;
             background: rgba(255,255,255,0.2);
         }
-
         .model-grid {
             display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 28px;
         }
@@ -1268,7 +1211,6 @@
         .model-mini-icon { font-size: 2rem; margin-bottom: 12px; }
         .model-mini-title { font-weight: 700; font-size: 1rem; margin-bottom: 8px; }
         .model-mini-desc { color: var(--text-secondary); font-size: 0.8rem; line-height: 1.5; }
-
         .diff-grid {
             display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 20px;
         }
@@ -1297,7 +1239,6 @@
             display: inline-block; background: rgba(16,185,129,0.12); color: var(--success);
             padding: 6px 18px; border-radius: 40px; font-size: 0.7rem; font-weight: 700; margin-top: 12px; align-self: flex-start;
         }
-
         .dual-token { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px; }
         @media (max-width: 700px) { .dual-token { grid-template-columns: 1fr; } }
         .token-card {
@@ -1310,7 +1251,6 @@
         .token-icon { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
         .token-icon i { font-size: 2rem; }
         .token-icon h4 { font-size: 1.2rem; font-weight: 700; }
-
         .flywheel-grid {
             display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 18px;
         }
@@ -1330,7 +1270,6 @@
         }
         .node-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; }
         .node-desc { color: var(--text-secondary); font-size: 0.75rem; line-height: 1.5; }
-
         .health-grid {
             display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 18px;
         }
@@ -1350,7 +1289,6 @@
         }
         .health-value { font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
         .health-label { font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; }
-
         .stake-table {
             width: 100%; border-collapse: collapse; font-size: 0.9rem;
             background: transparent; border-radius: 20px; overflow: hidden;
@@ -1358,14 +1296,12 @@
         .stake-table th { background: rgba(0,102,255,0.04); padding: 16px 20px; text-align: left; font-weight: 600; }
         .stake-table td { padding: 14px 20px; }
         .stake-table tr:hover td { background: rgba(255,255,255,0.6); }
-
         .btn-sm {
             padding: 12px 28px; border-radius: 40px; font-weight: 600; font-size: 0.9rem;
             background: linear-gradient(105deg, var(--primary), var(--accent)); color: white;
             border: none; cursor: pointer; transition: var(--transition);
         }
         .btn-sm:hover { transform: translateY(-2px); box-shadow: 0 12px 20px -10px rgba(0,102,255,0.4); }
-
         .toggle-checkbox + label {
             position: relative; display: inline-block; width: 48px; height: 24px;
             background: rgba(0,0,0,0.06); border-radius: 24px; cursor: pointer; transition: 0.2s;
@@ -1377,54 +1313,44 @@
         .toggle-checkbox:checked + label { background: var(--primary); }
         .toggle-checkbox:checked + label::after { left: 26px; }
 
-        /* 响应式 */
         @media (max-width: 768px) {
             .h-letter-container { height: 100px; margin-bottom: 10px; }
             .h-svg { width: 150px; height: 150px; }
             .h-interactive { font-size: 80px; }
-            .action-buttons { gap: 12px; }
-            .action-btn {
-                min-height: 140px;
-                padding: 24px 12px;
-                gap: 16px;
-            }
-            .btn-icon { width: 70px; height: 70px; font-size: 1.8rem; }
-            .btn-label { font-size: 1.2rem; }
-            .user-nickname {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 4px;
-            }
-            .card-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 16px;
-            }
+            .action-buttons { gap: 20px; }
+            .btn-icon { width: 56px; height: 56px; font-size: 2rem; }
+            .btn-label { font-size: 1rem; }
+            .user-nickname { flex-direction: column; align-items: flex-start; gap: 4px; }
+            .card-header { flex-direction: column; align-items: flex-start; gap: 16px; }
             .card-main { gap: 20px; }
             .card-icon { width: 70px; height: 70px; font-size: 1.8rem; }
             .card-text h3 { font-size: 1.3rem; }
             .card-status { align-self: flex-end; }
-            .card-action-button {
-                min-width: 200px;
-                padding: 16px 20px;
-                font-size: 0.95rem;
+            .card-action-button { min-width: 200px; padding: 16px 20px; font-size: 0.95rem; }
+            .card-icon.boost-flow::after,
+            .card-icon.model-flow::after,
+            .card-icon.data-flow::after {
+                width: 14px; height: 14px;
+            }
+            @keyframes orbitIcon {
+                0% { transform: rotate(0deg) translateX(38px) rotate(0deg); }
+                100% { transform: rotate(360deg) translateX(38px) rotate(-360deg); }
             }
         }
-
         @media (max-width: 600px) {
-            .action-buttons {
-                flex-direction: row;
-                gap: 12px;
+            .action-buttons { gap: 16px; }
+            .btn-icon { width: 48px; height: 48px; font-size: 1.8rem; }
+            .btn-label { font-size: 0.9rem; }
+            .card-icon.boost-flow::after,
+            .card-icon.model-flow::after,
+            .card-icon.data-flow::after {
+                width: 12px; height: 12px;
             }
-            .action-btn {
-                min-height: 120px;
-                padding: 20px 12px;
-                gap: 14px;
+            @keyframes orbitIcon {
+                0% { transform: rotate(0deg) translateX(32px) rotate(0deg); }
+                100% { transform: rotate(360deg) translateX(32px) rotate(-360deg); }
             }
-            .btn-icon { width: 60px; height: 60px; font-size: 1.6rem; }
-            .btn-label { font-size: 1.1rem; }
         }
-
         @media (max-width: 480px) {
             .h-letter-container { height: 80px; }
             .h-svg { width: 120px; height: 120px; }
@@ -1434,34 +1360,33 @@
             .data-value { font-size: 1.4rem; }
             .card-icon { width: 60px; height: 60px; font-size: 1.5rem; }
             .card-text h3 { font-size: 1.2rem; }
-            .card-action-button {
-                min-width: 180px;
-                padding: 14px 18px;
-                font-size: 0.9rem;
+            .card-action-button { min-width: 180px; padding: 14px 18px; font-size: 0.9rem; }
+            .card-icon.boost-flow::after,
+            .card-icon.model-flow::after,
+            .card-icon.data-flow::after {
+                width: 10px; height: 10px;
             }
-        }
-
-        @media (hover: none) {
-            .user-panel:hover,
-            .data-card:hover,
-            .action-btn:hover,
-            .activity-card:hover {
-                transform: none;
+            @keyframes orbitIcon {
+                0% { transform: rotate(0deg) translateX(28px) rotate(0deg); }
+                100% { transform: rotate(360deg) translateX(28px) rotate(-360deg); }
             }
         }
     </style>
 </head>
 <body>
-    <!-- 线条连接动画背景 (亮度已提升) -->
+    <!-- 线条连接动画背景 -->
     <div class="line-background" id="lineBackground"></div>
 
-    <!-- 顶部流动H字母 -->
+    <!-- 顶部H字母发动机 + 三色流水光点 -->
     <div class="h-letter-container">
         <div class="flowing-h">
             <svg class="h-svg" viewBox="0 0 100 100">
                 <path class="h-path" d="M 20,20 L 20,80 M 20,50 L 80,50 M 80,20 L 80,80"/>
             </svg>
         </div>
+        <div class="h-glow-dot"></div>
+        <div class="h-glow-dot"></div>
+        <div class="h-glow-dot"></div>
         <div class="h-interactive">H</div>
     </div>
 
@@ -1504,7 +1429,7 @@
         </div>
     </div>
 
-    <!-- 三个核心按钮 -->
+    <!-- 三个核心按钮 - 完全分离，无边框无背景 -->
     <div class="action-buttons">
         <div class="action-btn active" id="btnBoost">
             <div class="btn-icon">
@@ -1514,7 +1439,7 @@
         </div>
         <div class="action-btn" id="btnModel">
             <div class="btn-icon">
-                <i class="fas fa-dolphin"></i>
+                <i class="fas fa-cubes"></i>
             </div>
             <div class="btn-label">模型</div>
         </div>
@@ -1526,17 +1451,13 @@
         </div>
     </div>
 
-    <!-- ===== 卡片区域 ===== -->
+    <!-- ===== 卡片区域（完整保留）===== -->
     <div class="cards-container">
-
-        <!-- ========== BOOST 卡片组（共4张）========== -->
         <!-- 卡片1：OKX Boost 专栏 -->
         <div class="activity-card boost-card" id="cardBoostColumn">
             <div class="card-header">
                 <div class="card-main">
-                    <div class="card-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
+                    <div class="card-icon"><i class="fas fa-bolt"></i></div>
                     <div class="card-text">
                         <h3>OKX Boost 专栏</h3>
                         <p>社区协同OKX Wallet共同打造的创新型收益增值活动</p>
@@ -1544,9 +1465,7 @@
                 </div>
                 <div class="card-status">
                     <span class="status-badge">🔥 进行中</span>
-                    <div class="card-expand">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
+                    <div class="card-expand"><i class="fas fa-chevron-down"></i></div>
                 </div>
             </div>
             <div class="card-content">
@@ -1592,9 +1511,7 @@
         <div class="activity-card boost-card" id="cardBoostRule">
             <div class="card-header">
                 <div class="card-main">
-                    <div class="card-icon green">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
+                    <div class="card-icon green"><i class="fas fa-file-alt"></i></div>
                     <div class="card-text">
                         <h3>Boost规则与奖励</h3>
                         <p>了解Boost交易量与Boost余额的计算方式及奖励分配</p>
@@ -1602,9 +1519,7 @@
                 </div>
                 <div class="card-status">
                     <span class="status-badge green">📋 详细规则</span>
-                    <div class="card-expand">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
+                    <div class="card-expand"><i class="fas fa-chevron-down"></i></div>
                 </div>
             </div>
             <div class="card-content">
@@ -1644,9 +1559,7 @@
         <div class="activity-card boost-card" id="cardBoostStrategy">
             <div class="card-header">
                 <div class="card-main">
-                    <div class="card-icon purple">
-                        <i class="fas fa-chess-board"></i>
-                    </div>
+                    <div class="card-icon purple"><i class="fas fa-chess-board"></i></div>
                     <div class="card-text">
                         <h3>社区策略解析</h3>
                         <p>海豚社区如何参与OKX Boost的实战策略</p>
@@ -1654,9 +1567,7 @@
                 </div>
                 <div class="card-status">
                     <span class="status-badge purple">💡 策略分享</span>
-                    <div class="card-expand">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
+                    <div class="card-expand"><i class="fas fa-chevron-down"></i></div>
                 </div>
             </div>
             <div class="card-content">
@@ -1688,9 +1599,7 @@
         <div class="activity-card boost-card" id="cardBoostBoard">
             <div class="card-header">
                 <div class="card-main">
-                    <div class="card-icon">
-                        <i class="fas fa-comments"></i>
-                    </div>
+                    <div class="card-icon"><i class="fas fa-comments"></i></div>
                     <div class="card-text">
                         <h3>Boost留言板</h3>
                         <p>社区成员交流互动，分享参与经验</p>
@@ -1698,9 +1607,7 @@
                 </div>
                 <div class="card-status">
                     <span class="status-badge">💬 20条留言</span>
-                    <div class="card-expand">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
+                    <div class="card-expand"><i class="fas fa-chevron-down"></i></div>
                 </div>
             </div>
             <div class="card-content">
@@ -1743,14 +1650,11 @@
             </div>
         </div>
 
-        <!-- ========== 模型卡片组（原有2张 + 新3张经济模型卡片）========= -->
-        <!-- 卡片5：海豚模式解析（原有） -->
+        <!-- 卡片5：海豚模式解析（图标飞轮fa-arrows-spin） -->
         <div class="activity-card model-card" id="cardDolphinModel">
             <div class="card-header">
                 <div class="card-main">
-                    <div class="card-icon purple">
-                        <i class="fas fa-dolphin"></i>
-                    </div>
+                    <div class="card-icon purple"><i class="fas fa-arrows-spin"></i></div>
                     <div class="card-text">
                         <h3>海豚模式解析</h3>
                         <p>正向收益飞轮 · 链上价值循环系统</p>
@@ -1758,9 +1662,7 @@
                 </div>
                 <div class="card-status">
                     <span class="status-badge purple">🐬 独家解析</span>
-                    <div class="card-expand">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
+                    <div class="card-expand"><i class="fas fa-chevron-down"></i></div>
                 </div>
             </div>
             <div class="card-content">
@@ -1814,7 +1716,7 @@
             </div>
         </div>
 
-        <!-- 卡片6：海豚飞轮3D视频演示（原有） -->
+        <!-- 卡片6：海豚飞轮3D视频演示 -->
         <div class="activity-card model-card" id="cardDolphinVideo">
             <div class="card-header">
                 <div class="card-main">
@@ -1828,9 +1730,7 @@
                 </div>
                 <div class="card-status">
                     <span class="status-badge video">🎬 纯视频·整屏可滚</span>
-                    <div class="card-expand">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
+                    <div class="card-expand"><i class="fas fa-chevron-down"></i></div>
                 </div>
             </div>
             <div class="card-content" style="max-height: 80vh; overflow-y: auto;">
@@ -1848,8 +1748,6 @@
             </div>
         </div>
 
-        <!-- ===== 新增：三张经济模型卡片（均添加model-card类，归属模型模块）===== -->
-
         <!-- 卡片7：动态收益模拟 -->
         <div class="activity-card model-card" id="cardSim">
             <div class="card-header">
@@ -1862,14 +1760,11 @@
                 </div>
                 <div class="card-status">
                     <span class="status-badge">🔄 实时计算</span>
-                    <div class="card-expand">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
+                    <div class="card-expand"><i class="fas fa-chevron-down"></i></div>
                 </div>
             </div>
             <div class="card-content">
                 <div class="content-inner">
-                    <!-- KPI指标 -->
                     <div class="stats-grid">
                         <div class="stat-card"><div class="stat-label"><i class="fas fa-cart-shopping"></i> 购买价</div><div class="stat-number" id="buyPriceDisplay">$0.0010</div><div class="stat-trend">用户输入</div></div>
                         <div class="stat-card"><div class="stat-label"><i class="fas fa-tag"></i> 卖出价</div><div class="stat-number" id="sellPriceDisplay">$0.0015</div><div class="stat-trend" id="priceChangePercent">📈 +50%</div></div>
@@ -1878,7 +1773,6 @@
                         <div class="stat-card"><div class="stat-label"><i class="fas fa-gauge-high"></i> 年化APY</div><div class="stat-number" id="apyDisplay">438%</div><div class="stat-trend">阶梯利率</div></div>
                         <div class="stat-card"><div class="stat-label"><i class="fas fa-star"></i> Boost积分</div><div class="stat-number" id="boostDisplay">20.0</div><div class="stat-trend">10天累计</div></div>
                     </div>
-                    <!-- 模拟器双栏 -->
                     <div class="sim-row">
                         <div class="param-panel">
                             <div class="param-group">
@@ -1929,7 +1823,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- K线走势 -->
                     <div class="kline-card">
                         <div class="kline-header">
                             <div class="kline-title">
@@ -1965,9 +1858,7 @@
                 </div>
                 <div class="card-status">
                     <span class="status-badge" style="color:var(--secondary);">📊 专业对比</span>
-                    <div class="card-expand">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
+                    <div class="card-expand"><i class="fas fa-chevron-down"></i></div>
                 </div>
             </div>
             <div class="card-content">
@@ -2026,7 +1917,7 @@
             </div>
         </div>
 
-        <!-- 卡片9：完整经济架构 + 动态飞轮模拟 -->
+        <!-- 卡片9：完整经济架构 + 动态飞轮 -->
         <div class="activity-card model-card" id="cardArch">
             <div class="card-header">
                 <div class="card-main">
@@ -2038,14 +1929,11 @@
                 </div>
                 <div class="card-status">
                     <span class="status-badge" style="color:var(--accent);">🏛️ 协议设计</span>
-                    <div class="card-expand">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
+                    <div class="card-expand"><i class="fas fa-chevron-down"></i></div>
                 </div>
             </div>
             <div class="card-content">
                 <div class="content-inner">
-                    <!-- 双代币 -->
                     <div class="dual-token">
                         <div class="token-card">
                             <div class="token-icon"><i class="fas fa-token" style="color:var(--primary);"></i><h4>H代币</h4></div>
@@ -2064,7 +1952,6 @@
                             </ul>
                         </div>
                     </div>
-                    <!-- 质押收益表 -->
                     <div style="background:transparent; border-radius:28px; padding:24px; margin-bottom:24px;">
                         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
                             <div style="display:flex; align-items:center; gap:12px;">
@@ -2084,7 +1971,6 @@
                             </tbody>
                         </table>
                     </div>
-                    <!-- 动态飞轮模拟器（Canvas） -->
                     <div style="margin-bottom:24px;">
                         <div class="section-title"><i class="fas fa-dharmachakra"></i> 动态收益飞轮 · 实时联动</div>
                         <div style="position:relative; width:100%; height:340px; margin-top:10px;">
@@ -2095,7 +1981,6 @@
                             <button id="flywheelPauseBtn" class="btn-sm" style="background:var(--text-light);"><i class="fas fa-pause"></i> 暂停</button>
                         </div>
                     </div>
-                    <!-- 协议健康度 + Boost协同 -->
                     <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
                         <div style="background:transparent; border-radius:28px; padding:24px; display:flex; flex-direction:column;">
                             <div style="display:flex; align-items:center; gap:12px; margin-bottom:20px;">
@@ -2164,11 +2049,13 @@
                 </div>
             </div>
         </div>
-
     </div>
 
+    <!-- 能量连线Canvas - 绘制从H到激活按钮的流动光带 -->
+    <canvas id="connectionCanvas" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999;"></canvas>
+
     <script>
-        // 创建线条动画背景（亮度已提升至0.2）
+        // ==================== 初始化各种功能 ====================
         function createLineBackground() {
             const lineBackground = document.getElementById('lineBackground');
             const svgNS = "http://www.w3.org/2000/svg";
@@ -2185,14 +2072,12 @@
                 const endX = Math.random() * 1000;
                 const endY = Math.random() * 1000;
                 const path = `M ${startX},${startY} C ${startX + 200},${startY + 100} ${endX - 200},${endY - 100} ${endX},${endY}`;
-
                 line.setAttribute("d", path);
                 line.setAttribute("class", "line");
                 line.setAttribute("stroke", `rgba(0, 102, 255, ${0.15 + Math.random() * 0.15})`);
                 line.setAttribute("stroke-dasharray", "10,5");
                 line.style.animationDelay = `${Math.random() * 5}s`;
                 line.style.animationDuration = `${10 + Math.random() * 10}s`;
-
                 svg.appendChild(line);
             }
             lineBackground.appendChild(svg);
@@ -2217,7 +2102,6 @@
             this.style.background = 'linear-gradient(45deg, #00c6ff, #0066ff)';
             this.style.webkitBackgroundClip = 'text';
             this.style.backgroundClip = 'text';
-
             setTimeout(() => {
                 this.style.transform = 'scale(1) rotate(0deg)';
                 this.style.filter = 'drop-shadow(0 0 20px rgba(0, 102, 255, 0.3))';
@@ -2227,7 +2111,7 @@
 
         createLineBackground();
 
-        // 用户面板展开/收起
+        // 用户面板折叠
         const userPanel = document.getElementById('userPanel');
         const userDetails = document.getElementById('userDetails');
         userPanel.addEventListener('click', function() {
@@ -2241,16 +2125,16 @@
             }
         });
 
-        // ===== 核心按钮联动逻辑（Boost / 模型 / 数据）=====
+        // ==================== 核心交互：按钮切换卡片、连线、图标光点 ====================
         const actionButtons = document.querySelectorAll('.action-btn');
         const allCards = document.querySelectorAll('.activity-card');
 
+        // 切换卡片显示
         function filterCards(mode) {
             allCards.forEach(card => {
                 if (mode === 'boost') {
                     card.style.display = card.classList.contains('boost-card') ? 'block' : 'none';
                 } else if (mode === 'model') {
-                    // 模型卡片：包含model-card类的所有卡片（原有2张 + 新增3张）
                     card.style.display = card.classList.contains('model-card') ? 'block' : 'none';
                 } else if (mode === 'data') {
                     card.style.display = 'none';
@@ -2258,8 +2142,110 @@
             });
         }
 
-        // 默认激活Boost按钮
-        filterCards('boost');
+        // 更新卡片图标环绕光点
+        function updateCardIconGlow(mode) {
+            // 移除所有卡片图标的flow类
+            allCards.forEach(card => {
+                const icon = card.querySelector('.card-icon');
+                if (icon) {
+                    icon.classList.remove('boost-flow', 'model-flow', 'data-flow');
+                }
+            });
+            // 为当前模式下的卡片添加对应光点
+            if (mode === 'boost') {
+                document.querySelectorAll('.boost-card .card-icon').forEach(icon => {
+                    icon.classList.add('boost-flow');
+                });
+            } else if (mode === 'model') {
+                document.querySelectorAll('.model-card .card-icon').forEach(icon => {
+                    icon.classList.add('model-flow');
+                });
+            } else if (mode === 'data') {
+                // 数据卡片暂无，预留
+            }
+        }
+
+        // ==================== 动态能量连线 ====================
+        const connCanvas = document.getElementById('connectionCanvas');
+        const connCtx = connCanvas.getContext('2d');
+        let connOffset = 0; // 用于流动效果
+        let activeColor = 'var(--boost-glow)'; // 默认蓝色
+        let activeBtnId = 'btnBoost'; // 当前激活按钮ID
+
+        // 获取元素中心相对于视口的位置
+        function getElementCenter(el) {
+            const rect = el.getBoundingClientRect();
+            return {
+                x: rect.left + rect.width / 2,
+                y: rect.top + rect.height / 2
+            };
+        }
+
+        // 绘制连接线
+        function drawConnection() {
+            if (!connCtx) return;
+            const hElement = document.querySelector('.h-interactive');
+            const activeBtn = document.getElementById(activeBtnId);
+            if (!hElement || !activeBtn) return;
+
+            const start = getElementCenter(hElement);
+            const end = getElementCenter(activeBtn);
+
+            // 设置画布尺寸
+            connCanvas.width = window.innerWidth;
+            connCanvas.height = window.innerHeight;
+
+            connCtx.clearRect(0, 0, connCanvas.width, connCanvas.height);
+
+            // 二次贝塞尔曲线，控制点偏移制造弧线
+            const cpX = start.x + (end.x - start.x) * 0.5;
+            const cpY = Math.min(start.y, end.y) - 60; // 向上拱起
+
+            connCtx.beginPath();
+            connCtx.moveTo(start.x, start.y);
+            connCtx.quadraticCurveTo(cpX, cpY, end.x, end.y);
+
+            // 颜色与流动虚线
+            connCtx.strokeStyle = activeColor;
+            connCtx.lineWidth = 4;
+            connCtx.setLineDash([12, 16]);
+            connCtx.lineDashOffset = -connOffset; // 虚线流动
+            connCtx.stroke();
+
+            // 起点和终点光晕
+            connCtx.beginPath();
+            connCtx.arc(start.x, start.y, 10, 0, 2 * Math.PI);
+            connCtx.fillStyle = activeColor;
+            connCtx.shadowBlur = 20;
+            connCtx.shadowColor = activeColor;
+            connCtx.fill();
+
+            connCtx.beginPath();
+            connCtx.arc(end.x, end.y, 10, 0, 2 * Math.PI);
+            connCtx.fill();
+
+            connCtx.shadowBlur = 0;
+            connCtx.setLineDash([]);
+        }
+
+        // 流动动画
+        function animateConnection() {
+            connOffset = (connOffset + 0.8) % 40; // 流动速度
+            drawConnection();
+            requestAnimationFrame(animateConnection);
+        }
+        animateConnection();
+
+        // 窗口大小改变时重绘连线
+        window.addEventListener('resize', drawConnection);
+        window.addEventListener('scroll', drawConnection);
+
+        // ==================== 按钮点击逻辑 ====================
+        filterCards('boost'); // 默认Boost
+        updateCardIconGlow('boost');
+        activeColor = getComputedStyle(document.documentElement).getPropertyValue('--boost-glow').trim();
+        activeBtnId = 'btnBoost';
+        drawConnection();
 
         actionButtons.forEach(btn => {
             btn.addEventListener('click', function(e) {
@@ -2269,9 +2255,15 @@
                 const btnId = this.id;
                 if (btnId === 'btnBoost') {
                     filterCards('boost');
+                    updateCardIconGlow('boost');
+                    activeColor = getComputedStyle(document.documentElement).getPropertyValue('--boost-glow').trim();
+                    activeBtnId = 'btnBoost';
                 } else if (btnId === 'btnModel') {
                     filterCards('model');
-                    // 当切换到模型卡片时，如果收益模拟卡片或架构卡片已展开，初始化画布
+                    updateCardIconGlow('model');
+                    activeColor = getComputedStyle(document.documentElement).getPropertyValue('--model-glow').trim();
+                    activeBtnId = 'btnModel';
+                    // 触发收益模拟、飞轮重绘
                     const cardSim = document.getElementById('cardSim');
                     const cardArch = document.getElementById('cardArch');
                     if (cardSim && cardSim.classList.contains('active')) {
@@ -2282,18 +2274,21 @@
                     }
                 } else if (btnId === 'btnData') {
                     filterCards('data');
+                    updateCardIconGlow('data');
+                    activeColor = getComputedStyle(document.documentElement).getPropertyValue('--data-glow').trim();
+                    activeBtnId = 'btnData';
                     alert('数据功能即将上线，敬请期待！');
                 }
+                drawConnection();
             });
         });
 
-        // ===== 卡片展开/收起（通用）=====
+        // ==================== 卡片折叠逻辑 ====================
         allCards.forEach(card => {
             const header = card.querySelector('.card-header');
             const content = card.querySelector('.card-content');
             const inner = card.querySelector('.content-inner');
 
-            // 特殊处理：视频卡片默认展开并固定高度
             if (card.id === 'cardDolphinVideo') {
                 card.classList.add('active');
                 header.addEventListener('click', function(e) {
@@ -2312,7 +2307,6 @@
                 return;
             }
 
-            // 其他卡片通用折叠
             header.addEventListener('click', function(e) {
                 if (e.target.closest('button')) return;
                 const isActive = card.classList.contains('active');
@@ -2333,7 +2327,7 @@
             btn.addEventListener('click', e => e.stopPropagation());
         });
 
-        // 模拟留言发送
+        // 留言发送
         const sendBtn = document.querySelector('.comment-send-btn');
         if (sendBtn) {
             sendBtn.addEventListener('click', function(e) {
@@ -2348,12 +2342,11 @@
             });
         }
 
-        // 模拟数据动态变化（用户身价等）
+        // 模拟动态身价
         const networthValue = document.getElementById('networthValue');
         const balanceValue = document.getElementById('balanceValue');
         const volumeValue = document.getElementById('volumeValue');
         const rankValue = document.getElementById('rankValue');
-
         let networth = 918, balance = 1023, volume = 8827, rank = 9;
         setInterval(() => {
             networth += Math.floor(Math.random() * 3) + 1;
@@ -2377,7 +2370,7 @@
             }, 300);
         }, 30000);
 
-        // ========== 收益模拟器 + 动态飞轮 全功能 ==========
+        // ==================== 收益模拟器 + 飞轮 ====================
         const stakeInput = document.getElementById('stakeInput');
         const stakeSlider = document.getElementById('stakeSlider');
         const daysSlider = document.getElementById('daysSlider');
@@ -2408,14 +2401,12 @@
         const canvas = document.getElementById('priceChart');
         const ctx = canvas ? canvas.getContext('2d') : null;
 
-        // 飞轮相关
         const flywheelCanvas = document.getElementById('flywheelCanvas');
         let flywheelCtx = flywheelCanvas ? flywheelCanvas.getContext('2d') : null;
         let flywheelAngle = 0;
         let flywheelAnimFrame = null;
         let isFlywheelSpinning = true;
 
-        // 辅助方法：Canvas圆角矩形
         CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
             if (w < 2 * r) r = w / 2;
             if (h < 2 * r) r = h / 2;
@@ -2431,7 +2422,6 @@
             return this;
         };
 
-        // 飞轮绘制（玻璃光效）
         function drawFlywheel() {
             if (!flywheelCanvas || !flywheelCtx) return;
             const w = flywheelCanvas.clientWidth, h = flywheelCanvas.clientHeight;
@@ -2468,7 +2458,6 @@
             const radius = Math.min(w, h) * 0.35;
             const angleStep = (Math.PI * 2) / nodes.length;
 
-            // 中心光晕
             const gradient = ctx.createRadialGradient(centerX, centerY, 10, centerX, centerY, 60);
             gradient.addColorStop(0, 'rgba(0,102,255,0.2)');
             gradient.addColorStop(1, 'rgba(0,102,255,0)');
@@ -2477,7 +2466,6 @@
             ctx.arc(centerX, centerY, 60, 0, 2 * Math.PI);
             ctx.fill();
 
-            // 连接线
             ctx.save();
             ctx.translate(centerX, centerY);
             ctx.rotate(flywheelAngle);
@@ -2499,7 +2487,6 @@
             ctx.setLineDash([]);
             ctx.restore();
 
-            // 节点
             for (let i = 0; i < nodes.length; i++) {
                 const angle = i * angleStep + flywheelAngle;
                 const x = centerX + Math.cos(angle) * radius;
@@ -2544,7 +2531,6 @@
                 ctx.fillText(nodes[i].value, x - valueWidth/2 - 4, y + 56);
             }
 
-            // 中心徽章
             ctx.shadowBlur = 16;
             ctx.shadowColor = 'rgba(0,102,255,0.4)';
             ctx.beginPath();
@@ -2564,7 +2550,6 @@
             ctx.fillText('飞轮', centerX - 24, centerY + 44);
         }
 
-        // 飞轮动画
         function flywheelAnimate() {
             if (isFlywheelSpinning) {
                 flywheelAngle += 0.004;
@@ -2574,14 +2559,12 @@
             flywheelAnimFrame = requestAnimationFrame(flywheelAnimate);
         }
 
-        // 启动飞轮
         function initFlywheel() {
             if (flywheelCanvas && !flywheelAnimFrame) {
                 flywheelAnimate();
             }
         }
 
-        // 播放/暂停控制
         const playBtn = document.getElementById('flywheelPlayBtn');
         const pauseBtn = document.getElementById('flywheelPauseBtn');
         if (playBtn && pauseBtn) {
@@ -2595,13 +2578,13 @@
             });
         }
 
-        // 窗口resize重绘飞轮
         window.addEventListener('resize', function() {
             const cardArch = document.getElementById('cardArch');
             if (cardArch && cardArch.classList.contains('active')) drawFlywheel();
+            drawConnection();
         });
+        window.addEventListener('scroll', drawConnection);
 
-        // K线绘制
         function resizeCanvas() {
             if (!canvas) return;
             const w = canvas.parentNode?.clientWidth || 800;
@@ -2641,7 +2624,6 @@
             ctx.fillText('卖出价', 14, sellY>20? sellY-8: sellY+22);
         }
 
-        // 更新所有模拟器数值
         function updateAll() {
             if (!stakeInput) return;
             let stake = parseFloat(stakeInput.value)||1000;
@@ -2685,11 +2667,9 @@
             if (highPriceEl) highPriceEl.innerText = '$' + Math.max(...history).toFixed(4);
             drawChart(history, buy, sell);
 
-            // 飞轮联动
             if (flywheelCanvas && document.getElementById('cardArch')?.classList.contains('active')) drawFlywheel();
         }
 
-        // 绑定事件
         if (stakeSlider) stakeSlider.addEventListener('input', function() { stakeInput.value = this.value; updateAll(); });
         if (stakeInput) stakeInput.addEventListener('input', function() {
             let v = Math.min(Math.max(parseFloat(this.value)||1000,100),50000);
@@ -2732,9 +2712,7 @@
         if (sellPriceInput) sellPriceInput.value = '0.0015';
         if (sellPriceSlider) sellPriceSlider.value = '0.0015';
 
-        // 初始化模拟器
         updateAll();
-        // 启动飞轮动画
         initFlywheel();
     </script>
 </body>
