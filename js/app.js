@@ -65,11 +65,6 @@
     const els = document.querySelectorAll('.tilt');
     els.forEach(el=>{
       let rect = null;
-      // Create a wrapper to avoid transform conflicts
-      const tiltWrapper = document.createElement('div');
-      tiltWrapper.style.transformStyle = 'preserve-3d';
-      tiltWrapper.style.transition = 'transform var(--motion-base) var(--motion-ease)';
-      
       function onMove(e){
         if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         if(!rect) rect = el.getBoundingClientRect();
