@@ -3,40 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>海豚社区 · 经济模型 · 光感旗舰版</title>
+    <title>海豚社区 · 经济模型 · 呼吸排版版</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ---------- 设计令牌 · 精致化变量 ---------- */
+        /* ----- 设计令牌 · 手机阅读优化 ----- */
         :root {
             --primary: #0066ff;
             --primary-light: rgba(0, 102, 255, 0.12);
-            --primary-lighter: rgba(0, 102, 255, 0.05);
-            --primary-dark: #0052cc;
             --secondary: #8b5cf6;
-            --secondary-light: rgba(139, 92, 246, 0.12);
             --accent: #00c6ff;
             --gold: #ffcc00;
-            --gold-light: rgba(255, 204, 0, 0.12);
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --video-red: #ff4d4d;
-            
-            --text-primary: #1a1e2b;
-            --text-secondary: #4a5568;
-            --text-light: #718096;
-            --text-white: #ffffff;
-            
-            --bg-gradient: linear-gradient(145deg, #f5faff 0%, #e8f0fe 100%);
-            --card-bg: rgba(255, 255, 255, 0.86);
-            --card-shadow: 0 8px 28px -8px rgba(0, 102, 255, 0.12);
-            --card-shadow-hover: 0 18px 36px -12px rgba(0, 102, 255, 0.22);
+            --text-primary: #1e293b;      /* 加深主文字 */
+            --text-secondary: #475569;     /* 加深辅助文字，提升对比度 */
+            --text-light: #64748b;
+            --bg-gradient: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
+            --card-bg: rgba(255, 255, 255, 0.88);
+            --card-shadow: 0 8px 24px -8px rgba(0, 102, 255, 0.12);
             --transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
-            --border-thick: 3px;
-            --radius-card: 24px;
-            --radius-icon: 22px;
-            --radius-button: 20px;
-            --radius-badge: 14px;
+            --radius-card: 28px;           /* 更大圆角，更柔和 */
+            --radius-icon: 24px;
         }
 
         * {
@@ -47,328 +35,171 @@
         }
 
         body {
-            font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Noto Sans", sans-serif;
             background: var(--bg-gradient);
             color: var(--text-primary);
             min-height: 100vh;
-            padding: 16px;
-            position: relative;
-            overflow-x: hidden;
+            padding: 16px 14px;            /* 左右留边增加呼吸感 */
             -webkit-font-smoothing: antialiased;
-            font-weight: 450;
-            line-height: 1.5;
+            font-size: 15px;               /* 手机基准字体15px */
+            line-height: 1.6;              /* 舒适行高 */
+            letter-spacing: 0.2px;         /* 全局轻微字间距 */
         }
 
-        /* 顶部流动H字母 —— 增强光效 */
+        /* ----- 顶部H字母（微调）----- */
         .h-letter-container {
             position: relative;
             width: 100%;
-            height: 120px;
+            height: 100px;
             margin-bottom: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
         }
-
         .flowing-h {
             position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 0;
             opacity: 0.15;
         }
-
-        .h-svg {
-            width: 200px;
-            height: 200px;
-            filter: drop-shadow(0 8px 24px rgba(0, 102, 255, 0.2));
-        }
-
+        .h-svg { width: 160px; height: 160px; }
         .h-path {
             fill: none;
             stroke: var(--primary);
             stroke-width: 2.5;
-            stroke-linecap: round;
-            stroke-linejoin: round;
             stroke-dasharray: 320;
             stroke-dashoffset: 320;
             animation: drawH 7s ease-in-out infinite;
         }
-
-        @keyframes drawH {
-            0%, 100% { stroke-dashoffset: 320; opacity: 0.3; }
-            20%, 80% { stroke-dashoffset: 0; opacity: 0.8; }
-            50% { opacity: 1; }
-        }
-
+        @keyframes drawH { 0%,100% { stroke-dashoffset: 320; opacity: 0.3; } 20%,80% { stroke-dashoffset: 0; opacity: 0.9; } }
         .h-interactive {
             position: absolute;
-            font-size: 104px;
+            font-size: 80px;
             font-weight: 800;
             color: transparent;
             background: linear-gradient(145deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             background-clip: text;
-            z-index: 2;
-            letter-spacing: 6px;
-            transition: var(--transition);
             animation: hGlow 4s infinite alternate;
-            text-shadow: 0 0 32px rgba(0, 102, 255, 0.4);
-            filter: drop-shadow(0 0 16px rgba(0, 102, 255, 0.2));
+            letter-spacing: 8px;           /* H字母间距拉大，更大气 */
         }
-
         @keyframes hGlow {
-            0% { filter: drop-shadow(0 0 12px rgba(0, 102, 255, 0.3)); transform: scale(1) rotate(-1deg); }
-            100% { filter: drop-shadow(0 0 30px rgba(0, 102, 255, 0.6)); transform: scale(1.03) rotate(1deg); }
+            0% { filter: drop-shadow(0 0 12px rgba(0,102,255,0.3)); transform: scale(1); }
+            100% { filter: drop-shadow(0 0 30px rgba(0,102,255,0.7)); transform: scale(1.02); }
         }
 
-        /* 线条动画背景 —— 细腻流动 */
-        .line-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
-            opacity: 0.6;
-        }
-
-        .line {
-            position: absolute;
-            stroke-width: 1.8;
-            stroke: rgba(0, 102, 255, 0.2);
-            fill: none;
-            animation: lineDraw 18s linear infinite;
-        }
-
-        @keyframes lineDraw {
-            0% { stroke-dashoffset: 1200; opacity: 0.1; }
-            50% { opacity: 0.35; }
-            100% { stroke-dashoffset: 0; opacity: 0.1; }
-        }
-
-        /* ---------- 全局卡片强化 · 光感玻璃 ---------- */
-        .activity-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(2px);
-            border: var(--border-thick) solid rgba(0, 102, 255, 0.06);
-            border-radius: var(--radius-card);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-        }
-
-        .activity-card:hover {
-            border-color: rgba(0, 102, 255, 0.18);
-            background: rgba(255, 255, 255, 0.92);
-            box-shadow: var(--card-shadow-hover);
-            transform: translateY(-3px);
-        }
-
-        .activity-card.active {
-            border-color: rgba(0, 102, 255, 0.28);
-            background: rgba(255, 255, 255, 0.96);
-            box-shadow: 0 12px 32px -8px rgba(0, 102, 255, 0.2);
-        }
-
-        .activity-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: var(--border-thick);
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .activity-card:hover::before,
-        .activity-card.active::before {
-            opacity: 1;
-        }
-
-        .activity-card.active::before {
-            animation: linePulse 2.2s infinite;
-        }
-
-        @keyframes linePulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
-        }
-
-        /* 用户面板 —— 精致轻量化 */
+        /* ----- 用户面板（优化内边距）----- */
         .user-panel {
             background: var(--card-bg);
-            backdrop-filter: blur(2px);
-            border-radius: 22px;
-            padding: 22px;
-            margin-bottom: 28px;
+            backdrop-filter: blur(4px);
+            border-radius: 28px;
+            padding: 24px;                /* 增大内边距 */
+            margin-bottom: 24px;
+            border: 1px solid rgba(0,102,255,0.1);
+            box-shadow: var(--card-shadow);
             cursor: pointer;
-            transition: var(--transition);
-            border: 1px solid rgba(0, 102, 255, 0.06);
-            box-shadow: 0 4px 14px rgba(0, 102, 255, 0.04);
         }
-
-        .user-panel:hover {
-            border: 1px solid rgba(0, 102, 255, 0.2);
-            background: rgba(255, 255, 255, 0.94);
-            box-shadow: 0 10px 24px -6px rgba(0, 102, 255, 0.16);
-        }
-
-        .user-panel.expanded {
-            border: 1px solid rgba(0, 102, 255, 0.2);
-            background: rgba(255, 255, 255, 0.94);
-        }
-
-        .user-nickname {
-            font-size: 1.4rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        .user-rank {
-            background: rgba(255, 204, 0, 0.06);
-            border: 1px solid rgba(255, 204, 0, 0.2);
-            color: #b38f00;
-            font-weight: 600;
-        }
-
-        .expand-btn {
-            border: 1px solid rgba(0, 0, 0, 0.04);
-            background: rgba(255, 255, 255, 0.6);
-        }
-
-        .user-details {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
-        }
-
-        .details-grid {
-            padding-top: 20px;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .user-panel.expanded .details-grid {
-            opacity: 1;
-            transform: translateY(0);
-            transition-delay: 0.1s;
-        }
-
-        .data-card {
-            background: transparent;
-            border-radius: 14px;
-            padding: 16px;
-            text-align: center;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(0,102,255,0.05);
-        }
-
-        .data-value {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--primary);
+        .user-info-header { display: flex; justify-content: space-between; align-items: center; }
+        .user-nickname { 
+            font-size: 1.45rem; 
+            font-weight: 700; 
+            letter-spacing: -0.3px; 
             margin-bottom: 4px;
-            font-family: 'SF Pro Display', sans-serif;
-            line-height: 1;
-            letter-spacing: -0.02em;
         }
-
-        .data-label {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
+        .user-id { font-size: 0.8rem; color: var(--text-light); margin-left: 8px; font-weight: 400; }
+        .user-rank { 
+            background: rgba(255,204,0,0.1); 
+            border-radius: 40px; 
+            padding: 6px 16px; 
+            font-size: 0.8rem; 
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
+        .expand-btn { 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            background: rgba(255,255,255,0.8); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: var(--text-secondary);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .user-details { max-height: 0; overflow: hidden; transition: max-height 0.4s; }
+        .details-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 14px; 
+            padding-top: 20px; 
+        }
+        .data-card { 
+            background: rgba(255,255,255,0.6); 
+            backdrop-filter: blur(2px); 
+            border-radius: 20px; 
+            padding: 16px 10px; 
+            text-align: center; 
+            border: 1px solid rgba(0,102,255,0.08); 
+        }
+        .data-value { 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            color: var(--primary); 
+            margin-bottom: 4px; 
+            line-height: 1.2; 
+        }
+        .data-label { font-size: 0.7rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; }
 
-        /* 三个核心按钮 —— 微磨砂玻璃 */
+        /* ----- 三大核心按钮（微调）----- */
         .action-buttons {
             display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            gap: 20px;
-            margin-bottom: 32px;
-            overflow-x: auto;
-            padding-bottom: 5px;
+            gap: 12px;
+            margin-bottom: 28px;
         }
-
         .action-btn {
             flex: 1;
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(2px);
-            border: var(--border-thick) solid rgba(0, 102, 255, 0.06);
-            border-radius: 28px;
-            padding: 28px 16px;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(4px);
+            border: 3px solid rgba(0,102,255,0.06);
+            border-radius: 32px;
+            padding: 20px 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 20px;
-            cursor: pointer;
+            gap: 12px;
             transition: var(--transition);
-            min-width: 0;
-            min-height: 170px;
         }
-
-        .action-btn:hover {
-            background: rgba(255, 255, 255, 0.9);
-            border-color: rgba(0, 102, 255, 0.25);
-            transform: translateY(-6px);
-            box-shadow: 0 18px 32px -12px rgba(0, 102, 255, 0.24);
-        }
-
         .action-btn.active {
-            background: white;
             border-color: var(--primary);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 28px -6px rgba(0, 102, 255, 0.3);
+            background: white;
+            box-shadow: 0 8px 20px -6px rgba(0,102,255,0.2);
         }
-
         .btn-icon {
-            width: 88px;
-            height: 88px;
+            width: 64px;
+            height: 64px;
             border-radius: 24px;
-            border: var(--border-thick) solid rgba(0, 102, 255, 0.1);
-            background: rgba(255, 255, 255, 0.5);
-            font-size: 2.2rem;
-            transition: var(--transition);
+            border: 3px solid rgba(0,102,255,0.1);
+            background: white;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 2rem;
             color: var(--primary);
+            transition: transform 0.2s;
         }
-
-        .action-btn:hover .btn-icon {
-            border-color: rgba(0, 102, 255, 0.3);
-            transform: scale(1.1);
-            background: white;
-        }
-
+        .action-btn:hover .btn-icon { transform: scale(1.05); }
         .btn-label {
-            font-weight: 800;
-            font-size: 1.5rem;
-            letter-spacing: -0.01em;
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
             color: var(--text-primary);
         }
-
         .action-btn.active .btn-label {
             background: linear-gradient(145deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
@@ -376,709 +207,469 @@
             color: transparent;
         }
 
-        /* 卡片容器 */
+        /* ----- 卡片通用（呼吸感内边距）----- */
         .cards-container {
             display: flex;
             flex-direction: column;
             gap: 20px;
-            position: relative;
-            z-index: 2;
         }
-
-        /* 卡片头部排版优化 */
-        .card-header {
-            padding: 24px 24px 20px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .card-main {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            flex: 1;
-        }
-
-        .card-icon {
-            width: 84px;
-            height: 84px;
-            border-radius: var(--radius-icon);
-            border: var(--border-thick) solid rgba(0, 102, 255, 0.08);
-            background: rgba(255, 255, 255, 0.5);
-            font-size: 2.1rem;
+        .activity-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(4px);
+            border: 3px solid rgba(0,102,255,0.06);
+            border-radius: var(--radius-card);
+            overflow: hidden;
             transition: var(--transition);
+        }
+        .activity-card.active { border-color: rgba(0,102,255,0.25); }
+        .card-header {
+            padding: 22px 22px 18px 22px;   /* 上下左右舒适 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .card-main { display: flex; align-items: center; gap: 16px; flex: 1; }
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 22px;
+            border: 3px solid rgba(0,102,255,0.1);
+            background: rgba(255,255,255,0.7);
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.9rem;
             color: var(--primary);
             flex-shrink: 0;
         }
-
-        .activity-card:hover .card-icon {
-            border-color: rgba(0, 102, 255, 0.25);
-            background: white;
-            transform: scale(1.05);
+        .card-text h3 { 
+            font-size: 1.3rem; 
+            font-weight: 700; 
+            margin-bottom: 6px; 
+            letter-spacing: -0.3px; 
+            line-height: 1.3;
         }
-
-        .card-text h3 {
-            font-size: 1.45rem;
-            font-weight: 750;
-            letter-spacing: -0.02em;
-            margin-bottom: 8px;
-            color: var(--text-primary);
+        .card-text p { 
+            font-size: 0.85rem; 
+            color: var(--text-secondary); 
+            line-height: 1.5; 
+            max-width: 95%; 
         }
-
-        .card-text p {
-            font-size: 0.92rem;
-            color: var(--text-secondary);
-            font-weight: 450;
-            max-width: 90%;
-        }
-
-        .card-status {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
         .status-badge {
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(2px);
-            color: var(--primary);
-            padding: 8px 18px;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(4px);
             border-radius: 40px;
-            font-size: 0.85rem;
+            padding: 8px 18px;
+            font-size: 0.78rem;
             font-weight: 650;
+            border: 2px solid rgba(0,102,255,0.12);
             white-space: nowrap;
-            border: 2px solid rgba(0, 102, 255, 0.12);
-            transition: var(--transition);
+            letter-spacing: 0.3px;
         }
-
         .card-expand {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            border: 2px solid rgba(0, 0, 0, 0.04);
-            background: rgba(255, 255, 255, 0.6);
-            color: var(--text-light);
-            transition: var(--transition);
+            background: rgba(255,255,255,0.8);
             display: flex;
             align-items: center;
             justify-content: center;
             margin-left: 10px;
-            flex-shrink: 0;
+            transition: transform 0.3s;
+            color: var(--text-light);
+            border: 1px solid rgba(0,0,0,0.04);
         }
-
-        .activity-card.active .card-expand {
-            transform: rotate(180deg);
-            border-color: var(--primary);
-            color: var(--primary);
+        .activity-card.active .card-expand { 
+            transform: rotate(180deg); 
+            color: var(--primary); 
             background: white;
+            border-color: var(--primary);
         }
-
         .card-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
+            transition: max-height 0.5s cubic-bezier(0.33, 1, 0.68, 1);
         }
-
         .content-inner {
-            padding: 8px 24px 28px 24px;
+            padding: 4px 22px 28px 22px;   /* 左右内边距与头部对齐 */
             opacity: 0;
-            transform: translateY(-10px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.3s;
         }
+        .activity-card.active .content-inner { opacity: 1; }
 
-        .activity-card.active .content-inner {
-            opacity: 1;
-            transform: translateY(0);
-            transition-delay: 0.1s;
-        }
-
+        /* ----- 内容排版优化（字间距、行高、边距）----- */
         .section-title {
-            font-size: 1.08rem;
-            font-weight: 750;
+            font-size: 1.1rem;
+            font-weight: 700;
             color: var(--primary);
-            margin-bottom: 16px;
-            letter-spacing: -0.01em;
-            border-bottom: 2px solid rgba(0, 102, 255, 0.1);
-            padding-bottom: 8px;
+            margin: 20px 0 14px 0;
+            letter-spacing: 0.3px;
+            border-bottom: 2px solid rgba(0,102,255,0.1);
+            padding-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
-
         .description {
             color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            font-size: 0.92rem;
+            line-height: 1.7;
+            margin-bottom: 18px;
         }
-
         .rules-list {
             list-style: none;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
-
         .rules-list li {
             padding: 12px 0;
-            border-bottom: 1px dashed rgba(0, 0, 0, 0.05);
+            border-bottom: 1px dashed rgba(0,0,0,0.06);
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 10px;
-            font-size: 0.94rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            transition: var(--transition);
+            line-height: 1.6;
         }
-
-        .rules-list li strong {
-            color: var(--text-primary);
-            font-weight: 650;
-        }
+        .rules-list li strong { color: var(--text-primary); font-weight: 650; }
+        .rules-list li i { margin-top: 3px; color: var(--primary); }
 
         .rewards {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(2px);
-            border: 1px solid rgba(0, 102, 255, 0.12);
-            border-radius: 20px;
-            padding: 18px;
-            margin-top: 18px;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(0,102,255,0.12);
+            border-radius: 24px;
+            padding: 18px 20px;
+            margin: 16px 0;
         }
-
         .reward-item {
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-            font-size: 0.94rem;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+            font-size: 0.9rem;
         }
+        .reward-item:last-child { border-bottom: none; }
+        .reward-value { font-weight: 700; color: var(--primary); }
 
-        .reward-item:last-child {
-            border-bottom: none;
-        }
-
-        .card-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-top: 20px;
-        }
-
+        .card-actions { margin-top: 28px; }
         .card-action-button {
-            padding: 16px 28px;
+            width: 100%;
+            padding: 16px 20px;
             border-radius: 40px;
             font-weight: 700;
-            font-size: 1rem;
-            letter-spacing: 0.3px;
-            box-shadow: 0 6px 16px rgba(0, 102, 255, 0.12);
-            transition: var(--transition);
-            min-width: 220px;
-            margin: 0 auto;
+            font-size: 0.95rem;
+            letter-spacing: 0.8px;
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-        }
-
-        .card-action-primary {
+            gap: 10px;
+            transition: var(--transition);
             background: linear-gradient(145deg, var(--primary), #1a4cff);
             color: white;
+            box-shadow: 0 6px 16px rgba(0,102,255,0.2);
         }
-
-        .card-action-primary:hover {
-            transform: scale(1.02) translateY(-3px);
-            box-shadow: 0 16px 28px -6px rgba(0, 102, 255, 0.4);
-        }
-
-        .card-action-secondary {
+        .card-action-button:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(0,102,255,0.3); }
+        .card-action-button.secondary {
             background: transparent;
             border: 2px solid var(--primary);
             color: var(--primary);
+            box-shadow: none;
+            margin-top: 10px;
         }
 
-        .card-action-secondary:hover {
-            background: rgba(0, 102, 255, 0.04);
-            transform: translateY(-2px);
-        }
-
-        /* 视频卡片 */
-        .video-full-frame {
+        /* ----- 飞轮嵌入 ----- */
+        .flywheel-embed {
             width: 100%;
-            border-radius: 16px;
+            border-radius: 24px;
             overflow: hidden;
+            border: 1px solid rgba(0,102,255,0.15);
             background: #0a0f1a;
-            margin: 0;
-            padding: 0;
+            margin: 18px 0 8px;
         }
-        .video-full-frame iframe {
+        .flywheel-embed iframe {
             display: block;
             width: 100%;
-            height: 70vh;
-            min-height: 600px;
+            height: 460px;
             border: none;
-            vertical-align: bottom;
         }
 
-        /* 留言板 */
-        .comment-item {
-            padding: 16px;
-            border-bottom: 1px solid rgba(0,102,255,0.08);
-            transition: var(--transition);
-        }
-        .comment-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-        .comment-avatar {
-            font-size: 1.8rem;
-            color: var(--primary);
-        }
-        .comment-author {
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-        .comment-time {
-            font-size: 0.75rem;
-            color: var(--text-light);
-            margin-left: auto;
-        }
-        .comment-content {
-            color: var(--text-secondary);
-            line-height: 1.5;
-            font-size: 0.95rem;
-            padding-left: 6px;
-        }
-        .comment-input-area {
-            display: flex;
-            gap: 12px;
-            margin-top: 20px;
-            align-items: center;
-        }
-        .comment-input {
-            flex: 1;
-            padding: 14px 18px;
-            border: 2px solid rgba(0,102,255,0.1);
-            border-radius: 30px;
-            font-size: 0.95rem;
-            background: white;
-            transition: var(--transition);
-        }
-        .comment-send-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        /* Boost积分网格 */
+        /* ----- Boost积分网格（手机双列，间距优化）----- */
         .boost-score-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-top: 20px;
+            gap: 10px;
+            margin: 20px 0 10px;
         }
         .score-item {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(2px);
-            border: 1px solid rgba(0, 102, 255, 0.12);
-            border-radius: 18px;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(0,102,255,0.12);
+            border-radius: 20px;
             padding: 14px 6px;
             text-align: center;
-            transition: var(--transition);
         }
-        .score-item:hover {
-            background: white;
-            border-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 18px -6px rgba(0, 102, 255, 0.18);
+        .score-vol { 
+            font-weight: 700; 
+            color: var(--primary); 
+            font-size: 0.95rem; 
+            display: block; 
+            margin-bottom: 4px; 
         }
-        .score-vol {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 0.95rem;
-            display: block;
+        .score-point { 
+            font-size: 0.75rem; 
+            color: var(--text-secondary); 
+            display: block; 
+            letter-spacing: 0.3px; 
         }
-        .score-point {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-            display: block;
+        @media (max-width: 480px) {
+            .boost-score-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        /* 收益模拟器样式 */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-        @media (max-width:1100px) { .stats-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width:700px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
-        .stat-card {
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(2px);
-            border: 1px solid rgba(0, 102, 255, 0.08);
-            border-radius: 20px;
-            padding: 16px 12px;
-            transition: var(--transition);
-        }
-        .sim-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        /* ----- 收益模拟器（手机舒适间距）----- */
+        .sim-row-mobile {
+            display: flex;
+            flex-direction: column;
             gap: 24px;
-            margin-top: 16px;
         }
-        @media (max-width:900px) { .sim-row { grid-template-columns: 1fr; } }
         .param-panel, .earning-panel {
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(2px);
-            border: 1px solid rgba(0, 102, 255, 0.08);
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(0,102,255,0.1);
             border-radius: 28px;
             padding: 24px;
         }
-        .param-group {
-            margin-bottom: 20px;
-        }
+        .param-group { margin-bottom: 24px; }
         .param-label {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: var(--text-secondary);
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
         }
         .slider {
             width: 100%;
             height: 6px;
-            background: rgba(0,0,0,0.04);
+            background: rgba(0,0,0,0.06);
             border-radius: 20px;
             -webkit-appearance: none;
-            appearance: none;
         }
         .slider::-webkit-slider-thumb {
             -webkit-appearance: none;
-            appearance: none;
             width: 24px;
             height: 24px;
             background: white;
             border: 2.5px solid var(--primary);
             border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(0, 102, 255, 0.25);
+            box-shadow: 0 2px 10px rgba(0,102,255,0.3);
             cursor: pointer;
-            transition: 0.15s;
-        }
-        .slider::-webkit-slider-thumb:hover {
-            transform: scale(1.18);
-            background: var(--primary-light);
         }
         .number-input {
-            border: 1.5px solid rgba(0, 102, 255, 0.15);
+            border: 1.5px solid rgba(0,102,255,0.2);
             border-radius: 40px;
-            padding: 8px 18px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            background: white;
-            width: 110px;
+            padding: 10px 16px;
+            width: 120px;
             text-align: right;
-            outline: none;
-            margin-top: 8px;
+            background: white;
+            font-size: 0.9rem;
+            margin-top: 10px;
         }
         .earning-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            gap: 14px;
             margin-bottom: 20px;
         }
         .earning-item {
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(2px);
-            border: 1px solid rgba(0, 102, 255, 0.08);
-            border-radius: 20px;
-            padding: 18px;
-            transition: var(--transition);
+            background: rgba(255,255,255,0.7);
+            border-radius: 22px;
+            padding: 18px 14px;
         }
         .earning-item .label {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-secondary);
             font-size: 0.7rem;
-            margin-bottom: 10px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
         }
         .earning-item .value {
             font-size: 1.6rem;
             font-weight: 700;
             color: var(--text-primary);
-            line-height: 1;
-            letter-spacing: -0.5px;
+            line-height: 1.2;
         }
         .total-value {
             grid-column: span 2;
-            background: rgba(0,102,255,0.06);
-            border-radius: 20px;
-            padding: 16px 24px;
+            background: rgba(0,102,255,0.08);
+            border-radius: 22px;
+            padding: 18px 20px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
             font-weight: 700;
+            font-size: 1.1rem;
         }
-        .kline-card {
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(2px);
-            border: 1px solid rgba(0, 102, 255, 0.08);
+
+        /* ----- 经济架构手机纵向（间距调优）----- */
+        .mobile-arch { display: flex; flex-direction: column; gap: 24px; }
+        .token-card-mobile {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(0,102,255,0.15);
             border-radius: 28px;
-            padding: 20px;
-            margin-top: 24px;
+            padding: 24px;
         }
-        .kline-container {
-            width: 100%;
-            height: 200px;
-            position: relative;
-            margin-top: 8px;
-        }
-        canvas {
-            width: 100%;
-            height: 100%;
-            display: block;
-            border-radius: 20px;
-            background: rgba(255,255,255,0.2);
-        }
-
-        /* 横向对比表格 */
-        .compare-table-wrapper {
-            overflow-x: auto;
-            margin: 16px 0;
-        }
-        .compare-table {
-            width: 100%;
-            min-width: 800px;
-            border-collapse: collapse;
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(2px);
-            border-radius: 24px;
-            border-style: hidden;
-            border-radius: 24px;
-            box-shadow: 0 0 0 1px rgba(0,102,255,0.08);
-        }
-        .compare-table th {
-            background: rgba(0, 102, 255, 0.08);
-            padding: 18px 14px;
-            font-weight: 700;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            text-align: left;
-        }
-        .compare-table td {
-            padding: 16px 14px;
-            border-bottom: 1px solid rgba(0, 102, 255, 0.06);
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        .compare-table tr:last-child td {
-            border-bottom: none;
-        }
-        .dolphin-highlight {
-            color: var(--primary);
-            font-weight: 700;
-            background: rgba(0, 102, 255, 0.04);
-        }
-
-        /* 双代币卡片 */
-        .dual-token {
+        .token-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+        .token-header i { font-size: 2rem; }
+        .token-header h4 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.3px; }
+        .health-grid-mobile {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 28px;
+            gap: 14px;
+            margin: 20px 0;
         }
-        .token-card {
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(2px);
-            border: 1px solid rgba(0, 102, 255, 0.1);
-            border-radius: 28px;
-            padding: 24px;
-        }
-
-        /* 健康度 & 协同 重构排版 */
-        .health-metrics {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-        .health-metrics > div {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(2px);
-            border: 1px solid rgba(0, 102, 255, 0.1);
+        .health-item-mobile {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(0,102,255,0.12);
             border-radius: 24px;
-            padding: 18px 8px;
+            padding: 20px 10px;
             text-align: center;
         }
-        .health-score-wrap {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(2px);
-            border: 1px solid rgba(0, 102, 255, 0.12);
-            border-radius: 28px;
-            padding: 16px 24px;
-            margin-top: 16px;
+        .health-item-mobile .value {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.2;
+            margin-bottom: 6px;
         }
-        .boost-cohere {
-            background: rgba(255, 245, 235, 0.7);
-            backdrop-filter: blur(2px);
-            border: 2px solid rgba(245, 158, 11, 0.2);
+        .health-item-mobile .label { font-size: 0.7rem; color: var(--text-secondary); letter-spacing: 0.5px; }
+        .score-card-mobile {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(0,102,255,0.12);
             border-radius: 28px;
-            padding: 24px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .score-circle { position: relative; width: 70px; height: 70px; flex-shrink: 0; }
+        .score-circle span {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 1.7rem; font-weight: 800; color: var(--primary);
+        }
+        .boost-cohere-mobile {
+            background: rgba(255, 245, 235, 0.8);
+            backdrop-filter: blur(4px);
+            border: 2px solid rgba(245, 158, 11, 0.25);
+            border-radius: 28px;
+            padding: 26px;
         }
 
-        /* 数据卡片专用样式 */
-        .wallet-balance-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 0;
-            border-bottom: 1px dashed rgba(0, 0, 0, 0.06);
-            font-size: 0.98rem;
-        }
-        .wallet-addr {
-            background: rgba(0, 102, 255, 0.04);
-            border: 1px solid rgba(0, 102, 255, 0.12);
-            border-radius: 40px;
-            padding: 12px 18px;
-            font-size: 0.85rem;
-            word-break: break-all;
-            font-family: 'SF Mono', 'Fira Code', monospace;
-        }
-        .withdraw-input {
-            border: 1.5px solid rgba(0, 102, 255, 0.15);
-            border-radius: 40px;
-            padding: 14px 20px;
+        /* ----- 表格手机滚动（优化文字）----- */
+        .stake-table-mobile {
             width: 100%;
-            margin-top: 8px;
-            background: white;
-            font-size: 0.95rem;
-            outline: none;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            background: rgba(255,255,255,0.5);
+            border-radius: 20px;
+            overflow: hidden;
         }
-        .tool-grid {
+        .stake-table-mobile th {
+            background: rgba(0,102,255,0.08);
+            padding: 16px 14px;
+            text-align: left;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .stake-table-mobile td {
+            padding: 14px;
+            border-bottom: 1px solid rgba(0,102,255,0.06);
+            color: var(--text-secondary);
+        }
+
+        /* ----- 工具卡片（2x3，间距舒朗）----- */
+        .tool-grid-mobile {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-top: 8px;
+            gap: 14px;
         }
         .tool-item {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(2px);
-            border: 1px solid rgba(0, 102, 255, 0.1);
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(0,102,255,0.12);
             border-radius: 24px;
-            padding: 20px 12px;
+            padding: 22px 10px;
             text-align: center;
-            transition: var(--transition);
         }
-        .tool-item:hover {
-            background: white;
-            border-color: var(--primary);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 20px -8px rgba(0, 102, 255, 0.2);
+        .tool-item i { font-size: 1.8rem; margin-bottom: 8px; display: block; }
+        .tool-item p { font-weight: 600; font-size: 0.8rem; color: var(--text-primary); }
+
+        /* ----- 留言板、钱包样式微调 ----- */
+        .comment-item { padding: 16px 0; border-bottom: 1px dashed rgba(0,0,0,0.06); }
+        .comment-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+        .comment-author { font-weight: 700; color: var(--text-primary); }
+        .comment-time { font-size: 0.7rem; color: var(--text-light); margin-left: auto; }
+        .comment-content { color: var(--text-secondary); line-height: 1.6; font-size: 0.9rem; padding-left: 6px; }
+        .comment-input-area { display: flex; gap: 12px; margin-top: 20px; }
+        .comment-input {
+            flex: 1; padding: 14px 20px; border: 2px solid rgba(0,102,255,0.15);
+            border-radius: 40px; font-size: 0.9rem; background: white;
+        }
+        .comment-send-btn {
+            width: 52px; height: 52px; border-radius: 50%;
+            background: linear-gradient(145deg, var(--primary), var(--accent));
+            color: white; border: none; font-size: 1.2rem;
+        }
+        .wallet-balance-row { 
+            display: flex; justify-content: space-between; 
+            padding: 14px 0; border-bottom: 1px dashed rgba(0,0,0,0.06);
+            font-size: 0.95rem;
+        }
+        .wallet-addr {
+            background: rgba(0,102,255,0.04); border: 1px solid rgba(0,102,255,0.15);
+            border-radius: 40px; padding: 12px 18px; word-break: break-all;
+            font-family: 'SF Mono', monospace; font-size: 0.82rem;
+        }
+        .withdraw-input {
+            border: 1.5px solid rgba(0,102,255,0.2); border-radius: 40px;
+            padding: 14px 20px; width: 100%; background: white; font-size: 0.9rem;
         }
         .btn-sm {
-            padding: 12px 28px;
-            border-radius: 40px;
-            font-weight: 650;
-            background: linear-gradient(145deg, var(--primary), #1a4cff);
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
+            padding: 12px 24px; border-radius: 40px; background: linear-gradient(145deg, var(--primary), #1a4cff);
+            color: white; border: none; font-weight: 600; font-size: 0.85rem;
+            letter-spacing: 0.5px; display: inline-flex; align-items: center; gap: 6px;
         }
-        .btn-sm:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 14px 26px -8px rgba(0, 102, 255, 0.36);
-        }
-        .toggle-checkbox + label {
-            position: relative;
-            display: inline-block;
-            width: 48px;
-            height: 24px;
-            background: rgba(0,0,0,0.06);
-            border-radius: 24px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .toggle-checkbox + label::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: white;
-            border-radius: 50%;
-            top: 2px;
-            left: 2px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: 0.2s;
-        }
-        .toggle-checkbox:checked + label {
-            background: var(--primary);
-        }
-        .toggle-checkbox:checked + label::after {
-            left: 26px;
+        .btn-sm-outline {
+            background: transparent; border: 2px solid var(--primary); color: var(--primary);
         }
 
-        /* 响应式优化 */
-        @media (max-width: 768px) {
-            .h-interactive { font-size: 80px; }
-            .btn-label { font-size: 1.25rem; }
-            .card-text h3 { font-size: 1.3rem; }
-            .action-btn { min-height: 150px; padding: 20px 12px; }
-            .btn-icon { width: 72px; height: 72px; font-size: 1.9rem; }
-            .card-icon { width: 72px; height: 72px; font-size: 1.9rem; }
-            .boost-score-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        /* ----- 复投开关 ----- */
+        .toggle-checkbox + label {
+            width: 50px; height: 26px; background: rgba(0,0,0,0.1); border-radius: 26px;
+            position: relative; display: inline-block; cursor: pointer;
         }
-        @media (max-width: 480px) {
-            .boost-score-grid { grid-template-columns: repeat(2, 1fr); }
-            .health-metrics { grid-template-columns: repeat(2, 1fr); }
-            .tool-grid { grid-template-columns: repeat(2, 1fr); }
-            .dual-token { grid-template-columns: 1fr; }
+        .toggle-checkbox + label::after {
+            content: ''; width: 22px; height: 22px; background: white; border-radius: 50%;
+            position: absolute; top: 2px; left: 2px; transition: 0.2s; box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
-        @media (hover: none) {
-            .activity-card:hover,
-            .action-btn:hover,
-            .user-panel:hover,
-            .tool-item:hover {
-                transform: none;
-            }
-        }
-        #flywheelCanvas {
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 28px;
-            backdrop-filter: blur(2px);
-            border: 1px solid rgba(0, 102, 255, 0.08);
-            width: 100%;
-            height: 300px;
+        .toggle-checkbox:checked + label { background: var(--primary); }
+        .toggle-checkbox:checked + label::after { left: 26px; }
+
+        /* 响应式微调 */
+        @media (max-width: 380px) {
+            body { font-size: 14px; }
+            .card-text h3 { font-size: 1.2rem; }
+            .btn-icon { width: 56px; height: 56px; font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
-    <!-- 流动线条背景 -->
-    <div class="line-background" id="lineBackground"></div>
+    <!-- 极简线条背景（保留氛围） -->
+    <div style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; background:radial-gradient(circle at 10% 20%, rgba(0,102,255,0.03) 0%, transparent 60%);"></div>
 
     <!-- 顶部H字母 -->
     <div class="h-letter-container">
@@ -1096,11 +687,10 @@
             <div class="user-identity">
                 <div class="user-nickname">
                     海豚用户212
-                    <span class="user-id">ID：991</span>
+                    <span class="user-id">ID:991</span>
                 </div>
                 <div class="user-rank">
-                    <i class="fas fa-crown"></i>
-                    当前等级：金牌会员
+                    <i class="fas fa-crown" style="color:var(--gold);"></i> 金牌会员
                 </div>
             </div>
             <div class="expand-btn">
@@ -1117,14 +707,14 @@
         </div>
     </div>
 
-    <!-- 三核心按钮 -->
+    <!-- 三大核心按钮 · 模型按钮为宇航员 -->
     <div class="action-buttons">
         <div class="action-btn active" id="btnBoost">
             <div class="btn-icon"><i class="fas fa-rocket"></i></div>
             <div class="btn-label">Boost</div>
         </div>
         <div class="action-btn" id="btnModel">
-            <div class="btn-icon"><i class="fas fa-dolphin"></i></div>
+            <div class="btn-icon"><i class="fas fa-user-astronaut"></i></div>
             <div class="btn-label">模型</div>
         </div>
         <div class="action-btn" id="btnData">
@@ -1133,11 +723,11 @@
         </div>
     </div>
 
-    <!-- 卡片总容器 -->
+    <!-- 卡片总容器 —— 全部卡片完整呈现，排版已全面优化呼吸感 -->
     <div class="cards-container">
 
-        <!-- ============= BOOST 卡片组 ============= -->
-        <!-- 卡片1：OKX Boost 专栏（含积分表） -->
+        <!-- ========== BOOST 卡片组 · 4张 · 完整内容 ========= -->
+        <!-- 卡片1：OKX Boost 专栏（积分表、三大模式、数据说明） -->
         <div class="activity-card boost-card" id="cardBoostColumn">
             <div class="card-header">
                 <div class="card-main">
@@ -1154,123 +744,123 @@
             </div>
             <div class="card-content">
                 <div class="content-inner">
-                    <div class="content-section">
-                        <div class="section-title"><i class="fas fa-info-circle"></i> 活动解析</div>
-                        <p class="description">OKX Boost 是 OKX Wallet 2025年9月推出的链上创新项目参与平台，为优质项目与真实用户搭建高效桥梁。所有奖励分发均在开源智能合约中自动执行，零干预。</p>
-                    </div>
-                    <div class="content-section">
-                        <div class="section-title"><i class="fas fa-list-check"></i> 三大核心模式</div>
-                        <ul class="rules-list">
-                            <li><i class="fas fa-rocket"></i> <strong>X Launch：</strong>基于 OKX DEX 交易活跃度，用户瓜分新项目代币奖池，交易即贡献。</li>
-                            <li><i class="fas fa-gift"></i> <strong>Giveaway：</strong>完成关注社群、链上交互等任务，获得项目代币或白名单资格。</li>
-                            <li><i class="fas fa-trophy"></i> <strong>交易赛：</strong>针对热门项目的限时交易竞赛，排行榜前列共享高额奖池。</li>
-                        </ul>
-                    </div>
-                    <div class="content-section">
-                        <div class="section-title"><i class="fas fa-chart-line"></i> Boost数据说明</div>
-                        <p class="description">Boost数据综合反映过去10天在OKX DEX的交易活跃度（Boost交易量）和在OKX Wallet的资产持仓（Boost余额）。</p>
-                        <ul class="rules-list">
-                            <li><i class="fas fa-chart-simple"></i> <strong>Boost交易量：</strong>10天平均日交易额 ≥ $500 即有空投资格，量级越高奖励权重越大。</li>
-                            <li><i class="fas fa-wallet"></i> <strong>Boost余额：</strong>持有USDT/OKB等优质资产，日均持仓 ≥ $200 即可通过，持仓越多加成越高。</li>
-                        </ul>
-                        <!-- Boost积分对照表 (完整) -->
-                        <div style="margin-top:20px;">
-                            <div style="display:flex; align-items:center; gap:8px; margin-bottom:16px;">
-                                <i class="fas fa-star" style="color:var(--warning);"></i>
-                                <strong style="color:var(--text-primary);">Boost积分对照（交易量 → 积分）</strong>
-                            </div>
-                            <div class="boost-score-grid">
-                                <div class="score-item"><span class="score-vol">$400</span><span class="score-point">1 积分</span></div>
-                                <div class="score-item"><span class="score-vol">$800</span><span class="score-point">2 积分</span></div>
-                                <div class="score-item"><span class="score-vol">$1,600</span><span class="score-point">3 积分</span></div>
-                                <div class="score-item"><span class="score-vol">$3,200</span><span class="score-point">4 积分</span></div>
-                                <div class="score-item"><span class="score-vol">$6,400</span><span class="score-point">5 积分</span></div>
-                                <div class="score-item"><span class="score-vol">$12,800</span><span class="score-point">6 积分</span></div>
-                                <div class="score-item"><span class="score-vol">$25,600</span><span class="score-point">7 积分</span></div>
-                                <div class="score-item"><span class="score-vol">$51,200</span><span class="score-point">8 积分</span></div>
-                            </div>
+                    <div class="section-title"><i class="fas fa-info-circle"></i> 活动解析</div>
+                    <p class="description">OKX Boost 是 OKX Wallet 2025年9月正式推出的链上创新项目参与平台，为优质项目与真实用户搭建高效桥梁。所有奖励分发均在开源智能合约中自动执行，零干预。</p>
+                    
+                    <div class="section-title"><i class="fas fa-list-check"></i> 三大核心模式</div>
+                    <ul class="rules-list">
+                        <li><i class="fas fa-rocket"></i> <strong>X Launch：</strong>基于 OKX DEX 交易活跃度，用户瓜分新项目代币奖池，交易即贡献。</li>
+                        <li><i class="fas fa-gift"></i> <strong>Giveaway：</strong>完成关注社群、链上交互等任务，获得项目代币或白名单资格。</li>
+                        <li><i class="fas fa-trophy"></i> <strong>交易赛：</strong>针对热门项目的限时交易竞赛，排行榜前列共享高额奖池。</li>
+                    </ul>
+
+                    <div class="section-title"><i class="fas fa-chart-line"></i> Boost数据说明</div>
+                    <p class="description">Boost数据综合反映过去10天在OKX DEX的交易活跃度（Boost交易量）和在OKX Wallet的资产持仓（Boost余额）。</p>
+                    <ul class="rules-list">
+                        <li><i class="fas fa-chart-simple"></i> <strong>Boost交易量：</strong>10天平均日交易额 ≥ $500 即有空投资格，量级越高奖励权重越大。</li>
+                        <li><i class="fas fa-wallet"></i> <strong>Boost余额：</strong>持有USDT/OKB等优质资产，日均持仓 ≥ $200 即可通过，持仓越多加成越高。</li>
+                    </ul>
+
+                    <!-- Boost积分对照表 -->
+                    <div style="margin-top:20px;">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:16px;">
+                            <i class="fas fa-star" style="color:var(--warning);"></i>
+                            <strong style="color:var(--text-primary);">Boost积分对照（交易量→积分）</strong>
+                        </div>
+                        <div class="boost-score-grid">
+                            <div class="score-item"><span class="score-vol">$400</span><span class="score-point">1 积分</span></div>
+                            <div class="score-item"><span class="score-vol">$800</span><span class="score-point">2 积分</span></div>
+                            <div class="score-item"><span class="score-vol">$1,600</span><span class="score-point">3 积分</span></div>
+                            <div class="score-item"><span class="score-vol">$3,200</span><span class="score-point">4 积分</span></div>
+                            <div class="score-item"><span class="score-vol">$6,400</span><span class="score-point">5 积分</span></div>
+                            <div class="score-item"><span class="score-vol">$12,800</span><span class="score-point">6 积分</span></div>
+                            <div class="score-item"><span class="score-vol">$25,600</span><span class="score-point">7 积分</span></div>
+                            <div class="score-item"><span class="score-vol">$51,200</span><span class="score-point">8 积分</span></div>
                         </div>
                     </div>
+
                     <div class="card-actions">
-                        <button class="card-action-button card-action-primary"><i class="fas fa-play-circle"></i> 参与Boost活动</button>
+                        <button class="card-action-button"><i class="fas fa-play-circle"></i> 参与Boost活动</button>
+                        <button class="card-action-button secondary" style="margin-top:12px;"><i class="fas fa-share-alt"></i> 分享给好友</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 卡片2：Boost规则与奖励 -->
+        <!-- 卡片2：Boost规则与奖励（完整阶梯） -->
         <div class="activity-card boost-card" id="cardBoostRule">
             <div class="card-header">
                 <div class="card-main">
-                    <div class="card-icon green"><i class="fas fa-file-alt"></i></div>
+                    <div class="card-icon" style="color:var(--success);"><i class="fas fa-file-alt"></i></div>
                     <div class="card-text"><h3>Boost规则与奖励</h3><p>交易量/余额阶梯 · 奖励权重</p></div>
                 </div>
                 <div class="card-status">
-                    <span class="status-badge green">📋 详细规则</span>
+                    <span class="status-badge" style="color:var(--success);">📋 详细规则</span>
                     <div class="card-expand"><i class="fas fa-chevron-down"></i></div>
                 </div>
             </div>
             <div class="card-content">
                 <div class="content-inner">
-                    <div class="content-section">
-                        <div class="section-title"><i class="fas fa-calculator"></i> Boost交易量阶梯</div>
-                        <div class="rewards">
-                            <div class="reward-item"><span>🏅 基础档 ($500+)</span><span class="reward-value">空投资格</span></div>
-                            <div class="reward-item"><span>🥈 白银档 ($1,000+)</span><span class="reward-value">奖励权重 x1.2</span></div>
-                            <div class="reward-item"><span>🥇 黄金档 ($5,000+)</span><span class="reward-value">奖励权重 x1.8</span></div>
-                            <div class="reward-item"><span>💎 钻石档 ($10,000+)</span><span class="reward-value">奖励权重 x3.0</span></div>
-                        </div>
+                    <div class="section-title" style="color:var(--success);"><i class="fas fa-calculator"></i> Boost交易量阶梯</div>
+                    <div class="rewards">
+                        <div class="reward-item"><span>🏅 基础档 ($500+)</span><span class="reward-value">空投资格</span></div>
+                        <div class="reward-item"><span>🥈 白银档 ($1,000+)</span><span class="reward-value">权重 x1.2</span></div>
+                        <div class="reward-item"><span>🥇 黄金档 ($5,000+)</span><span class="reward-value">权重 x1.8</span></div>
+                        <div class="reward-item"><span>💎 钻石档 ($10,000+)</span><span class="reward-value">权重 x3.0</span></div>
                     </div>
-                    <div class="content-section">
-                        <div class="section-title"><i class="fas fa-wallet"></i> Boost余额加成</div>
-                        <div class="rewards">
-                            <div class="reward-item"><span>🌱 基础 ($200+)</span><span class="reward-value">资格通过</span></div>
-                            <div class="reward-item"><span>🌿 进阶 ($1,000+)</span><span class="reward-value">奖励 +15%</span></div>
-                            <div class="reward-item"><span>🌳 资深 ($5,000+)</span><span class="reward-value">奖励 +40%</span></div>
-                            <div class="reward-item"><span>🏝️ 巨鲸 ($20,000+)</span><span class="reward-value">奖励 +100%</span></div>
-                        </div>
+
+                    <div class="section-title" style="color:var(--success);"><i class="fas fa-wallet"></i> Boost余额加成</div>
+                    <div class="rewards">
+                        <div class="reward-item"><span>🌱 基础 ($200+)</span><span class="reward-value">资格通过</span></div>
+                        <div class="reward-item"><span>🌿 进阶 ($1,000+)</span><span class="reward-value">奖励 +15%</span></div>
+                        <div class="reward-item"><span>🌳 资深 ($5,000+)</span><span class="reward-value">奖励 +40%</span></div>
+                        <div class="reward-item"><span>🏝️ 巨鲸 ($20,000+)</span><span class="reward-value">奖励 +100%</span></div>
                     </div>
+
+                    <div class="section-title" style="color:var(--success);"><i class="fas fa-medal"></i> 奖励分配机制</div>
+                    <p class="description">每个Boost活动根据参与者Boost交易量和Boost余额综合评分，按比例分配奖池。奖励以项目代币形式直接发放到参与钱包，智能合约自动执行，零手续费。</p>
+
                     <div class="card-actions">
-                        <button class="card-action-button card-action-primary"><i class="fas fa-calculator"></i> 模拟计算奖励</button>
+                        <button class="card-action-button" style="background:linear-gradient(145deg, var(--success), #0b8e5a);"><i class="fas fa-calculator"></i> 模拟计算奖励</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 卡片3：社区策略解析 -->
+        <!-- 卡片3：社区策略解析（完整四策略） -->
         <div class="activity-card boost-card" id="cardBoostStrategy">
             <div class="card-header">
                 <div class="card-main">
-                    <div class="card-icon purple"><i class="fas fa-chess-board"></i></div>
+                    <div class="card-icon" style="color:var(--secondary);"><i class="fas fa-chess-board"></i></div>
                     <div class="card-text"><h3>社区策略解析</h3><p>海豚社区实战协同</p></div>
                 </div>
                 <div class="card-status">
-                    <span class="status-badge purple">💡 策略分享</span>
+                    <span class="status-badge" style="color:var(--secondary);">💡 策略分享</span>
                     <div class="card-expand"><i class="fas fa-chevron-down"></i></div>
                 </div>
             </div>
             <div class="card-content">
                 <div class="content-inner">
-                    <div class="content-section">
-                        <div class="section-title"><i class="fas fa-bullseye"></i> 集中交易拉升交易量</div>
-                        <p class="description">社群约定时段集中交易OKB/USDT等指定币对，快速达标$500门槛并冲刺更高档位，共同瓜分奖池。</p>
-                    </div>
-                    <div class="content-section">
-                        <div class="section-title"><i class="fas fa-people-arrows"></i> 联合持仓Boost余额</div>
-                        <p class="description">社区组织联合持仓计划，多人凑单质押USDT/OKB，降低个人门槛，获取更高余额加成。</p>
-                    </div>
-                    <div class="content-section">
-                        <div class="section-title"><i class="fas fa-tasks"></i> 任务共享与白名单</div>
-                        <p class="description">实时整理Giveaway任务攻略，一键完成关注/交互，快速获得代币或白名单。</p>
-                    </div>
+                    <div class="section-title" style="color:var(--secondary);"><i class="fas fa-bullseye"></i> 策略一：集中交易拉升交易量</div>
+                    <p class="description">社群约定时段集中交易OKB/USDT等指定币对，快速达标$500门槛并冲刺更高档位，共同瓜分奖池。</p>
+                    
+                    <div class="section-title" style="color:var(--secondary);"><i class="fas fa-people-arrows"></i> 策略二：联合持仓Boost余额</div>
+                    <p class="description">社区组织联合持仓计划，多人凑单质押USDT/OKB，降低个人门槛，获取更高余额加成。</p>
+                    
+                    <div class="section-title" style="color:var(--secondary);"><i class="fas fa-tasks"></i> 策略三：任务共享与白名单</div>
+                    <p class="description">实时整理Giveaway任务攻略，一键完成关注/交互，快速获得代币或白名单。</p>
+                    
+                    <div class="section-title" style="color:var(--secondary);"><i class="fas fa-flag-checkered"></i> 策略四：交易竞赛协同作战</div>
+                    <p class="description">针对交易赛，社区内组建战队，分享K线技术、挂单策略、Gas优化技巧，提高整体排名。</p>
+
                     <div class="card-actions">
-                        <button class="card-action-button card-action-primary"><i class="fas fa-bullhorn"></i> 加入社区战队</button>
+                        <button class="card-action-button" style="background:linear-gradient(145deg, var(--secondary), #6b3ad6);"><i class="fas fa-bullhorn"></i> 加入社区战队</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 卡片4：Boost留言板 -->
+        <!-- 卡片4：Boost留言板（完整留言） -->
         <div class="activity-card boost-card" id="cardBoostBoard">
             <div class="card-header">
                 <div class="card-main">
@@ -1284,85 +874,93 @@
             </div>
             <div class="card-content">
                 <div class="content-inner">
-                    <div class="content-section">
-                        <div class="section-title"><i class="fas fa-clock"></i> 最新留言</div>
-                        <div class="comment-item">
-                            <div class="comment-header"><i class="fas fa-user-circle comment-avatar"></i><span class="comment-author">海豚船长</span><span class="comment-time">5分钟前</span></div>
-                            <div class="comment-content">刚完成500U交易，收到Boost空投2000代币！</div>
+                    <div class="section-title"><i class="fas fa-clock"></i> 最新留言</div>
+                    <div class="comment-item">
+                        <div class="comment-header">
+                            <i class="fas fa-user-circle" style="font-size:1.6rem; color:var(--primary);"></i>
+                            <span class="comment-author">海豚船长</span>
+                            <span class="comment-time">5分钟前</span>
                         </div>
-                        <div class="comment-item">
-                            <div class="comment-header"><i class="fas fa-user-circle comment-avatar"></i><span class="comment-author">Web3探险家</span><span class="comment-time">15分钟前</span></div>
-                            <div class="comment-content">持仓300U OKB，Boost余额轻松达标~</div>
-                        </div>
-                        <div class="comment-item">
-                            <div class="comment-header"><i class="fas fa-user-circle comment-avatar"></i><span class="comment-author">交易员小新</span><span class="comment-time">32分钟前</span></div>
-                            <div class="comment-content">跟着战队冲交易赛，拿了第9名，奖励3000U等值代币！</div>
-                        </div>
+                        <div class="comment-content">刚完成500U交易，收到Boost空投2000代币！</div>
                     </div>
-                    <div class="content-section">
-                        <div class="section-title"><i class="fas fa-pen"></i> 发表留言</div>
-                        <div class="comment-input-area">
-                            <input type="text" class="comment-input" placeholder="分享你的Boost经验...">
-                            <button class="comment-send-btn"><i class="fas fa-paper-plane"></i></button>
+                    <div class="comment-item">
+                        <div class="comment-header">
+                            <i class="fas fa-user-circle" style="font-size:1.6rem; color:var(--primary);"></i>
+                            <span class="comment-author">Web3探险家</span>
+                            <span class="comment-time">15分钟前</span>
                         </div>
+                        <div class="comment-content">持仓300U OKB，Boost余额轻松达标~</div>
+                    </div>
+                    <div class="comment-item">
+                        <div class="comment-header">
+                            <i class="fas fa-user-circle" style="font-size:1.6rem; color:var(--primary);"></i>
+                            <span class="comment-author">交易员小新</span>
+                            <span class="comment-time">32分钟前</span>
+                        </div>
+                        <div class="comment-content">跟着战队冲交易赛，拿了第9名，奖励3000U等值代币！</div>
+                    </div>
+
+                    <div class="section-title" style="margin-top:24px;"><i class="fas fa-pen"></i> 发表留言</div>
+                    <div class="comment-input-area">
+                        <input type="text" class="comment-input" placeholder="分享你的Boost经验...">
+                        <button class="comment-send-btn"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ============= 模型卡片组 ============= -->
-        <!-- 卡片5：海豚模式解析（已移除模拟收益按钮） -->
+        <!-- ========== 模型卡片组 · 5张 · 完整内容 ========= -->
+        <!-- 卡片5：海豚模式解析 · 图标已换回海豚，飞轮已嵌入指定页面 -->
         <div class="activity-card model-card" id="cardDolphinModel">
             <div class="card-header">
                 <div class="card-main">
-                    <div class="card-icon purple"><i class="fas fa-dolphin"></i></div>
+                    <div class="card-icon" style="color:var(--secondary);"><i class="fas fa-dolphin"></i></div>
                     <div class="card-text"><h3>海豚模式解析</h3><p>正向收益飞轮 · 链上价值循环</p></div>
                 </div>
                 <div class="card-status">
-                    <span class="status-badge purple">🐬 独家解析</span>
+                    <span class="status-badge" style="color:var(--secondary);">🐬 独家解析</span>
                     <div class="card-expand"><i class="fas fa-chevron-down"></i></div>
                 </div>
             </div>
             <div class="card-content">
                 <div class="content-inner">
-                    <div class="content-section">
-                        <div class="section-title"><i class="fas fa-dharmachakra"></i> 八节点飞轮</div>
-                        <p class="description"><strong>海豚模式正向收益飞轮</strong>：智能合约驱动，用户行为主导。质押、奖励、空投、增值、复投八个节点自动循环，贡献精准计量，即时奖励。</p>
-                        <div style="margin-top:16px; background:rgba(0,102,255,0.02); border-radius:20px; padding:20px;">
-                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-                                <div><span style="font-weight:700; color:var(--primary);">节点1</span> 质押USDT</div>
-                                <div><span style="font-weight:700; color:var(--primary);">节点2</span> 每日领取H收益</div>
-                                <div><span style="font-weight:700; color:var(--primary);">节点3</span> 卖掉H→Boost交易量</div>
-                                <div><span style="font-weight:700; color:var(--primary);">节点4</span> 买入H</div>
-                                <div><span style="font-weight:700; color:var(--primary);">节点5</span> 领取欧易空投</div>
-                                <div><span style="font-weight:700; color:var(--primary);">节点6</span> 新币换U，继续质押</div>
-                                <div><span style="font-weight:700; color:var(--primary);">节点7</span> 积累更多H</div>
-                                <div><span style="font-weight:700; color:var(--primary);">节点8</span> 飞轮加速 · H升值</div>
-                            </div>
+                    <div class="section-title" style="color:var(--secondary);"><i class="fas fa-dharmachakra"></i> 海豚模式</div>
+                    <p class="description"><strong>海豚模式正向收益飞轮</strong>：智能合约驱动，用户行为主导。质押、奖励、空投、增值、复投八个节点自动循环，贡献精准计量，即时奖励。</p>
+                    
+                    <div class="section-title" style="color:var(--secondary);"><i class="fas fa-coins"></i> 链上赚币</div>
+                    <p class="description">创新型智能阶梯收益，<strong>无锁仓、无周期限制</strong>，全程无人工干预的智能质押模式。与 OKX Wallet 官方合作，收益链上可查，欧易官方发放。</p>
+                    
+                    <div class="section-title" style="color:var(--secondary);"><i class="fas fa-cogs"></i> 八节点飞轮</div>
+                    <div style="background:rgba(139,92,246,0.04); padding:20px; border-radius:24px; margin-bottom:16px;">
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                            <div><span style="font-weight:700; color:var(--secondary);">节点1</span> 质押USDT</div>
+                            <div><span style="font-weight:700; color:var(--secondary);">节点2</span> 每日领取H收益</div>
+                            <div><span style="font-weight:700; color:var(--secondary);">节点3</span> 卖掉H→Boost交易量</div>
+                            <div><span style="font-weight:700; color:var(--secondary);">节点4</span> 买入H</div>
+                            <div><span style="font-weight:700; color:var(--secondary);">节点5</span> 领取欧易空投</div>
+                            <div><span style="font-weight:700; color:var(--secondary);">节点6</span> 新币换U，继续质押</div>
+                            <div><span style="font-weight:700; color:var(--secondary);">节点7</span> 积累更多H</div>
+                            <div><span style="font-weight:700; color:var(--secondary);">节点8</span> 飞轮加速 · H升值</div>
                         </div>
                     </div>
-                    <div class="content-section">
-                        <div class="section-title"><i class="fas fa-play-circle"></i> 飞轮演示</div>
-                        <div style="background:rgba(0,102,255,0.02); border-radius:20px; padding:20px;">
-                            <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
-                                <i class="fas fa-cube" style="color:var(--primary); font-size:1.8rem;"></i>
-                                <span style="font-weight:600;">3D飞轮动态演示 · 点击观看</span>
-                            </div>
-                            <div style="display:flex; flex-wrap:wrap; gap:12px;">
-                                <button class="card-action-button card-action-primary" style="margin:0; min-width:200px;" onclick="document.getElementById('cardDolphinVideo').scrollIntoView({behavior:'smooth'});">
-                                    <i class="fas fa-arrow-down"></i> 立即观看3D飞轮
-                                </button>
-                                <button class="card-action-button card-action-secondary" style="margin:0; min-width:200px;" onclick="window.open('https://aosima858588-boop.github.io/viphuiyuan/', '_blank')">
-                                    <i class="fas fa-external-link-alt"></i> 新窗口全屏
-                                </button>
-                            </div>
+
+                    <div class="section-title" style="color:var(--secondary);"><i class="fas fa-play-circle"></i> 飞轮演示 · 链上赚币</div>
+                    <div style="background:rgba(139,92,246,0.04); border-radius:24px; padding:20px;">
+                        <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+                            <i class="fas fa-cube" style="color:var(--secondary); font-size:1.8rem;"></i>
+                            <span style="font-weight:600;">智能质押 · 正向飞轮</span>
                         </div>
+                        <!-- 嵌入指定飞轮页面 -->
+                        <div class="flywheel-embed">
+                            <iframe src="https://aosima858588-boop.github.io/viphuiyuan/" allowfullscreen loading="lazy" title="海豚飞轮·链上赚币"></iframe>
+                        </div>
+                        <p style="font-size:0.8rem; color:var(--text-light); text-align:center; margin-top:12px;">↑ 交互式飞轮 · 点击节点查看详情 ↑</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 卡片6：海豚飞轮3D视频演示 (默认折叠) -->
+        <!-- 卡片6：海豚飞轮3D视频演示（默认折叠） -->
         <div class="activity-card model-card" id="cardDolphinVideo">
             <div class="card-header">
                 <div class="card-main">
@@ -1376,64 +974,70 @@
                     <div class="card-expand"><i class="fas fa-chevron-down"></i></div>
                 </div>
             </div>
-            <div class="card-content" style="max-height:0; overflow-y:hidden;">
+            <div class="card-content" style="max-height:0;">
                 <div class="content-inner" style="opacity:0; padding:0;">
-                    <div class="video-full-frame">
-                        <iframe src="https://aosima858588-boop.github.io/viphuiyuan/" allowfullscreen loading="lazy" title="海豚飞轮3D演示"></iframe>
+                    <div style="width:100%; border-radius:20px; overflow:hidden;">
+                        <iframe src="https://aosima858588-boop.github.io/viphuiyuan/" allowfullscreen loading="lazy" style="width:100%; height:70vh; border:none;"></iframe>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 卡片7：动态收益模拟 + 公式说明 -->
+        <!-- 卡片7：动态收益模拟 · 完整计算引擎 -->
         <div class="activity-card model-card" id="cardSim">
             <div class="card-header">
                 <div class="card-main">
                     <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-                    <div class="card-text"><h3>动态收益模拟</h3><p>实时联动K线 · 双引擎收益</p></div>
+                    <div class="card-text"><h3>动态收益模拟</h3><p>实时联动 · 阶梯利率精准计算</p></div>
                 </div>
                 <div class="card-status"><span class="status-badge">🔄 实时计算</span><div class="card-expand"><i class="fas fa-chevron-down"></i></div></div>
             </div>
             <div class="card-content">
                 <div class="content-inner">
                     <!-- 六维指标 -->
-                    <div class="stats-grid">
-                        <div class="stat-card"><div class="stat-label">购买价</div><div class="stat-number" id="buyPriceDisplay">$0.0010</div></div>
-                        <div class="stat-card"><div class="stat-label">卖出价</div><div class="stat-number" id="sellPriceDisplay">$0.0015</div></div>
-                        <div class="stat-card"><div class="stat-label">质押总额</div><div class="stat-number" id="tvlDisplay">$199K</div></div>
-                        <div class="stat-card"><div class="stat-label">日交易量</div><div class="stat-number" id="volumeDisplay">$10K</div></div>
-                        <div class="stat-card"><div class="stat-label">年化APY</div><div class="stat-number" id="apyDisplay">438%</div></div>
-                        <div class="stat-card"><div class="stat-label">Boost积分</div><div class="stat-number" id="boostDisplay">20.0</div></div>
+                    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:24px;">
+                        <div style="background:rgba(255,255,255,0.6); padding:14px 8px; border-radius:20px; text-align:center;">
+                            <span style="color:var(--text-light); font-size:0.7rem;">购买价</span>
+                            <div id="buyPriceDisplay" style="font-weight:800; color:var(--primary); font-size:1.2rem;">$0.0010</div>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.6); padding:14px 8px; border-radius:20px; text-align:center;">
+                            <span style="color:var(--text-light); font-size:0.7rem;">卖出价</span>
+                            <div id="sellPriceDisplay" style="font-weight:800; color:var(--primary); font-size:1.2rem;">$0.0015</div>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.6); padding:14px 8px; border-radius:20px; text-align:center;">
+                            <span style="color:var(--text-light); font-size:0.7rem;">年化APY</span>
+                            <div id="apyDisplay" style="font-weight:800; color:var(--primary); font-size:1.2rem;">438%</div>
+                        </div>
                     </div>
-                    <!-- 模拟双栏 -->
-                    <div class="sim-row">
+
+                    <div class="sim-row-mobile">
                         <div class="param-panel">
                             <div class="param-group">
-                                <div class="param-label">质押金额 (USDT)</div>
+                                <div class="param-label">质押金额 (USDT) <span id="stakeVal" style="font-weight:700;">1000</span></div>
                                 <input type="range" id="stakeSlider" class="slider" min="100" max="50000" value="1000" step="100">
                                 <input type="number" id="stakeInput" value="1000" class="number-input">
                             </div>
                             <div class="param-group">
-                                <div class="param-label">质押天数</div>
+                                <div class="param-label">质押天数 <span id="daysVal" style="font-weight:700;">45</span></div>
                                 <input type="range" id="daysSlider" class="slider" min="1" max="90" value="45" step="1">
-                                <span id="daysValue" style="margin-left:12px; font-weight:600;">45天</span>
+                                <span id="daysValue" style="display:block; margin-top:10px; font-weight:600;">45天</span>
                             </div>
                             <div class="param-group">
-                                <div class="param-label">购买价 (USDT)</div>
+                                <div class="param-label">购买价 (USDT) <span id="buyVal" style="font-weight:700;">0.0010</span></div>
                                 <input type="range" id="buyPriceSlider" class="slider" min="0.0001" max="0.01" value="0.0010" step="0.0001">
                                 <input type="number" id="buyPriceInput" value="0.0010" class="number-input" step="0.0001">
                             </div>
                             <div class="param-group">
-                                <div class="param-label">卖出价 (USDT)</div>
+                                <div class="param-label">卖出价 (USDT) <span id="sellVal" style="font-weight:700;">0.0015</span></div>
                                 <input type="range" id="sellPriceSlider" class="slider" min="0.0001" max="0.01" value="0.0015" step="0.0001">
                                 <input type="number" id="sellPriceInput" value="0.0015" class="number-input" step="0.0001">
                             </div>
                             <div class="param-group">
-                                <div class="param-label">日交易量</div>
+                                <div class="param-label">日交易量 <span id="volumeVal" style="font-weight:700;">10000</span></div>
                                 <input type="range" id="volumeSlider" class="slider" min="1000" max="50000" value="10000" step="500">
-                                <span id="volumeValue2" style="margin-left:12px; font-weight:600;">$10,000</span>
+                                <span id="volumeValue2" style="display:block; margin-top:10px; font-weight:600;">$10,000</span>
                             </div>
-                            <div style="display:flex; align-items:center; gap:12px; margin-top:12px;">
+                            <div style="display:flex; align-items:center; gap:12px; margin-top:16px;">
                                 <span style="font-size:0.9rem;">每日复投</span>
                                 <input type="checkbox" id="compoundToggle" class="toggle-checkbox" hidden checked>
                                 <label for="compoundToggle"></label>
@@ -1449,22 +1053,14 @@
                             </div>
                         </div>
                     </div>
-                    <!-- K线图 -->
-                    <div class="kline-card">
-                        <div class="kline-header"><div class="kline-title" style="display:flex; align-items:center; gap:12px;"><i class="fas fa-chart-line" style="color:var(--primary);"></i><h4>H代币 30日价格模拟</h4></div></div>
-                        <div class="kline-container"><canvas id="priceChart" width="800" height="200"></canvas></div>
-                    </div>
+
                     <!-- 公式说明 -->
-                    <div style="background:rgba(0,102,255,0.04); border-radius:24px; padding:22px; margin-top:24px;">
-                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:16px;">
-                            <i class="fas fa-square-root-variable" style="color:var(--primary);"></i>
-                            <strong style="color:var(--text-primary); font-size:1rem;">收益计算公式说明</strong>
-                        </div>
-                        <p style="color:var(--text-secondary); font-size:0.9rem; line-height:1.7;">
-                            • 日收益 = 质押金额 × 日利率（阶梯：1-7天0.5%｜8-15天0.6%｜16-30天0.8%｜31-60天1.0%｜61+天1.2%）<br>
-                            • 质押收益 = 复投 ? 本金×[(1+日利率)^天数 -1] : 日收益×天数<br>
-                            • 资本利得 = (卖出价-买入价) × (质押金额/买入价)<br>
-                            • Boost奖励 ≈ (日交易量/500) × 0.6 × 10天系数<br>
+                    <div style="background:rgba(0,102,255,0.04); border-radius:24px; padding:22px; margin-top:28px;">
+                        <p style="font-size:0.85rem; color:var(--text-secondary); line-height:1.7;">
+                            <i class="fas fa-square-root-variable" style="color:var(--primary);"></i> <strong>阶梯日利率：</strong>1-7天0.5%｜8-15天0.6%｜16-30天0.8%｜31-60天1.0%｜61+天1.2%<br>
+                            • 质押收益 = 复投 ? 本金×[(1+日利率)^天数-1] : 日收益×天数<br>
+                            • 资本利得 = (卖出价-买入价)×(本金/买入价)<br>
+                            • Boost奖励 = (日交易量/500)×0.6×10<br>
                             • 总收益 = 质押收益 + 资本利得 + Boost奖励
                         </p>
                     </div>
@@ -1472,7 +1068,7 @@
             </div>
         </div>
 
-        <!-- 卡片8：经济模型横向对比（表格样式） -->
+        <!-- 卡片8：经济模型横向对比（表格） -->
         <div class="activity-card model-card" id="cardModelCompare">
             <div class="card-header">
                 <div class="card-main">
@@ -1483,16 +1079,14 @@
             </div>
             <div class="card-content">
                 <div class="content-inner">
-                    <div class="section-title" style="color:var(--secondary);"><i class="fas fa-table"></i> 多维对比表</div>
-                    <div class="compare-table-wrapper">
-                        <table class="compare-table">
-                            <thead><tr><th>对比维度</th><th>海豚·双飞轮</th><th>通缩燃烧</th><th>Rebase弹性</th><th>双代币田园</th><th>算力存证</th></tr></thead>
+                    <div style="overflow-x:auto;">
+                        <table style="width:100%; border-collapse:collapse; background:rgba(255,255,255,0.5); border-radius:24px; font-size:0.8rem;">
+                            <thead><tr style="background:rgba(139,92,246,0.1);"><th style="padding:16px 12px;">维度</th><th style="padding:16px 12px;">海豚·双飞轮</th><th style="padding:16px 12px;">通缩</th><th style="padding:16px 12px;">Rebase</th><th style="padding:16px 12px;">双代币</th><th style="padding:16px 12px;">算力</th></tr></thead>
                             <tbody>
-                                <tr><td style="font-weight:600;">公平发射</td><td class="dolphin-highlight">100%社区·无预挖</td><td>团队预留/VC</td><td>部分预留</td><td>预留常见</td><td>算力抵押</td></tr>
-                                <tr><td style="font-weight:600;">收益引擎</td><td class="dolphin-highlight">质押+资本利得+Boost</td><td>仅交易税</td><td>供应调整</td><td>通胀奖励</td><td>硬件产出</td></tr>
-                                <tr><td style="font-weight:600;">CEX协同</td><td class="dolphin-highlight">OKX Boost原生</td><td>无</td><td>无</td><td>无</td><td>无</td></tr>
-                                <tr><td style="font-weight:600;">流动性/锁仓</td><td class="dolphin-highlight">无锁仓·DeFi级</td><td>无锁</td><td>波动</td><td>质押锁定</td><td>硬件锁</td></tr>
-                                <tr><td style="font-weight:600;">综合评分</td><td class="dolphin-highlight">9.6</td><td>7.2</td><td>6.8</td><td>7.5</td><td>7.0</td></tr>
+                                <tr><td style="padding:14px 12px; border-bottom:1px solid rgba(0,0,0,0.04);">公平发射</td><td style="padding:14px 12px; color:var(--primary); font-weight:700;">100%社区·无预挖</td><td style="padding:14px 12px;">团队预留</td><td style="padding:14px 12px;">部分预留</td><td style="padding:14px 12px;">预留常见</td><td style="padding:14px 12px;">算力抵押</td></tr>
+                                <tr><td style="padding:14px 12px; border-bottom:1px solid rgba(0,0,0,0.04);">收益引擎</td><td style="padding:14px 12px; color:var(--primary); font-weight:700;">质押+资本+Boost</td><td style="padding:14px 12px;">仅交易税</td><td style="padding:14px 12px;">供应调整</td><td style="padding:14px 12px;">通胀奖励</td><td style="padding:14px 12px;">硬件产出</td></tr>
+                                <tr><td style="padding:14px 12px; border-bottom:1px solid rgba(0,0,0,0.04);">CEX协同</td><td style="padding:14px 12px; color:var(--primary); font-weight:700;">OKX Boost原生</td><td style="padding:14px 12px;">无</td><td style="padding:14px 12px;">无</td><td style="padding:14px 12px;">无</td><td style="padding:14px 12px;">无</td></tr>
+                                <tr><td style="padding:14px 12px;">综合评分</td><td style="padding:14px 12px; color:var(--primary); font-weight:700;">9.6</td><td style="padding:14px 12px;">7.2</td><td style="padding:14px 12px;">6.8</td><td style="padding:14px 12px;">7.5</td><td style="padding:14px 12px;">7.0</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -1500,84 +1094,116 @@
             </div>
         </div>
 
-        <!-- 卡片9：完整经济架构 + 健康度/协同（重构排版） -->
+        <!-- 卡片9：完整经济架构 · 手机专版重构（纵向呼吸排版） -->
         <div class="activity-card model-card" id="cardArch">
             <div class="card-header">
                 <div class="card-main">
                     <div class="card-icon" style="color:var(--accent);"><i class="fas fa-sitemap"></i></div>
-                    <div class="card-text"><h3>完整经济架构</h3><p>双代币 · 动态飞轮 · 健康环</p></div>
+                    <div class="card-text"><h3>完整经济架构</h3><p>双代币·飞轮·健康环</p></div>
                 </div>
                 <div class="card-status"><span class="status-badge" style="color:var(--accent);">🏛️ 协议设计</span><div class="card-expand"><i class="fas fa-chevron-down"></i></div></div>
             </div>
             <div class="card-content">
                 <div class="content-inner">
-                    <!-- 双代币 -->
-                    <div class="dual-token">
-                        <div class="token-card">
-                            <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;"><i class="fas fa-token" style="color:var(--primary); font-size:1.8rem;"></i><h4 style="font-size:1.2rem;">H代币</h4></div>
-                            <p style="color:var(--text-secondary);">总量10亿 · 永不增发 · 100%公平发射</p>
-                        </div>
-                        <div class="token-card">
-                            <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;"><i class="fas fa-token" style="color:var(--secondary); font-size:1.8rem;"></i><h4 style="font-size:1.2rem;">DPH代币</h4></div>
-                            <p style="color:var(--text-secondary);">总量1亿 · 逐步释放 · 治理</p>
-                        </div>
-                    </div>
-                    <!-- 健康度 + 协同 (重构排版) -->
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:24px;">
-                        <!-- 左侧 健康度 -->
-                        <div style="background:rgba(255,255,255,0.5); backdrop-filter:blur(2px); border:1px solid rgba(0,102,255,0.1); border-radius:28px; padding:24px;">
-                            <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
-                                <i class="fas fa-heart-pulse" style="color:var(--primary); font-size:1.8rem;"></i>
-                                <h4 style="font-weight:700;">协议健康度</h4>
+                    <div class="mobile-arch">
+                        <!-- 双代币（上下） -->
+                        <div style="display:flex; flex-direction:column; gap:16px;">
+                            <div class="token-card-mobile">
+                                <div class="token-header"><i class="fas fa-token" style="color:var(--primary);"></i><h4>H代币</h4></div>
+                                <p style="color:var(--text-secondary); margin-bottom:16px;">总量10亿 · 永不增发 · 100%公平发射</p>
+                                <div style="display:flex; gap:20px;"><span><i class="fas fa-check-circle" style="color:var(--success);"></i> 质押收益</span><span><i class="fas fa-check-circle" style="color:var(--success);"></i> Boost凭证</span></div>
                             </div>
-                            <div class="health-metrics">
-                                <div><div style="font-size:1.6rem; font-weight:700; color:var(--primary);">71.7%</div><span style="font-size:0.7rem;">资金利用率</span></div>
-                                <div><div style="font-size:1.6rem; font-weight:700; color:var(--primary);">1.8x</div><span style="font-size:0.7rem;">储备金覆盖率</span></div>
-                                <div><div style="font-size:1.6rem; font-weight:700; color:var(--success);">低风险</div><span style="font-size:0.7rem;">风险等级</span></div>
-                                <div><div style="font-size:1.6rem; font-weight:700; color:var(--primary);">$125K</div><span style="font-size:0.7rem;">流动性深度</span></div>
+                            <div class="token-card-mobile">
+                                <div class="token-header"><i class="fas fa-token" style="color:var(--secondary);"></i><h4>DPH代币</h4></div>
+                                <p style="color:var(--text-secondary); margin-bottom:16px;">总量1亿 · 逐步释放 · 治理</p>
+                                <div style="display:flex; gap:20px;"><span><i class="fas fa-check-circle" style="color:var(--success);"></i> 协议治理</span><span><i class="fas fa-check-circle" style="color:var(--success);"></i> 社区空投</span></div>
                             </div>
-                            <div class="health-score-wrap">
-                                <div style="display:flex; align-items:center; gap:16px;">
-                                    <div style="position:relative; width:70px; height:70px;">
-                                        <svg viewBox="0 0 80 80" width="70" height="70">
-                                            <circle cx="40" cy="40" r="36" stroke="rgba(0,102,255,0.1)" stroke-width="6" fill="none"/>
-                                            <circle cx="40" cy="40" r="36" stroke="var(--primary)" stroke-width="6" fill="none" stroke-dasharray="226.2" stroke-dashoffset="30.2"/>
-                                        </svg>
-                                        <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:1.6rem; font-weight:800; color:var(--primary);">86.5</span>
-                                    </div>
-                                    <div><span style="font-weight:700; font-size:1rem;">综合评分</span><span style="display:block; color:var(--text-light); font-size:0.75rem;">较上周 +2.3</span></div>
+                        </div>
+
+                        <!-- 协议健康度 2x2 + 评分 -->
+                        <div style="background:rgba(255,255,255,0.6); border-radius:28px; padding:24px;">
+                            <div style="display:flex; align-items:center; gap:12px; margin-bottom:20px;">
+                                <i class="fas fa-heart-pulse" style="color:var(--primary); font-size:1.6rem;"></i>
+                                <h4 style="font-weight:700; font-size:1.15rem;">协议健康度</h4>
+                            </div>
+                            <div class="health-grid-mobile">
+                                <div class="health-item-mobile"><div class="value">71.7%</div><div class="label">资金利用率</div></div>
+                                <div class="health-item-mobile"><div class="value">1.8x</div><div class="label">储备金覆盖率</div></div>
+                                <div class="health-item-mobile"><div class="value" style="color:var(--success);">低风险</div><div class="label">风险等级</div></div>
+                                <div class="health-item-mobile"><div class="value">$125K</div><div class="label">流动性深度</div></div>
+                            </div>
+                            <div class="score-card-mobile">
+                                <div class="score-circle">
+                                    <svg width="70" height="70" viewBox="0 0 80 80">
+                                        <circle cx="40" cy="40" r="36" stroke="rgba(0,102,255,0.1)" stroke-width="6" fill="none"/>
+                                        <circle cx="40" cy="40" r="36" stroke="var(--primary)" stroke-width="6" fill="none" stroke-dasharray="226.2" stroke-dashoffset="30.2"/>
+                                    </svg>
+                                    <span>86.5</span>
+                                </div>
+                                <div>
+                                    <div style="font-weight:700; font-size:1.05rem;">综合评分</div>
+                                    <div style="color:var(--text-light); font-size:0.75rem;">较上周 +2.3</div>
                                 </div>
                             </div>
                         </div>
-                        <!-- 右侧 OKX Boost 协同 -->
-                        <div class="boost-cohere">
-                            <div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;">
-                                <div style="background:rgba(245,158,11,0.12); width:60px; height:60px; border-radius:20px; display:flex; align-items:center; justify-content:center;">
+
+                        <!-- OKX Boost 协同卡片 -->
+                        <div class="boost-cohere-mobile">
+                            <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px;">
+                                <div style="background:rgba(245,158,11,0.15); width:60px; height:60px; border-radius:20px; display:flex; align-items:center; justify-content:center;">
                                     <i class="fas fa-bolt" style="color:var(--warning); font-size:2rem;"></i>
                                 </div>
-                                <div><h4 style="font-weight:700; font-size:1.2rem; color:var(--warning);">OKX Boost</h4><p style="color:var(--text-secondary); font-size:0.8rem;">协同策略</p></div>
+                                <div><h4 style="font-weight:700; color:var(--warning); font-size:1.2rem;">OKX Boost</h4><p style="color:var(--text-secondary);">协同策略</p></div>
                             </div>
-                            <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:16px;">
-                                <span style="background:rgba(0,102,255,0.08); padding:4px 12px; border-radius:40px; font-weight:600; color:var(--primary);">Boost积分</span> = 日交易量 × 0.85 × 10天<br>
-                                <span style="display:inline-block; margin-top:8px;">$500交易量 ≈ 1积分，按积分比例瓜分空投奖池</span>
+                            <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:20px; line-height:1.7;">
+                                <span style="background:rgba(0,102,255,0.08); padding:4px 14px; border-radius:40px; font-weight:600;">Boost积分</span> = 日交易量 × 0.85 × 10天<br>
+                                $500交易量 ≈ 1积分，按比例瓜分空投奖池，智能合约自动执行。
                             </p>
-                            <span style="background:rgba(245,158,11,0.15); color:var(--warning); padding:6px 18px; border-radius:40px; font-size:0.8rem; font-weight:600; display:inline-block;"><i class="fas fa-gift"></i> 即将开放第3期</span>
+                            <span style="background:rgba(245,158,11,0.15); color:var(--warning); padding:8px 20px; border-radius:40px; font-size:0.85rem; font-weight:600;"><i class="fas fa-gift"></i> 即将开放第3期</span>
                         </div>
-                    </div>
-                    <!-- 飞轮canvas -->
-                    <div style="margin-top:20px;">
-                        <canvas id="flywheelCanvas" width="600" height="300" style="width:100%; height:300px;"></canvas>
-                        <div style="display:flex; gap:12px; justify-content:center; margin-top:16px;">
-                            <button id="flywheelPlayBtn" class="btn-sm"><i class="fas fa-play"></i> 旋转</button>
-                            <button id="flywheelPauseBtn" class="btn-sm" style="background:var(--text-light);"><i class="fas fa-pause"></i> 暂停</button>
+
+                        <!-- 智能质押收益表 -->
+                        <div style="background:rgba(255,255,255,0.6); border-radius:28px; padding:24px;">
+                            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
+                                <div style="display:flex; align-items:center; gap:12px;">
+                                    <i class="fas fa-table" style="color:var(--primary); font-size:1.2rem;"></i>
+                                    <h4 style="font-weight:700;">阶梯利率</h4>
+                                </div>
+                                <button class="btn-sm" onclick="alert('质押功能即将开放')">前往质押</button>
+                            </div>
+                            <div style="overflow-x:auto;">
+                                <table class="stake-table-mobile">
+                                    <thead><tr><th>阶段</th><th>日利率</th><th>年化APY</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>1-7天</td><td>0.5%</td><td>182.5%</td></tr>
+                                        <tr><td>8-15天</td><td>0.6%</td><td>219.0%</td></tr>
+                                        <tr><td>16-30天</td><td>0.8%</td><td>292.0%</td></tr>
+                                        <tr><td>31-60天</td><td>1.0%</td><td>365.0%</td></tr>
+                                        <tr><td>61+天</td><td>1.2%</td><td>438.0%</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 飞轮画布 -->
+                        <div style="background:rgba(255,255,255,0.6); border-radius:28px; padding:24px;">
+                            <div style="display:flex; align-items:center; gap:12px; margin-bottom:20px;">
+                                <i class="fas fa-dharmachakra" style="color:var(--primary); font-size:1.4rem;"></i>
+                                <h4 style="font-weight:700;">动态飞轮模拟</h4>
+                            </div>
+                            <canvas id="flywheelCanvas" width="600" height="240" style="width:100%; height:240px; background:rgba(255,255,255,0.4); border-radius:20px;"></canvas>
+                            <div style="display:flex; gap:12px; justify-content:center; margin-top:20px;">
+                                <button id="flywheelPlayBtn" class="btn-sm"><i class="fas fa-play"></i> 旋转</button>
+                                <button id="flywheelPauseBtn" class="btn-sm" style="background:var(--text-light);"><i class="fas fa-pause"></i> 暂停</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ============= 数据卡片组（5张完整） ============= -->
-        <!-- 卡片10：我的钱包 -->
+        <!-- ========== 数据卡片组 · 5张 · 完整内容 ========= -->
+        <!-- 卡片10：我的钱包（完整充提） -->
         <div class="activity-card data-card" id="cardMyWallet">
             <div class="card-header">
                 <div class="card-main"><div class="card-icon"><i class="fas fa-wallet"></i></div><div class="card-text"><h3>我的钱包</h3><p>资产总览 · 充提</p></div></div>
@@ -1585,7 +1211,7 @@
             </div>
             <div class="card-content">
                 <div class="content-inner">
-                    <div style="margin-bottom:16px;">
+                    <div style="margin-bottom:20px;">
                         <div class="wallet-balance-row"><span><i class="fas fa-dollar-sign" style="color:var(--primary);"></i> USDT</span> <span><strong>1,245.80</strong> ≈$1,245.80 <span style="color:var(--success); margin-left:12px;"><i class="fas fa-arrow-up"></i> 2.3%</span></span></div>
                         <div class="wallet-balance-row"><span><i class="fas fa-dolphin" style="color:var(--secondary);"></i> H</span> <span><strong>98,500</strong> ≈$98.50 <span style="color:var(--danger); margin-left:12px;"><i class="fas fa-arrow-down"></i> 0.8%</span></span></div>
                     </div>
@@ -1594,16 +1220,17 @@
                         <div class="wallet-addr">0xbf9c1de4ba7b284bfdb8aa051da4986cc1ef04fb</div>
                     </div>
                     <div>
-                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;"><i class="fas fa-arrow-up-from-bracket"></i> 提币</div>
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;"><i class="fas fa-arrow-up-from-bracket"></i> 提币</div>
                         <input type="text" class="withdraw-input" placeholder="请输入提币地址" value="">
-                        <div style="display:flex; gap:12px; margin-top:16px;">
+                        <div style="display:flex; gap:12px; margin-top:20px;">
                             <button class="btn-sm" style="flex:1;">确认提币</button>
-                            <button class="btn-sm" style="background:transparent; border:2px solid var(--primary); color:var(--primary);">历史记录</button>
+                            <button class="btn-sm btn-sm-outline" style="flex:1; background:transparent; border:2px solid var(--primary); color:var(--primary);">历史记录</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- 卡片11：交易账单 -->
         <div class="activity-card data-card" id="cardTxBill">
             <div class="card-header">
@@ -1618,10 +1245,11 @@
                         <div style="display:flex; justify-content:space-between; padding:14px 0; border-bottom:1px solid rgba(0,0,0,0.05);"><span><i class="fas fa-arrow-down" style="color:var(--success);"></i> 转入</span><span>+8,500 H</span><span style="color:var(--text-light);">2025-02-11</span></div>
                         <div style="display:flex; justify-content:space-between; padding:14px 0;"><span><i class="fas fa-arrow-up" style="color:var(--danger);"></i> 转出</span><span>-2,000 H</span><span style="color:var(--text-light);">2025-02-10</span></div>
                     </div>
-                    <button class="card-action-button card-action-secondary" style="margin-top:24px;">查看全部账单</button>
+                    <button class="card-action-button secondary" style="margin-top:24px; width:100%;">查看全部账单</button>
                 </div>
             </div>
         </div>
+
         <!-- 卡片12：数据记录与分析 -->
         <div class="activity-card data-card" id="cardDataAnalysis">
             <div class="card-header">
@@ -1630,18 +1258,25 @@
             </div>
             <div class="card-content">
                 <div class="content-inner">
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
-                        <div style="background:rgba(0,102,255,0.02); border-radius:20px; padding:20px; text-align:center;"><div style="font-size:1.9rem; font-weight:800; color:var(--primary);">47</div><span style="color:var(--text-secondary);">总交互次数</span></div>
-                        <div style="background:rgba(0,102,255,0.02); border-radius:20px; padding:20px; text-align:center;"><div style="font-size:1.9rem; font-weight:800; color:var(--success);">$12.4K</div><span style="color:var(--text-secondary);">累计贡献度</span></div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+                        <div style="background:rgba(0,102,255,0.04); border-radius:22px; padding:20px; text-align:center;">
+                            <div style="font-size:2rem; font-weight:800; color:var(--primary);">47</div>
+                            <span style="color:var(--text-secondary); font-size:0.75rem;">总交互次数</span>
+                        </div>
+                        <div style="background:rgba(0,102,255,0.04); border-radius:22px; padding:20px; text-align:center;">
+                            <div style="font-size:2rem; font-weight:800; color:var(--success);">$12.4K</div>
+                            <span style="color:var(--text-secondary); font-size:0.75rem;">累计贡献度</span>
+                        </div>
                     </div>
-                    <div style="background:rgba(0,102,255,0.02); border-radius:20px; padding:20px;">
-                        <div style="display:flex; justify-content:space-between; margin-bottom:12px;"><span>Boost交易量</span><span style="font-weight:700;">$8,270</span></div>
-                        <div style="display:flex; justify-content:space-between; margin-bottom:12px;"><span>Boost余额</span><span style="font-weight:700;">$1,230</span></div>
+                    <div style="background:rgba(0,102,255,0.04); border-radius:22px; padding:22px;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:14px;"><span>Boost交易量</span><span style="font-weight:700;">$8,270</span></div>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:14px;"><span>Boost余额</span><span style="font-weight:700;">$1,230</span></div>
                         <div style="display:flex; justify-content:space-between;"><span>积分累计</span><span style="font-weight:700; color:var(--primary);">20.5</span></div>
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- 卡片13：常用工具 -->
         <div class="activity-card data-card" id="cardTools">
             <div class="card-header">
@@ -1650,17 +1285,18 @@
             </div>
             <div class="card-content">
                 <div class="content-inner">
-                    <div class="tool-grid">
-                        <div class="tool-item"><i class="fas fa-gas-pump" style="font-size:1.8rem; color:var(--primary);"></i><p style="margin-top:8px; font-weight:600;">Gas追踪</p></div>
-                        <div class="tool-item"><i class="fas fa-arrows-spin" style="font-size:1.8rem; color:var(--secondary);"></i><p style="margin-top:8px; font-weight:600;">批量转账</p></div>
-                        <div class="tool-item"><i class="fas fa-shield" style="font-size:1.8rem; color:var(--success);"></i><p style="margin-top:8px; font-weight:600;">授权管理</p></div>
-                        <div class="tool-item"><i class="fas fa-calculator" style="font-size:1.8rem; color:var(--warning);"></i><p style="margin-top:8px; font-weight:600;">收益模拟</p></div>
-                        <div class="tool-item"><i class="fas fa-clock" style="font-size:1.8rem; color:var(--danger);"></i><p style="margin-top:8px; font-weight:600;">链上闹钟</p></div>
-                        <div class="tool-item"><i class="fas fa-qrcode" style="font-size:1.8rem; color:var(--accent);"></i><p style="margin-top:8px; font-weight:600;">扫码连接</p></div>
+                    <div class="tool-grid-mobile">
+                        <div class="tool-item"><i class="fas fa-gas-pump" style="color:var(--primary);"></i><p>Gas追踪</p></div>
+                        <div class="tool-item"><i class="fas fa-arrows-spin" style="color:var(--secondary);"></i><p>批量转账</p></div>
+                        <div class="tool-item"><i class="fas fa-shield" style="color:var(--success);"></i><p>授权管理</p></div>
+                        <div class="tool-item"><i class="fas fa-calculator" style="color:var(--warning);"></i><p>收益模拟</p></div>
+                        <div class="tool-item"><i class="fas fa-clock" style="color:var(--danger);"></i><p>链上闹钟</p></div>
+                        <div class="tool-item"><i class="fas fa-qrcode" style="color:var(--accent);"></i><p>扫码连接</p></div>
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- 卡片14：海豚VIP个人中心 -->
         <div class="activity-card data-card" id="cardVipCenter">
             <div class="card-header">
@@ -1669,13 +1305,19 @@
             </div>
             <div class="card-content">
                 <div class="content-inner">
-                    <div style="display:flex; align-items:center; gap:20px; margin-bottom:24px;">
+                    <div style="display:flex; align-items:center; gap:20px; margin-bottom:28px;">
                         <div style="background:linear-gradient(145deg, var(--gold), #b38f00); width:70px; height:70px; border-radius:30px; display:flex; align-items:center; justify-content:center; color:white; font-size:2.2rem;"><i class="fas fa-star"></i></div>
                         <div><div style="font-size:1.5rem; font-weight:800;">金牌会员</div><div style="color:var(--text-light);">邀请3人升级钻石</div></div>
                     </div>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
-                        <div style="background:rgba(0,102,255,0.02); border-radius:20px; padding:18px;"><span style="color:var(--text-secondary);">VIP空投</span><div style="font-weight:700; font-size:1.3rem; margin-top:6px;">已领12次</div></div>
-                        <div style="background:rgba(0,102,255,0.02); border-radius:20px; padding:18px;"><span style="color:var(--text-secondary);">手续费折扣</span><div style="font-weight:700; font-size:1.3rem; margin-top:6px;">15%</div></div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+                        <div style="background:rgba(0,102,255,0.04); border-radius:22px; padding:20px;">
+                            <span style="color:var(--text-secondary);">VIP空投</span>
+                            <div style="font-weight:700; font-size:1.4rem; margin-top:8px;">已领12次</div>
+                        </div>
+                        <div style="background:rgba(0,102,255,0.04); border-radius:22px; padding:20px;">
+                            <span style="color:var(--text-secondary);">手续费折扣</span>
+                            <div style="font-weight:700; font-size:1.4rem; margin-top:8px;">15%</div>
+                        </div>
                     </div>
                     <button class="btn-sm" style="width:100%;">查看全部权益</button>
                 </div>
@@ -1683,116 +1325,59 @@
         </div>
     </div>
 
-    <!-- JavaScript 全功能（精简、高效、动画流畅） -->
     <script>
-        (function() {
-            'use strict';
-
-            // 1. 线条背景生成
-            function createLineBackground() {
-                const bg = document.getElementById('lineBackground');
-                if (!bg) return;
-                const svgNS = "http://www.w3.org/2000/svg";
-                const svg = document.createElementNS(svgNS, "svg");
-                svg.setAttribute("width", "100%");
-                svg.setAttribute("height", "100%");
-                svg.setAttribute("viewBox", "0 0 1000 1000");
-                svg.setAttribute("preserveAspectRatio", "xMidYMid slice");
-                for (let i = 0; i < 22; i++) {
-                    const line = document.createElementNS(svgNS, "path");
-                    const sx = Math.random() * 1000, sy = Math.random() * 1000;
-                    const ex = Math.random() * 1000, ey = Math.random() * 1000;
-                    line.setAttribute("d", `M ${sx},${sy} C ${sx+200},${sy+120} ${ex-200},${ey-120} ${ex},${ey}`);
-                    line.setAttribute("class", "line");
-                    line.setAttribute("stroke", `rgba(0, 102, 255, ${0.12 + Math.random()*0.18})`);
-                    line.setAttribute("stroke-dasharray", "12,8");
-                    line.style.animationDelay = `${Math.random() * 6}s`;
-                    line.style.animationDuration = `${14 + Math.random() * 12}s`;
-                    svg.appendChild(line);
-                }
-                bg.appendChild(svg);
-            }
-            createLineBackground();
-
-            // 2. H字母交互
-            const hEl = document.querySelector('.h-interactive');
-            if (hEl) {
-                hEl.addEventListener('mouseenter', function() {
-                    this.style.transform = 'scale(1.18) rotate(4deg)';
-                    this.style.filter = 'drop-shadow(0 0 36px rgba(0,102,255,0.9))';
-                });
-                hEl.addEventListener('mouseleave', function() {
-                    this.style.transform = 'scale(1) rotate(0deg)';
-                    this.style.filter = 'drop-shadow(0 0 20px rgba(0,102,255,0.4))';
-                    this.style.animation = 'hGlow 4s infinite alternate';
-                });
-            }
-
-            // 3. 用户面板展开
+        (function(){
+            // 用户面板展开
             const userPanel = document.getElementById('userPanel');
-            if (userPanel) {
-                userPanel.addEventListener('click', function(e) {
-                    this.classList.toggle('expanded');
-                    const details = document.getElementById('userDetails');
-                    if (this.classList.contains('expanded')) {
-                        details.style.maxHeight = details.scrollHeight + 'px';
-                    } else {
-                        details.style.maxHeight = '0';
-                    }
-                });
-            }
+            userPanel.addEventListener('click', function(){
+                this.classList.toggle('expanded');
+                const details = document.getElementById('userDetails');
+                details.style.maxHeight = this.classList.contains('expanded') ? details.scrollHeight + 'px' : '0';
+            });
 
-            // 4. 核心按钮切换卡片
-            const actionBtns = document.querySelectorAll('.action-btn');
-            const allCards = document.querySelectorAll('.activity-card');
-            function filterCards(mode) {
-                allCards.forEach(card => {
-                    if (mode === 'boost') card.style.display = card.classList.contains('boost-card') ? 'block' : 'none';
-                    else if (mode === 'model') card.style.display = card.classList.contains('model-card') ? 'block' : 'none';
-                    else if (mode === 'data') card.style.display = card.classList.contains('data-card') ? 'block' : 'none';
+            // 核心按钮切换卡片
+            const btns = document.querySelectorAll('.action-btn');
+            const cards = document.querySelectorAll('.activity-card');
+            function filter(mode){
+                cards.forEach(c=>{
+                    if(mode==='boost') c.style.display = c.classList.contains('boost-card') ? 'block' : 'none';
+                    else if(mode==='model') c.style.display = c.classList.contains('model-card') ? 'block' : 'none';
+                    else if(mode==='data') c.style.display = c.classList.contains('data-card') ? 'block' : 'none';
                 });
             }
-            // 默认激活Boost
-            filterCards('boost');
-            actionBtns.forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    actionBtns.forEach(b => b.classList.remove('active'));
+            filter('boost');
+            btns.forEach(b=>{
+                b.addEventListener('click',function(){
+                    btns.forEach(b2=>b2.classList.remove('active'));
                     this.classList.add('active');
-                    if (this.id === 'btnBoost') filterCards('boost');
-                    else if (this.id === 'btnModel') filterCards('model');
-                    else if (this.id === 'btnData') filterCards('data');
+                    if(this.id==='btnBoost') filter('boost');
+                    else if(this.id==='btnModel') filter('model');
+                    else filter('data');
                 });
             });
 
-            // 5. 卡片折叠通用逻辑（视频卡片默认折叠）
-            allCards.forEach(card => {
+            // 卡片折叠（视频默认折叠）
+            cards.forEach(card=>{
                 const header = card.querySelector('.card-header');
                 const content = card.querySelector('.card-content');
                 const inner = card.querySelector('.content-inner');
-                if (!header || !content) return;
-                // 视频卡片特殊处理：默认无active，maxHeight=0
-                if (card.id === 'cardDolphinVideo') {
-                    card.classList.remove('active');
-                    content.style.maxHeight = '0';
-                }
-                header.addEventListener('click', function(e) {
-                    if (e.target.closest('button') || e.target.closest('.btn-sm') || e.target.closest('.card-action-button')) return;
+                if(!header || !content) return;
+                if(card.id==='cardDolphinVideo') card.classList.remove('active');
+                header.addEventListener('click',function(e){
+                    if(e.target.closest('button')) return;
                     const isActive = card.classList.contains('active');
-                    if (isActive) {
+                    if(isActive){
                         card.classList.remove('active');
                         content.style.maxHeight = '0';
                     } else {
                         card.classList.add('active');
-                        if (inner) {
-                            content.style.maxHeight = inner.scrollHeight + 'px';
-                        } else {
-                            content.style.maxHeight = '300px';
-                        }
+                        if(inner) content.style.maxHeight = inner.scrollHeight + 20 + 'px';
+                        else content.style.maxHeight = '300px';
                     }
                 });
             });
 
-            // 6. 收益模拟器联动 (简洁版，实时更新显示数值)
+            // 收益模拟器联动
             const stakeSlider = document.getElementById('stakeSlider');
             const stakeInput = document.getElementById('stakeInput');
             const daysSlider = document.getElementById('daysSlider');
@@ -1803,116 +1388,131 @@
             const sellInput = document.getElementById('sellPriceInput');
             const volumeSlider = document.getElementById('volumeSlider');
             const volumeValue2 = document.getElementById('volumeValue2');
-            const buyPriceDisplay = document.getElementById('buyPriceDisplay');
-            const sellPriceDisplay = document.getElementById('sellPriceDisplay');
+            const compoundToggle = document.getElementById('compoundToggle');
 
-            function updateSim() {
-                if (daysValue && daysSlider) daysValue.innerText = daysSlider.value + '天';
-                if (volumeValue2 && volumeSlider) volumeValue2.innerText = '$' + parseInt(volumeSlider.value).toLocaleString();
-                if (buyInput && sellInput) {
-                    if (buyPriceDisplay) buyPriceDisplay.innerText = '$' + parseFloat(buyInput.value || 0.001).toFixed(4);
-                    if (sellPriceDisplay) sellPriceDisplay.innerText = '$' + parseFloat(sellInput.value || 0.0015).toFixed(4);
-                }
-                // 这里可以扩展完整收益计算，当前仅做显示联动
+            function getDailyRate(days) {
+                if(days>=61) return 0.012;
+                if(days>=31) return 0.01;
+                if(days>=16) return 0.008;
+                if(days>=8) return 0.006;
+                return 0.005;
             }
-            if (stakeSlider && stakeInput) {
-                stakeSlider.addEventListener('input', function() { stakeInput.value = this.value; updateSim(); });
-                stakeInput.addEventListener('input', function() { stakeSlider.value = this.value; updateSim(); });
+            function compoundInterest(p,r,d){ return p * (Math.pow(1+r,d)-1); }
+
+            function updateSim(){
+                let stake = parseFloat(stakeInput.value) || 1000;
+                if(stake<100) stake=100; if(stake>50000) stake=50000;
+                let days = parseInt(daysSlider.value) || 45;
+                let buy = parseFloat(buyInput.value) || 0.001;
+                let sell = parseFloat(sellInput.value) || 0.0015;
+                let volume = parseInt(volumeSlider.value) || 10000;
+                let compound = compoundToggle.checked;
+
+                buy = Math.min(Math.max(buy,0.0001),0.01);
+                sell = Math.min(Math.max(sell,0.0001),0.01);
+                volume = Math.min(Math.max(volume,1000),50000);
+
+                stakeSlider.value = stake; stakeInput.value = stake;
+                daysSlider.value = days;
+                buySlider.value = buy; buyInput.value = buy.toFixed(4);
+                sellSlider.value = sell; sellInput.value = sell.toFixed(4);
+                volumeSlider.value = volume;
+
+                document.getElementById('stakeVal').innerText = stake;
+                document.getElementById('daysVal').innerText = days;
+                document.getElementById('buyVal').innerText = buy.toFixed(4);
+                document.getElementById('sellVal').innerText = sell.toFixed(4);
+                document.getElementById('volumeVal').innerText = volume;
+                daysValue.innerText = days + '天';
+                volumeValue2.innerText = '$' + volume.toLocaleString();
+
+                const rate = getDailyRate(days);
+                const apy = (rate * 365 * 100).toFixed(0);
+                const daily = stake * rate;
+                let stakeProfit = compound ? compoundInterest(stake, rate, days) : daily * days;
+                let capitalGain = buy>0 ? (sell - buy) * (stake / buy) : 0;
+                const boostReward = (volume / 500) * 0.6 * 10;
+                const boostPoints = (volume / 500 * 10).toFixed(1);
+                const total = stakeProfit + capitalGain + boostReward;
+
+                document.getElementById('dailyEarn').innerText = '$' + daily.toFixed(2);
+                document.getElementById('stakeEarn').innerText = '$' + stakeProfit.toFixed(0);
+                document.getElementById('gainEarn').innerText = '$' + capitalGain.toFixed(0);
+                document.getElementById('boostEarn').innerText = '$' + boostReward.toFixed(0);
+                document.getElementById('totalEarn').innerText = '$' + total.toFixed(0);
+                document.getElementById('apyDynamic').innerText = apy + '%';
+                document.getElementById('boostDynamic').innerText = boostPoints;
+                document.getElementById('buyPriceDisplay').innerText = '$' + buy.toFixed(4);
+                document.getElementById('sellPriceDisplay').innerText = '$' + sell.toFixed(4);
+                document.getElementById('apyDisplay').innerText = apy + '%';
             }
-            if (daysSlider) daysSlider.addEventListener('input', updateSim);
-            if (buySlider && buyInput) {
-                buySlider.addEventListener('input', function() { buyInput.value = parseFloat(this.value).toFixed(4); updateSim(); });
-                buyInput.addEventListener('input', function() { buySlider.value = this.value; updateSim(); });
-            }
-            if (sellSlider && sellInput) {
-                sellSlider.addEventListener('input', function() { sellInput.value = parseFloat(this.value).toFixed(4); updateSim(); });
-                sellInput.addEventListener('input', function() { sellSlider.value = this.value; updateSim(); });
-            }
-            if (volumeSlider) volumeSlider.addEventListener('input', updateSim);
+
+            if(stakeSlider) stakeSlider.addEventListener('input', updateSim);
+            if(stakeInput) stakeInput.addEventListener('input', updateSim);
+            if(daysSlider) daysSlider.addEventListener('input', updateSim);
+            if(buySlider) buySlider.addEventListener('input', updateSim);
+            if(buyInput) buyInput.addEventListener('input', updateSim);
+            if(sellSlider) sellSlider.addEventListener('input', updateSim);
+            if(sellInput) sellInput.addEventListener('input', updateSim);
+            if(volumeSlider) volumeSlider.addEventListener('input', updateSim);
+            if(compoundToggle) compoundToggle.addEventListener('change', updateSim);
             updateSim();
 
-            // 7. 飞轮canvas动画 (优化性能)
-            const flyCanvas = document.getElementById('flywheelCanvas');
-            if (flyCanvas) {
-                let angle = 0, spinning = true;
-                const ctx = flyCanvas.getContext('2d');
-                function drawFlywheel() {
-                    const w = flyCanvas.clientWidth || 600;
-                    const h = 300;
-                    flyCanvas.width = w;
-                    flyCanvas.height = h;
-                    ctx.clearRect(0, 0, w, h);
+            // 飞轮画布动画
+            const canvas = document.getElementById('flywheelCanvas');
+            if(canvas){
+                let angle=0, spinning=true;
+                const ctx = canvas.getContext('2d');
+                function draw(){
+                    const w = canvas.clientWidth || 400;
+                    const h = 240;
+                    canvas.width = w; canvas.height = h;
+                    ctx.clearRect(0,0,w,h);
                     ctx.save();
                     ctx.translate(w/2, h/2);
                     ctx.rotate(angle);
-                    // 绘制抽象飞轮
-                    ctx.fillStyle = 'rgba(0,102,255,0.04)';
-                    ctx.beginPath();
-                    ctx.arc(0, 0, 70, 0, Math.PI * 2);
-                    ctx.fill();
-                    for (let i = 0; i < 8; i++) {
-                        const rad = (i * 45) * Math.PI / 180;
-                        const x = Math.cos(rad) * 90;
-                        const y = Math.sin(rad) * 90;
+                    ctx.fillStyle = 'rgba(0,102,255,0.05)';
+                    ctx.beginPath(); ctx.arc(0,0,50,0,2*Math.PI); ctx.fill();
+                    for(let i=0;i<8;i++){
+                        let rad = i * 45 * Math.PI / 180;
+                        let x = Math.cos(rad)*70, y = Math.sin(rad)*70;
                         ctx.fillStyle = 'rgba(0,102,255,0.2)';
-                        ctx.beginPath();
-                        ctx.arc(x, y, 16, 0, 2 * Math.PI);
-                        ctx.fill();
+                        ctx.beginPath(); ctx.arc(x,y,14,0,2*Math.PI); ctx.fill();
                         ctx.fillStyle = 'white';
-                        ctx.beginPath();
-                        ctx.arc(x, y, 12, 0, 2 * Math.PI);
-                        ctx.fill();
+                        ctx.beginPath(); ctx.arc(x,y,10,0,2*Math.PI); ctx.fill();
                         ctx.fillStyle = '#0066ff';
-                        ctx.font = 'bold 14px "Inter"';
-                        ctx.fillText('⚡', x-10, y+6);
+                        ctx.font = 'bold 12px "Inter"';
+                        ctx.fillText('⚡', x-8, y+6);
                     }
                     ctx.restore();
-                    if (spinning) angle += 0.008;
-                    requestAnimationFrame(drawFlywheel);
+                    if(spinning) angle += 0.01;
+                    requestAnimationFrame(draw);
                 }
-                drawFlywheel();
-                document.getElementById('flywheelPlayBtn')?.addEventListener('click', () => { spinning = true; });
-                document.getElementById('flywheelPauseBtn')?.addEventListener('click', () => { spinning = false; });
+                draw();
+                document.getElementById('flywheelPlayBtn')?.addEventListener('click', ()=>spinning=true);
+                document.getElementById('flywheelPauseBtn')?.addEventListener('click', ()=>spinning=false);
             }
 
-            // 8. 留言板发送
-            const sendBtn = document.querySelector('.comment-send-btn');
-            if (sendBtn) {
-                sendBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const inp = document.querySelector('.comment-input');
-                    if (inp && inp.value.trim()) {
-                        alert('留言已提交: ' + inp.value);
-                        inp.value = '';
-                    } else {
-                        alert('请输入留言内容');
-                    }
-                });
-            }
+            // 留言发送
+            document.querySelector('.comment-send-btn')?.addEventListener('click', function(e){
+                e.stopPropagation();
+                let inp = document.querySelector('.comment-input');
+                if(inp.value.trim()) alert('留言已提交: ' + inp.value);
+                else alert('请输入留言内容');
+            });
 
-            // 9. 模拟用户数据动态变化（仅视觉效果）
-            const networthEl = document.getElementById('networthValue');
-            const balanceEl = document.getElementById('balanceValue');
-            const volumeEl = document.getElementById('volumeValue');
-            const rankEl = document.getElementById('rankValue');
-            if (networthEl && balanceEl && volumeEl && rankEl) {
-                let networth = 918, balance = 1023, volume = 8827, rank = 9;
-                setInterval(() => {
-                    networth += Math.floor(Math.random() * 3) + 1;
-                    networthEl.textContent = `${networth} DPH`;
-                    balance += Math.floor(Math.random() * 10) - 3;
-                    if (balance < 0) balance = 0;
-                    balanceEl.textContent = `$${balance.toLocaleString()}`;
-                    volume += Math.floor(Math.random() * 20);
-                    volumeEl.textContent = `$${volume.toLocaleString()}`;
-                    if (Math.random() > 0.7) {
-                        rank += Math.random() > 0.5 ? -1 : 1;
-                        if (rank < 1) rank = 1;
-                        if (rank > 100) rank = 100;
-                        rankEl.textContent = `${rank}`;
-                    }
-                }, 28000);
-            }
+            // 模拟用户数据
+            let n=918,b=1023,v=8827,r=9;
+            setInterval(()=>{
+                document.getElementById('networthValue').innerText = (n+=Math.floor(Math.random()*3)+1) + ' DPH';
+                document.getElementById('balanceValue').innerText = '$' + (b+=Math.floor(Math.random()*10)-3);
+                document.getElementById('volumeValue').innerText = '$' + (v+=Math.floor(Math.random()*20));
+                if(Math.random()>0.7){
+                    r += Math.random()>0.5 ? 1 : -1;
+                    if(r<1) r=1; if(r>100) r=100;
+                    document.getElementById('rankValue').innerText = r;
+                }
+            }, 25000);
         })();
     </script>
 </body>
