@@ -132,17 +132,28 @@
     if(!VALID_PAGE_IDS.includes(id)){ showToast('页面未实现', 'info'); return; }
     
     // Update active state on nav buttons
-    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-    const navMap = {
-      'main': 0,
-      'signin': 1,
-      'lottery': 2,
-      'ai': 3,
-      'wallet': 4
-    };
-    if(navMap.hasOwnProperty(id)){
-      const navBtns = document.querySelectorAll('.nav-btn');
-      if(navBtns[navMap[id]]) navBtns[navMap[id]].classList.add('active');
+    const navBtns = document.querySelectorAll('.nav-btn');
+    navBtns.forEach(btn => btn.classList.remove('active'));
+
+    // Prefer matching by stable attribute (e.g. data-page) instead of relying on DOM order
+    let activeBtn = document.querySelector('.nav-btn[data-page="' + id + '"]');
+
+    // Fallback to legacy index-based mapping if no attribute-matched button is found
+    if(!activeBtn){
+      const navMap = {
+        'main': 0,
+        'signin': 1,
+        'lottery': 2,
+        'ai': 3,
+        'wallet': 4
+      };
+      if(Object.prototype.hasOwnProperty.call(navMap, id) && navBtns[navMap[id]]){
+        activeBtn = navBtns[navMap[id]];
+      }
+    }
+
+    if(activeBtn){
+      activeBtn.classList.add('active');
     }
     
     if(id === 'signin') showToast('打开每日签到');
