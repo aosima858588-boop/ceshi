@@ -1236,16 +1236,28 @@
                     title = '错误';
                     break;
             }
-            
-            toast.innerHTML = `
-                <div class="toast-icon">
-                    <i class="fas fa-${icon}"></i>
-                </div>
-                <div class="toast-content">
-                    <div class="toast-title">${title}</div>
-                    <div class="toast-message">${message}</div>
-                </div>
-            `;
+
+            // 安全地构建 DOM，避免通过 innerHTML 注入 message 导致 XSS
+            const iconWrapper = document.createElement('div');
+            iconWrapper.className = 'toast-icon';
+            const iconElement = document.createElement('i');
+            iconElement.className = `fas fa-${icon}`;
+            iconWrapper.appendChild(iconElement);
+
+            const content = document.createElement('div');
+            content.className = 'toast-content';
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'toast-title';
+            titleDiv.textContent = title;
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'toast-message';
+            messageDiv.textContent = message;
+
+            content.appendChild(titleDiv);
+            content.appendChild(messageDiv);
+
+            toast.appendChild(iconWrapper);
+            toast.appendChild(content);
             
             toastContainer.appendChild(toast);
             
