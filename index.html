@@ -239,6 +239,8 @@
               id="stake" 
               placeholder="输入金额" 
               style="width:100%;padding:12px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--glass);color:var(--text);font-size:var(--fs-md);"
+              onfocus="this.style.outline='3px solid rgba(37,99,235,0.12)';this.style.outlineOffset='2px';"
+              onblur="this.style.outline='none';"
             />
           </div>
           <button type="button" class="btn btn-primary" onclick="calculateYield()">
@@ -255,27 +257,27 @@
 
   <!-- Bottom Navigation -->
   <nav class="bottom-nav" role="navigation" aria-label="主导航">
-    <button type="button" class="nav-btn active" onclick="switchPage('main')" aria-label="首页">
+    <button type="button" class="nav-btn active" data-page="main" onclick="switchPage('main')" aria-label="首页">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
         <use href="#icon-home"/>
       </svg>
     </button>
-    <button type="button" class="nav-btn" onclick="switchPage('signin')" aria-label="签到">
+    <button type="button" class="nav-btn" data-page="signin" onclick="switchPage('signin')" aria-label="签到">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
         <use href="#icon-calendar"/>
       </svg>
     </button>
-    <button type="button" class="nav-btn" onclick="switchPage('lottery')" aria-label="抽奖">
+    <button type="button" class="nav-btn" data-page="lottery" onclick="switchPage('lottery')" aria-label="抽奖">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
         <use href="#icon-gift"/>
       </svg>
     </button>
-    <button type="button" class="nav-btn" onclick="switchPage('ai')" aria-label="AI">
+    <button type="button" class="nav-btn" data-page="ai" onclick="switchPage('ai')" aria-label="AI">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
         <use href="#icon-robot"/>
       </svg>
     </button>
-    <button type="button" class="nav-btn" onclick="switchPage('wallet')" aria-label="钱包">
+    <button type="button" class="nav-btn" data-page="wallet" onclick="switchPage('wallet')" aria-label="钱包">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
         <use href="#icon-wallet"/>
       </svg>
