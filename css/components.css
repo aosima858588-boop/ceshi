@@ -27,8 +27,11 @@ body { margin: 0; }
 .toast-container { position: fixed; top: 20px; right: 20px; z-index: 1200; display:flex;flex-direction:column; gap:12px; }
 .toast { min-width: 240px; padding: 12px 14px; border-radius: 12px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border: 1px solid var(--border); box-shadow: var(--elev-2); display:flex; gap:12px; align-items:center; transition: opacity var(--motion-base) var(--motion-ease), transform var(--motion-base) var(--motion-ease); }
 
+.calc-input { width:100%; padding:12px; border:1px solid var(--border); border-radius:var(--r-sm); background:var(--glass); color:var(--text); font-size:var(--fs-md); transition: outline var(--motion-base) var(--motion-ease); }
+.calc-input:focus { outline: 3px solid rgba(37,99,235,0.12); outline-offset: 2px; }
+
 @media (prefers-reduced-motion: reduce) {
-  .btn, .card, .feature-item, .toast {
+  .btn, .card, .feature-item, .toast, .calc-input {
     transition: none;
   }
   .btn-primary:hover, .card:hover, .feature-item:hover {

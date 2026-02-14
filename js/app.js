@@ -35,7 +35,6 @@
       if(!iconUse) return;
       const iconId = isLight ? '#icon-sun' : '#icon-moon';
       iconUse.setAttribute('href', iconId);
-      iconUse.setAttribute('xlink:href', iconId);
     }
 
     // Initialize icon and aria-pressed state based on current theme
