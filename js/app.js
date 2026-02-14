@@ -61,11 +61,19 @@
   }
 
   function attachTilt(){
+    // Cache reduced-motion check once and update via listener
+    let prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => {
+        prefersReducedMotion = e.matches;
+      });
+    }
+
     const els = document.querySelectorAll('.tilt');
     els.forEach(el=>{
       let rect = null;
       function onMove(e){
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        if (prefersReducedMotion) return;
         if(!rect) rect = el.getBoundingClientRect();
         const cx = rect.left + rect.width/2;
         const cy = rect.top + rect.height/2;
@@ -82,11 +90,11 @@
       el.addEventListener('mousemove', onMove);
       el.addEventListener('mouseleave', onLeave);
       el.addEventListener('focus', ()=> {
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        if (prefersReducedMotion) return;
         if(!el.style.transform) el.style.transform='translateY(-6px) scale(1.01)';
       });
       el.addEventListener('blur', ()=> {
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        if (prefersReducedMotion) return;
         if(el.style.transform === 'translateY(-6px) scale(1.01)') el.style.transform='';
       });
     });
@@ -130,15 +138,12 @@
   window.switchPage = function(id){
     if(!VALID_PAGE_IDS.includes(id)){ showToast('页面未实现', 'info'); return; }
     
-    // Update active state on nav buttons
-    const navBtns = document.querySelectorAll('.nav-btn');
-    navBtns.forEach(btn => btn.classList.remove('active'));
-
     // Prefer matching by stable attribute (e.g. data-page) instead of relying on DOM order
     let activeBtn = document.querySelector('.nav-btn[data-page="' + id + '"]');
 
     // Fallback to legacy index-based mapping if no attribute-matched button is found
     if(!activeBtn){
+      const navBtns = document.querySelectorAll('.nav-btn');
       const navMap = {
         'main': 0,
         'signin': 1,
@@ -151,7 +156,10 @@
       }
     }
 
+    // Only update active state if we found a matching button
     if(activeBtn){
+      const navBtns = document.querySelectorAll('.nav-btn');
+      navBtns.forEach(btn => btn.classList.remove('active'));
       activeBtn.classList.add('active');
     }
     
